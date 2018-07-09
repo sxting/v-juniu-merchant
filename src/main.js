@@ -10,7 +10,7 @@ import axios from './http';
 FastClick.attach(document.body)
 
 //绑定到Vue的实例方法上
-Vue.prototype.$axios = axios;
+Vue.prototype.$ajax = axios;
 
 Vue.config.productionTip = false
 
