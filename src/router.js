@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        component: (resolve) => require(['./views/index'], resolve), //懒加载
+        component: (resolve) => require(['./views/home'], resolve), //懒加载
         children: [
             {
                 path: '/home',

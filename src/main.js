@@ -3,16 +3,26 @@
 import Vue from 'vue'
 import FastClick from 'fastclick'
 import App from './App'
-
 import router from './router'
 import axios from './http';
+import ResetRem from './static/js/resetrem';
+
+
+/**=== inport css =====**/
+import './static/css/reset.css';
+
 
 FastClick.attach(document.body)
+Vue.use(ResetRem); //采用rem的相对布局方式，使用resetrem插件
+
 
 //绑定到Vue的实例方法上
 Vue.prototype.$ajax = axios;
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.resetrem();
+
+
 
 /* eslint-disable no-new */
 new Vue({
