@@ -2,48 +2,92 @@
 <template>
     <div id="index">
         <div class="banner">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide" style="background-color: pink">Slide 1</div>
-                    <div class="swiper-slide" style="background-color: #FF6600">Slide 2</div>
-                    <div class="swiper-slide" style="background-color: cornflowerblue">Slide 3</div>
-                </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
-            </div>
+            <swiper loop auto :list="demo06_list" :index="demo06_index" @on-index-change="demo06_onIndexChange"></swiper>
         </div>
         <!--功能块-->
         <div class="module-box">
-            <ul class="module">
-                <li>
-                    <span class="iconfont icon-baobiaobiaoweiguanli"></span>
-                    <span>报表</span>
-                </li>
-                <li>
-                    <span class="iconfont icon-mendianzitidaihexiaosvg"></span>
-                    <span>核销</span>
-                </li>
-                <li></li>
-            </ul>
+            <div class="modules-list">
+                <p class="title-module">核销</p>
+                <ul class="module">
+                    <li @click="toWriteOff('kouebi')">
+                        <span class="iconfont icon-baobiaobiaoweiguanli"></span>
+                        <span>口碑核销</span>
+                    </li>
+                    <li @click="toWriteOff('meituan')">
+                        <span class="iconfont icon-mendianzitidaihexiaosvg"></span>
+                        <span>美团核销</span>
+                    </li>
+                    <li @click="toWriteOff('wechat')">
+                        <span class="iconfont icon-baobiaobiaoweiguanli"></span>
+                        <span>微信核销</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="modules-list">
+                <p class="title-module">报表</p>
+                <ul class="module">
+                    <li>
+                        <span class="iconfont icon-baobiaobiaoweiguanli"></span>
+                        <span>月报表</span>
+                    </li>
+                    <li>
+                        <span class="iconfont icon-mendianzitidaihexiaosvg"></span>
+                        <span>日报表</span>
+                    </li>
+                    <li></li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import "swiper/dist/css/swiper.css";
-    import Swiper from "swiper";
-
+    import { Swiper, SwiperItem, XButton } from 'vux'
     export default {
         name: "App",
         data() {
             return {
                 msg: 'home',
+                demo06_list: [{
+                    url: 'javascript:',
+                    img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
+                }, {
+                    url: 'javascript:',
+                    img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg',
+                }, {
+                    url: 'javascript:',
+                    img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg',
+                }],
+                demo06_index: 0,
+                swiperItemIndex: 1
             };
+        },
+        components: {
+            Swiper,
+            SwiperItem,
+            XButton,
         },
         methods: {
             sayHi() {
                 this.msg = 'hi, home'
+            },
+            onSwiperItemIndexChange (index) {
+                console.log('demo item change', index)
+            },
+            demo06_onIndexChange (index) {
+                this.demo06_index = index
+            },
+            toWriteOff(type){
+                console.log(type);
+                // this.$router.push('/hexiao');
+                this.$router.push({
+                    name: "hexiao",
+                    params: {
+                        type: type
+                    }
+                });
             }
+
         },
         computed: {
             getNavIndex() {
@@ -51,12 +95,9 @@
             }
         },
         created() {
-            var swiper = new Swiper('.swiper-container', {
-                slidesPerView: 1,
-                direction: 'vertical',
-                spaceBetween: 30,
-                autoplay:500
-            });
+
+            let token = '355db1aaef8655041cf6d44ffbcc5bd7';
+            sessionStorage.setItem('appToken', token);//存储token
         }
     };
 
@@ -70,48 +111,34 @@
         flex-direction: column;
         background-color: #F5F5F5;
     }
-    .banner,.swiper-slide{
+    .modules-list{
         width: 100%;
-        height: 3.6rem;
-    }
-    .swiper-container,.swiper-wrapper,.swiper-slide img{
-        width: 100%;
-        height: 100%;
-    }
-    .swiper-pagination {
-        position: absolute;
-        right: 0;
-        bottom: .2rem;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        line-height: .1rem;
-        padding-right: .3rem;
-    }
-    .module-box{
-        width: 100%;
-        background-color: #FFF;
         font-family: PingFangSC-Regular;
         font-size: 0.3rem;
         color: #222222;
-        margin-top: 0.2rem;
     }
-    .module-box .module{
+    .title-module{
+        padding: 0 0.3rem;
+        color: #a6a6a6;
+        font-size: 0.28rem;
+        line-height: 1rem;
+    }
+    .modules-list .module{
         display: flex;
+        background-color: #FFF;
     }
-    .module-box .module li{
+    .modules-list .module li{
         width: 30%;
         flex: 1;
         height: 1.88rem;
-        /*line-height: 1.88rem;*/
         text-align: center;
         border-bottom: 1px solid #E5E5E5;
         border-right: 1px solid #E5E5E5;
     }
-    .module-box .module li:nth-of-type(3n){
+    .modules-list .module li:nth-of-type(3n){
         border-right: none;
     }
-    .module-box .module li .iconfont{
+    .modules-list .module li .iconfont{
         color: #FF6600;
         display: block;
         font-size: 0.45rem;

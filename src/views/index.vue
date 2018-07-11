@@ -1,35 +1,35 @@
 <!-- 主页view -->
 <template>
     <div id="index">
-        <div class="index_main">
+        <!--<div class="index_main">-->
             <!-- <transition name="fade"> -->
             <router-view></router-view>
             <!-- </transition> -->
-        </div>
-        <div class="index_footer">
+        <!--</div>-->
+        <!--<div class="index_footer">-->
 
-            <router-link to="home">
-                <dl :class="{'symbolsHome_jy2':symbolsHome_jy2,'symbolsHome_jy':symbolsHome_jy}" @click="index_jy">
-                    <dt></dt>
-                    <dd>工作</dd>
-                </dl>
-            </router-link>
+            <!--<router-link to="home">-->
+                <!--<dl :class="{'symbolsHome_jy2':symbolsHome_jy2,'symbolsHome_jy':symbolsHome_jy}" @click="index_jy">-->
+                    <!--<dt></dt>-->
+                    <!--<dd>工作</dd>-->
+                <!--</dl>-->
+            <!--</router-link>-->
 
-            <router-link to="records">
-                <dl :class="{'symbolsHome_dd':symbolsHome_dd,'symbolsHome_dd2':symbolsHome_dd2}" @click="index_dd">
-                    <dt></dt>
-                    <dd>记录</dd>
-                </dl>
-            </router-link>
+            <!--<router-link to="records">-->
+                <!--<dl :class="{'symbolsHome_dd':symbolsHome_dd,'symbolsHome_dd2':symbolsHome_dd2}" @click="index_dd">-->
+                    <!--<dt></dt>-->
+                    <!--<dd>记录</dd>-->
+                <!--</dl>-->
+            <!--</router-link>-->
 
-            <router-link to="my">
-                <dl :class="{'symbolsHome_wd':symbolsHome_wd,'symbolsHome_wd2':symbolsHome_wd2}" @click="index_my">
-                    <dt></dt>
-                    <dd>我的</dd>
-                </dl>
-            </router-link>
+            <!--<router-link to="my">-->
+                <!--<dl :class="{'symbolsHome_wd':symbolsHome_wd,'symbolsHome_wd2':symbolsHome_wd2}" @click="index_my">-->
+                    <!--<dt></dt>-->
+                    <!--<dd>我的</dd>-->
+                <!--</dl>-->
+            <!--</router-link>-->
 
-        </div>
+        <!--</div>-->
 
     </div>
 </template>
@@ -110,7 +110,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        background: #edeff0;
+        background: #f5f5f5;
     }
 
     .index_footer {
