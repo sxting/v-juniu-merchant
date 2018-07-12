@@ -4,7 +4,7 @@ import router from './router'
 
 // axios 配置
 axios.defaults.timeout = 60000;
-axios.defaults.baseURL = process.env.BASE_PICTURE_ADDR;
+axios.defaults.baseURL = process.env.BASE_API_ADDR;
 
 // http request 拦截器
 axios.interceptors.request.use(

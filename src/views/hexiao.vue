@@ -4,9 +4,9 @@
         <div class="hexiao-content">
             <group label-width="5em">
                 <popup-picker :title="title1" :data="list1" v-model="value1" @on-show="onShow" @on-hide="onHide" @on-change="onChange" :placeholder="storeName"></popup-picker>
-                <x-input :title="titletype" name="username" :placeholder="placeholderText" required type="number" text-align="right" v-model="ticketNo"></x-input>
+                <x-input :title="titletype" name="username" :placeholder="placeholderText" required type="number" text-align="right" v-model="receiptCode"></x-input>
             </group>
-            <div class="button-box" @click="submitData">
+            <div class="button-box" @click="submitData(title)">
                 <x-button type="primary" :gradients="['#FF6600', '#FF9500']">提交</x-button>
             </div>
         </div>
@@ -30,7 +30,7 @@
                 value1: [],
                 list1: [['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你']],
                 ifShowLoading: false,
-                ticketNo: '',//核销码
+                receiptCode: '',//核销码
             };
         },
         components: {
@@ -50,25 +50,45 @@
             onHide (type) {
                 console.log('on hide', type)
             },
-            submitData(){
-                console.log('submit data');
+            submitData(type){
+                console.log('submit data' + type);
                 let self = this;
-                axios({
-                    method: "POST",
-                    url: "/order/koubei/ticket.json",
-                    params: {
-                        shopId: '2016080900077000000017955745',
-                        ticketNo: self.ticketNo,
-                        isQuery: 'T'
-                    }
-                }).then(function (result) {
-                    console.log(result.data);
-                    if (result.data.errorCode == 0) {
-                        alert('核销成功');
-                    } else {
-                        alert(result.data.errorInfo);
-                    }
-                });
+                if(type === '口碑核销'){
+                    axios({
+                        method: "POST",
+                        url: "merchant/order/koubei/ticket.json",
+                        params: {
+                            shopId: '2016080900077000000017955745',
+                            ticketNo: self.receiptCode,
+                            isQuery: 'T'
+                        }
+                    }).then(function (result) {
+                        console.log(result.data);
+                        if (result.data.errorCode == 0) {
+                            alert('核销成功');
+                        } else {
+                            alert(result.data.errorInfo);
+                        }
+                    });
+                }else if(type === '美团核销'){
+                    axios({
+                        method: "GET",
+                        url: "xmd/tuangou/receipt/prepare.json",
+                        params: {
+                            storeId: '2016080900077000000017955745',
+                            receiptCode: self.receiptCode
+                        }
+                    }).then(function (result) {
+                        console.log(result.data);
+                        if (result.data.errorCode == 0) {
+                            alert('核销成功');
+                        } else {
+                            alert(result.data.errorInfo);
+                        }
+                    });
+                }else {//微信核销
+
+                }
             }
         },
         created(){
