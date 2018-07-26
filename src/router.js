@@ -30,6 +30,10 @@ const routes = [
             },
         ]
     },
+    {
+        path: '/entry',
+        component: (resolve) => require(['./views/entry'], resolve)
+    }
 ]
 ;
 
