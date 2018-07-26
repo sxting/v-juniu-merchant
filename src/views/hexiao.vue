@@ -15,7 +15,6 @@
 
 <script>
     import { XInput, PopupPicker, Group, XButton } from 'vux';
-    import axios from 'axios';
     import { Toast } from 'vux'
 
     export default {
@@ -54,9 +53,7 @@
                 console.log('submit data' + type);
                 let self = this;
                 if(type === '口碑核销'){
-                    axios({
-                        method: "POST",
-                        url: "merchant/order/koubei/ticket.json",
+                    this.$ajax.get("merchant/order/koubei/ticket.json", {
                         params: {
                             shopId: '2016080900077000000017955745',
                             ticketNo: self.receiptCode,
@@ -71,9 +68,7 @@
                         }
                     });
                 }else if(type === '美团核销'){
-                    axios({
-                        method: "GET",
-                        url: "xmd/tuangou/receipt/prepare.json",
+                    this.$ajax.get("xmd/tuangou/receipt/prepare.json",{
                         params: {
                             storeId: '2016080900077000000017955745',
                             receiptCode: self.receiptCode
