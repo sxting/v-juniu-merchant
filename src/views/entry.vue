@@ -32,12 +32,14 @@
         created() {
             // 获得参数
             let openidSource = this.$route.query.openid;
-            this.$ajax.get('https://biz.juniuo.com/account/login/wechatPub.json', {
+            this.$ajax.get('/account/login/wechatPub.json', {
                 params: {
                     code: openidSource
                 }
             }).then(res => {
                 if (res.status == 200 && res.data.success == true) {
+                    // 存储数据至sessionStorage
+                    sessionStorage.setItem("staffInfo", JSON.stringify(res.data.data));
                     // 跳转
                     this.$router.replace({path: '/home'});
                 } else {
