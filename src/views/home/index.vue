@@ -26,7 +26,7 @@
             <div class="modules-list">
                 <p class="title-module">报表</p>
                 <ul class="module">
-                    <li>
+                    <li @click="toMonthReport">
                         <span class="iconfont icon-baobiaobiaoweiguanli"></span>
                         <span>月报表</span>
                     </li>
@@ -42,7 +42,8 @@
 </template>
 
 <script>
-    import { Swiper, SwiperItem, XButton } from 'vux'
+    import { Swiper, SwiperItem, XButton } from 'vux';
+
     export default {
         name: "App",
         data() {
@@ -58,6 +59,8 @@
                     url: 'javascript:',
                     img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg',
                 }],
+                openId: '',
+                date: '',
                 demo06_index: 0,
                 swiperItemIndex: 1
             };
@@ -79,15 +82,16 @@
             },
             toWriteOff(type){
                 console.log(type);
-                // this.$router.push('/hexiao');
                 this.$router.push({
                     name: "hexiao",
                     params: {
                         type: type
                     }
                 });
+            },
+            toMonthReport(){
+                window.location.replace("https://api.juniuo.com/staff/#/order/store/report;date=" + this.date + ";openid=" + this.openId );
             }
-
         },
         computed: {
             getNavIndex() {
@@ -95,9 +99,20 @@
             }
         },
         created() {
+            this.openId = JSON.parse(sessionStorage.getItem('staffInfo')).openid;
+            /*
+            *
+            * 获取当前的年月日
+            *
+            **/
+            let year = new Date().getFullYear();        //获取当前年份(2位)
+            let month = new Date().getMonth()+1;       //获取当前月份(0-11,0代表1月)
+            let changemonth = month < 10 ? '0' + month : '' + month;
+            let day = new Date().getDate();        //获取当前日(1-31)
+            this.date = year+'-'+changemonth+'-'+day;
 
-            let token = '355db1aaef8655041cf6d44ffbcc5bd7';
-            sessionStorage.setItem('appToken', token);//存储token
+            // let token = '355db1aaef8655041cf6d44ffbcc5bd7';
+            // sessionStorage.setItem('appToken', token);//存储token
         }
     };
 

@@ -3,7 +3,7 @@
         <h3 class="title-hexiao">核销·{{title}}</h3>
         <div class="hexiao-content">
             <group label-width="5em">
-                <popup-picker :title="title1" :data="list1" v-model="value1" @on-show="onShow" @on-hide="onHide" @on-change="onChange" :placeholder="storeName"></popup-picker>
+                <popup-picker :title="title1" :data="list1" :columns="1" @on-show="onShow" @on-hide="onHide" @on-change="onChange" v-model="value1" show-name :placeholder="storeName"></popup-picker>
                 <x-input :title="titletype" name="username" :placeholder="placeholderText" required type="number" text-align="right" v-model="receiptCode"></x-input>
             </group>
             <div class="button-box" @click="submitData(title)">
@@ -15,7 +15,6 @@
 
 <script>
     import { XInput, PopupPicker, Group, XButton } from 'vux';
-    import { Toast } from 'vux'
 
     export default {
         name: "hexiao",
@@ -27,9 +26,10 @@
                 titletype: '核销码',
                 placeholderText: '请输入顾客核销码',
                 value1: [],
-                list1: [['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你']],
+                list1: ['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你'],
                 ifShowLoading: false,
                 receiptCode: '',//核销码
+                shopId: '',//门店ID
             };
         },
         components: {
@@ -41,7 +41,8 @@
         },
         methods: {
             onChange (val) {
-                console.log('val change', val)
+                this.shopId = val[0];
+                console.log(this.shopId);
             },
             onShow () {
                 console.log('on show')
@@ -55,14 +56,15 @@
                 if(type === '口碑核销'){
                     this.$ajax.get("merchant/order/koubei/ticket.json", {
                         params: {
-                            shopId: '2016080900077000000017955745',
+                            shopId: self.shopId,
                             ticketNo: self.receiptCode,
                             isQuery: 'T'
                         }
                     }).then(function (result) {
                         console.log(result.data);
-                        if (result.data.errorCode == 0) {
+                        if (result.data.errorCode == "10000") {
                             alert('核销成功');
+                            self.$router.push('/home');
                         } else {
                             alert(result.data.errorInfo);
                         }
@@ -70,13 +72,14 @@
                 }else if(type === '美团核销'){
                     this.$ajax.get("xmd/tuangou/receipt/prepare.json",{
                         params: {
-                            storeId: '2016080900077000000017955745',
+                            storeId: self.shopId,
                             receiptCode: self.receiptCode
                         }
                     }).then(function (result) {
                         console.log(result.data);
-                        if (result.data.errorCode == 0) {
+                        if (result.data.errorCode == "10000") {
                             alert('核销成功');
+                            self.$router.push('/home');
                         } else {
                             alert(result.data.errorInfo);
                         }
@@ -100,6 +103,17 @@
                 this.title = '微信核销';
                 this.titletype = '核销码'
             }
+            let arrShopList = JSON.parse(sessionStorage.getItem('staffInfo')).alipayShopList;
+            let arrStoreList = [];
+            arrShopList.forEach(function (item) {
+                let list = {
+                    name: item.shopName,
+                    value: item.shopId
+                };
+                arrStoreList.push(list);
+            });
+            this.list1 = arrStoreList;
+            console.log(this.list1);
         }
     }
 </script>
