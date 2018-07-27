@@ -30,7 +30,7 @@
                         <span class="iconfont icon-baobiaobiaoweiguanli"></span>
                         <span>月报表</span>
                     </li>
-                    <li>
+                    <li @click="toDayReport">
                         <span class="iconfont icon-mendianzitidaihexiaosvg"></span>
                         <span>日报表</span>
                     </li>
@@ -61,6 +61,7 @@
                 }],
                 openId: '',
                 date: '',
+                dateMonthly: '',
                 demo06_index: 0,
                 swiperItemIndex: 1
             };
@@ -89,8 +90,11 @@
                     }
                 });
             },
-            toMonthReport(){
+            toDayReport(){//日报表
                 window.location.replace("https://api.juniuo.com/staff/#/order/store/report;date=" + this.date + ";openid=" + this.openId );
+            },
+            toMonthReport(){//月报表
+                window.location.replace("https://api.juniuo.com/staff/#/order/monthly/report;date=" + this.dateMonthly + ";openid=" + this.openId );
             }
         },
         computed: {
@@ -108,8 +112,9 @@
             let year = new Date().getFullYear();        //获取当前年份(2位)
             let month = new Date().getMonth()+1;       //获取当前月份(0-11,0代表1月)
             let changemonth = month < 10 ? '0' + month : '' + month;
-            let day = new Date().getDate();        //获取当前日(1-31)
-            this.date = year+'-'+changemonth+'-'+day;
+            let day = new Date().getDate();           //获取当前日(1-31)
+            this.date = year+'-'+changemonth+'-'+day;     //到日
+            this.dateMonthly = year+'-'+changemonth;      //到月
 
             // let token = '355db1aaef8655041cf6d44ffbcc5bd7';
             // sessionStorage.setItem('appToken', token);//存储token

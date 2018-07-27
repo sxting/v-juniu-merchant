@@ -37,7 +37,6 @@
             Group,
             XInput,
             XButton,
-            Toast
         },
         methods: {
             onChange (val) {
