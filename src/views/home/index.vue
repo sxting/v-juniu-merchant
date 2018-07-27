@@ -91,10 +91,10 @@
                 });
             },
             toDayReport(){//日报表
-                window.location.href("https://api.juniuo.com/staff/#/order/store/report;date=" + this.date + ";openid=" + this.openId );
+                window.location.href = "https://api.juniuo.com/staff/#/order/store/report;date=" + this.date + ";openid=" + this.openId ;
             },
             toMonthReport(){//月报表
-                window.location.href("https://api.juniuo.com/staff/#/order/monthly/report;date=" + this.dateMonthly + ";openid=" + this.openId );
+                window.location.href = "https://api.juniuo.com/staff/#/order/monthly/report;date=" + this.dateMonthly + ";openid=" + this.openId;
             }
         },
         computed: {
