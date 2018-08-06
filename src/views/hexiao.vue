@@ -53,7 +53,6 @@
                 console.log('submit data' + type);
                 let self = this;
                 if(type === '口碑核销'){
-                    alert(self.receiptCode);
                     this.$ajax.get("merchant/order/koubei/ticket.json", {
                         params: {
                             shopId: self.shopId,
