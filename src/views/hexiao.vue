@@ -4,8 +4,15 @@
         <div class="hexiao-content">
             <group label-width="5em">
                 <popup-picker :title="title1" :data="list1" :columns="1" @on-show="onShow" @on-hide="onHide" @on-change="onChange" v-model="value1" show-name :placeholder="storeName"></popup-picker>
-                <x-input :title="titletype" :placeholder="placeholderText" required type="number" text-align="right" v-model="receiptCode"></x-input>
+                <!--<x-input :title="titletype" :placeholder="placeholderText" required type="number" text-align="right" v-model="receiptCode"></x-input>-->
             </group>
+            <p class="login_yz">
+                <span @click="phoneNumFocus">核销码</span>
+                <span @click="phoneNumFocus">
+                  <input type="text" ref="receiptCode" maxlength="12" placeholder="请输入顾客核销码" autocomplete="off" id="phoneclear" v-model="receiptCode"
+                         @keyup="formatInput('receiptCode')" />
+                </span>
+            </p>
             <div class="button-box" @click="submitData(title)">
                 <x-button type="primary" :gradients="['#FF6600', '#FF9500']">提交</x-button>
             </div>
@@ -38,15 +45,20 @@
             XInput,
             XButton,
         },
-        watch: {
-            receiptCode(newVal) {
-                this.receiptCode = newVal.replace(/[^\d]/g, "");
-            }
-        },
         methods: {
             onChange (val) {
                 this.shopId = val[0];
                 console.log(this.shopId);
+            },
+            //格式化输入的字符
+            formatInput(value) {
+                //把所有双字节字符替换为空
+                this[value] = String(this[value]).replace(/[^\d]/g, ""); //清除“数字”以外的字符
+            },
+            //使手机号码输入框获得焦点
+            phoneNumFocus() {
+                // console.log('111');
+                this.$refs.receiptCode.focus();
             },
             onShow () {
                 console.log('on show')
@@ -58,6 +70,7 @@
                 console.log('submit data' + type);
                 let self = this;
                 if(type === '口碑核销'){
+                    console.log(self.receiptCode);
                     this.$ajax.get("merchant/order/koubei/ticket.json", {
                         params: {
                             shopId: self.shopId,
@@ -141,5 +154,37 @@
     .button-box{
         padding: 0 0.3rem;
         margin-top: 1.5rem;
+    }
+    .login_yz {
+        width: 100%;
+        display: flex;
+        padding: 10px 15px;
+        line-height: 1.41176471;
+        font-size: 17px;
+        background-color: #FFF;
+    }
+
+    .login_yz span {
+        display: inline-block;
+    }
+
+    .login_yz span:first-child {
+        width: 30%;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .login_yz span:nth-child(2){
+        width: 70%;
+        text-align: right;
+        display: inline-block;
+    }
+    .login_yz span:nth-child(2) input{
+        text-align: right;
+    }
+
+    .login_yz span:nth-child(3) {
+        width: .5rem;
+        text-align: right;
     }
 </style>
