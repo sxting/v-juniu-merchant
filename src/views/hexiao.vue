@@ -51,13 +51,12 @@
             },
             submitData(type){
                 console.log('submit data' + type);
-                let receiptCode = Number(self.receiptCode);
                 let self = this;
                 if(type === '口碑核销'){
                     this.$ajax.get("merchant/order/koubei/ticket.json", {
                         params: {
                             shopId: self.shopId,
-                            ticketNo: receiptCode,
+                            ticketNo: self.receiptCode,
                             isQuery: 'T'
                         }
                     }).then(function (result) {
@@ -73,7 +72,7 @@
                     this.$ajax.get("xmd/tuangou/receipt/prepare.json",{
                         params: {
                             storeId: self.shopId,
-                            receiptCode: receiptCode
+                            receiptCode: self.receiptCode
                         }
                     }).then(function (result) {
                         console.log(result.data);
