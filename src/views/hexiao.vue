@@ -38,6 +38,11 @@
             XInput,
             XButton,
         },
+        watch: {
+            receiptCode(newVal) {
+                this.receiptCode = newVal.replace(/[^\d]/g, "");
+            }
+        },
         methods: {
             onChange (val) {
                 this.shopId = val[0];
@@ -56,7 +61,7 @@
                     this.$ajax.get("merchant/order/koubei/ticket.json", {
                         params: {
                             shopId: self.shopId,
-                            ticketNo: Number(self.receiptCode),
+                            ticketNo: self.receiptCode,
                             isQuery: 'T'
                         }
                     }).then(function (result) {
@@ -72,7 +77,7 @@
                     this.$ajax.get("xmd/tuangou/receipt/prepare.json",{
                         params: {
                             storeId: self.shopId,
-                            receiptCode: Number(self.receiptCode)
+                            receiptCode: self.receiptCode
                         }
                     }).then(function (result) {
                         console.log(result.data);
