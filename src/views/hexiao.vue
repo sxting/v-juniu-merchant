@@ -181,6 +181,7 @@
     }
     .login_yz span:nth-child(2) input{
         text-align: right;
+        border: none;
     }
 
     .login_yz span:nth-child(3) {
