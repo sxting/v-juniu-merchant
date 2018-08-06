@@ -51,8 +51,8 @@
                         this.tipTitle = "未绑定系统账户";
                         this.tipDesc = "您可以在桔牛系统的员工管理中进行扫码绑定之后再进入尝试。<br><br>" + this.tipDesc + "";
                     }
+                    this.isReady = true;
                 }
-                this.isReady = true;
             });
         },
         components: {
