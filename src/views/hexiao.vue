@@ -4,7 +4,7 @@
         <div class="hexiao-content">
             <group label-width="5em">
                 <popup-picker :title="title1" :data="list1" :columns="1" @on-show="onShow" @on-hide="onHide" @on-change="onChange" v-model="value1" show-name :placeholder="storeName"></popup-picker>
-                <x-input :title="titletype" name="username" :placeholder="placeholderText" required type="number" text-align="right" v-model="receiptCode"></x-input>
+                <x-input :title="titletype" :placeholder="placeholderText" required type="number" text-align="right" v-model="receiptCode"></x-input>
             </group>
             <div class="button-box" @click="submitData(title)">
                 <x-button type="primary" :gradients="['#FF6600', '#FF9500']">提交</x-button>
