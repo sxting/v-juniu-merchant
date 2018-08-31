@@ -1,9 +1,9 @@
 <!-- 主页view -->
 <template>
-    <div id="index">
+    <div>
         <div class="h100 ptb20 plr15 bbc bgb">
             <div class="userImg ub-img2"></div>
-            <p class="ub-f1 ml20 f14">微信名字</p>
+            <p class="ub-f1 ml20 f14">我的微信名字</p>
         </div>
         <div class="btc bgb userList">
             <div class="bbc plr10 h48">

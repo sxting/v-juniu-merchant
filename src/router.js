@@ -3,43 +3,35 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-    {
+const routes = [{
         path: '/',
-        component: (resolve) => require(['./views/index'], resolve), //懒加载
-        children: [
-            {
-                path: '/home',
-                name: 'home',
-                component: (resolve) => require(['./views/home/index'], resolve),
-            },
-            {
-                path: '/records',
-                name: 'records',
-                component: (resolve) => require(['./views/records/index'], resolve),
-            },
-            {
-                path: '/my',
-                name: 'my',
-                component: (resolve) => require(['./views/my/index'], resolve)
-            },
-            {
-                path: '/hexiao',
-                name: 'hexiao',
-                component: (resolve) => require(['./views/hexiao'], resolve),
-            },
-        ]
-    },
-    {
+        component: (resolve) => require(['./views/index'], resolve),
+        children: [{
+            path: '/home',
+            name: 'home',
+            component: (resolve) => require(['./views/home'], resolve)
+        },{
+            path: '/records',
+            name: 'records',
+            component: (resolve) => require(['./views/records'], resolve)
+        },{
+            path: '/my',
+            name: 'my',
+            component: (resolve) => require(['./views/my'], resolve)
+        },{
+            path: '/hexiao',
+            name: 'hexiao',
+            component: (resolve) => require(['./views/hexiao'], resolve)
+        }]
+    },{
         path: '/entry',
         component: (resolve) => require(['./views/entry'], resolve)
     }
-]
-;
+];
 
 const router = new VueRouter({
-    mode: 'hash',
-    base: '/juniu',
+    mode: 'history',
+    base: '/',
     routes
 });
 

@@ -8,7 +8,6 @@ import axios from './http';
 import ResetRem from './static/js/resetrem';
 
 
-/**=== inport css =====**/
 import './static/css/reset.css';
 
 
