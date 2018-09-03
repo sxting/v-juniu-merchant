@@ -54,49 +54,46 @@
 </template>
 
 <script>
-import {Group, XSwitch } from 'vux'
-
-    export default {
-        name: "order",
-        data() {
-            return {
-                isDisabled:true,
-                bookNum:0,
-                isShowBus:false,
-                isSwitch1:true,
-                isSwitch2:true,
-            };
-        },
-        components: {Group,XSwitch},
-        methods: {
-            delOne(){
-                if(this.bookNum>0){
-                    this.bookNum--;
-                }
-            },
-            switchBoolen1(){
-                this.isSwitch1 = !this.isSwitch1;
-            },
-            switchBoolen2(){
-                this.isSwitch2 = !this.isSwitch2;
-            },
-            addGood(){
-
-            },
-            addOne(){
-                this.bookNum++;
-            },
-            openBookList(){
-                this.isShowBus = !this.isShowBus;
-            },
-            closeModal(){
-                this.isShowBus = false;
+export default {
+    name: "order",
+    data() {
+        return {
+            isDisabled:true,
+            bookNum:0,
+            isShowBus:false,
+            isSwitch1:true,
+            isSwitch2:true,
+        };
+    },
+    methods: {
+        delOne(){
+            if(this.bookNum>0){
+                this.bookNum--;
             }
         },
-        created() {
-            document.title="订单";
+        switchBoolen1(){
+            this.isSwitch1 = !this.isSwitch1;
+        },
+        switchBoolen2(){
+            this.isSwitch2 = !this.isSwitch2;
+        },
+        addGood(){
+
+        },
+        addOne(){
+            this.bookNum++;
+        },
+        openBookList(){
+            this.isShowBus = !this.isShowBus;
+        },
+        closeModal(){
+            this.isShowBus = false;
         }
-    };
+    },
+    created() {
+        document.title="订单";
+    }
+};
 </script>
 
 <style scoped>

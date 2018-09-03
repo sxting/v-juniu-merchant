@@ -32,14 +32,7 @@
 </script>
 
 <style>
-    #index {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        background: #edeff0;
-    }
-    .h48{height: 0.96rem;}
-    .userList p{font-size: 0.30rem;line-height: 0.96rem;}
+.h48{height: 0.96rem;}
+.userList p{font-size: 0.30rem;line-height: 0.96rem;}
 
 </style>

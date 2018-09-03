@@ -21,11 +21,11 @@ const routes = [{
             path: '/my',
             name: 'my',
             component: (resolve) => require(['./views/my'], resolve)
-        },{
-            path: '/hexiao',
-            name: 'hexiao',
-            component: (resolve) => require(['./views/hexiao'], resolve)
         }]
+    },{
+        path: '/hexiao',
+        name: 'hexiao',
+        component: (resolve) => require(['./views/hexiao'], resolve)
     },{
         path: '/order',
         component: (resolve) => require(['./views/order'], resolve)
