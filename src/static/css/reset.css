@@ -45,6 +45,9 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .plr10 { padding-left: 0.2rem; padding-right: 0.2rem; }
 .plr15 { padding-left: 0.3rem; padding-right: 0.3rem; }
 .plr20 { padding-left: 0.4rem; padding-right: 0.4rem; }
+.mt10{margin-top: 0.20rem;}
+.ml10{margin-left: 0.20rem;}
+.mt05{margin-top: 0.10rem;}
 .bac { border: #eee 1px solid; }
 .bbc { border-bottom: #eee 1px solid; }
 .btc { border-top: 1px #eee solid; }

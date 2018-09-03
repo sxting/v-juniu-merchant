@@ -127,9 +127,9 @@
 .list .item img{width: 1.6rem;height: 1.6rem;}
 .list .item div.msg{margin-left: 0.20rem}
 .list .item div.msg p.tit{font-size: 0.24rem;color: #000;}
-.list .item div.msg p.desc{font-size: 0.20rem;color: #666;}
+.list .item div.msg p.desc{font-size: 0.20rem;color: #666;margin-top: 0.20rem;}
 .list .item div.msg p.price{font-size: 0.32rem;color: #ff6600;margin-top: 0.20rem}
-.list .item div.ctrl{width: 1.6rem;position:absolute;bottom: 0.20rem;right: 0.20rem}
+.list .item div.ctrl{width: 1.6rem;position:absolute;bottom: 0.20rem;right: 0.10rem}
 .icon_del{width: 0.40rem;height: 0.40rem;background: url(../assets/icon_del.png);background-size: 100% 100%;display:block;}
 .icon_add{width: 0.40rem;height: 0.40rem;background: url(../assets/icon_add.png);background-size: 100% 100%;display:block;}
 .book_num{width: 0.48rem;height: 0.48rem;text-align: center;font-size: 0.28rem;display: block;}

@@ -13,7 +13,7 @@
                         <span class="iconfont icon-baobiaobiaoweiguanli"></span>
                         <span>收银</span>
                     </li>
-                    <li @click="toPage('charge')">
+                    <li @click="toPage('order')">
                         <span class="iconfont icon-baobiaobiaoweiguanli"></span>
                         <span>订单</span>
                     </li>
