@@ -61,7 +61,7 @@
     };
 </script>
 
-<style>
+<style scoped>
     .on-ready {
         text-align: center;
         width: 13px;

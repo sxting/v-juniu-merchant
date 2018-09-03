@@ -7,6 +7,9 @@ const routes = [{
         path: '/',
         component: (resolve) => require(['./views/index'], resolve),
         children: [{
+            path: '/',
+            redirect: '/home'
+        },{
             path: '/home',
             name: 'home',
             component: (resolve) => require(['./views/home'], resolve)
@@ -23,6 +26,21 @@ const routes = [{
             name: 'hexiao',
             component: (resolve) => require(['./views/hexiao'], resolve)
         }]
+    },{
+        path: '/order',
+        component: (resolve) => require(['./views/order'], resolve)
+    },{
+        path: '/erwmCharge',
+        component: (resolve) => require(['./views/pay/erwmCharge'], resolve)
+    },{
+        path: '/paySuccess',
+        component: (resolve) => require(['./views/pay/paySuccess'], resolve)
+    },{
+        path: '/payFail',
+        component: (resolve) => require(['./views/pay/payFail'], resolve)
+    },{
+        path: '/charge',
+        component: (resolve) => require(['./views/charge'], resolve)
     },{
         path: '/entry',
         component: (resolve) => require(['./views/entry'], resolve)

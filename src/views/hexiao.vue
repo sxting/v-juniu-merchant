@@ -4,7 +4,6 @@
         <div class="hexiao-content">
             <group label-width="5em">
                 <popup-picker :title="title1" :data="list1" :columns="1" @on-show="onShow" @on-hide="onHide" @on-change="onChange" v-model="value1" show-name :placeholder="storeName"></popup-picker>
-                <!--<x-input :title="titletype" :placeholder="placeholderText" required type="number" text-align="right" v-model="receiptCode"></x-input>-->
             </group>
             <p class="login_yz">
                 <span @click="phoneNumFocus">核销码</span>
