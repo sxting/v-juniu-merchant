@@ -1,4 +1,3 @@
-<!-- 主页view -->
 <template>
     <div id="index">
         <div class="index_main">
@@ -24,31 +23,28 @@
 </template>
 
 <script>
-
 export default {
     name: "index",
     data() {
         return {
-            curActiveIndex: 1
+            curActiveIndex: sessionStorage.navIndex||1
         };
     },
     methods: {
         toHome(index,str) {
-            this.curActiveIndex=index;
+            this.curActiveIndex = index;
+            sessionStorage.navIndex = index;
             this.$router.push(str);
         },
-    },
-    created() {
-
     }
 };
 
 </script>
 
-<style scope>
+<style scoped>
 #index {width: 100%;height: 100%;display: flex;flex-direction: column;background: #f5f5f5;}
 .index_main {position: absolute;top: 0;left: 0;bottom: 1.04rem;width: 100%;}
-.index_footer {width: 100%;position: fixed;left: 0;bottom: 0;height: 1.52rem;background: #ffffff;box-shadow: 0 -5px 10px #dbdcp;z-index: 999;}
+.index_footer {width: 100%;position: fixed;left: 0;bottom: 0;height: 1.02rem;background: #fff;z-index: 999;-webkit-box-shadow: 0 -5px 10px #dbdcdd; box-shadow: 0 -5px 10px #dbdcdd;}
 .index_footer p{color: #333;font-size: 0.24rem;}
 .icon_home{width: 0.32rem;height: 0.32rem;background: #666;display: block;margin: 0 auto;}
 .icon_home1.active + p{color: #f22}

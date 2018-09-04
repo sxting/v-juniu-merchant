@@ -1,5 +1,5 @@
 @charset "utf-8";
-* { margin: 0; padding: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+* { margin: 0; padding: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);box-sizing:border-box;}
 html,body,#app{height: 100%;}
 body { background-color: #f7f7f7; font-size: 50px;}
 a,p,div,span,i{font-size: 0.28rem}
@@ -23,10 +23,13 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .ub-img2 { -webkit-background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; background-position: center; }
 .ufl{float: left;}
 .ufr{float: right;}
+.clearfix:after{content: "";clear:both;display: table; }
 .f12{font-size: 0.24rem}
 .f13{font-size: 0.26rem}
 .f14{font-size: 0.28rem}
 .f16{font-size: 0.32rem}
+.f18{font-size: 0.36rem}
+.f20{font-size: 0.40rem}
 .tx-c { text-align: center; }
 .tx-l { text-align: left; }
 .tx-r { text-align: right; }
@@ -37,15 +40,20 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .bgb { background-color: #fff; }
 .bgs { background-color: #ff6600; color: #fff; }
 .bc { color: #333 }
+.bc1{color: #666}
 .sc { color: #999 }
-.rc { color: #ff6600 }
+.rc { color: #ff6000 }
 .red { color: #f00 }
 .uhide { display: none; }
 .udb{display: block;}
+.uds{display: inline-block;}
 .plr10 { padding-left: 0.2rem; padding-right: 0.2rem; }
 .plr15 { padding-left: 0.3rem; padding-right: 0.3rem; }
+.p10{padding: 0.20rem;}
 .plr20 { padding-left: 0.4rem; padding-right: 0.4rem; }
 .mt10{margin-top: 0.20rem;}
+.mt15{margin-top: 0.30rem}
+.mt30{margin-top: 0.60rem}
 .ml10{margin-left: 0.20rem;}
 .mt05{margin-top: 0.10rem;}
 .bac { border: #eee 1px solid; }
@@ -53,3 +61,5 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .btc { border-top: 1px #eee solid; }
 .btbc { border-top: #eee 1px solid; border-bottom: #eee 1px solid; }
 .mato{margin-left: auto; margin-right: auto}
+.btn_common{background-color: #ff6000;height: 0.88rem;width: 100%;color: #fff;font-size: 0.32rem;text-align: center;;line-height: 0.88rem;border-radius: 0.10rem;}
+.arrow-right{display: inline-block;width: 0.14rem;height: 0.30rem;background: url(../../assets/arrow-right.png) no-repeat center center;background-size:100% 100%;margin-left: 0.20rem}

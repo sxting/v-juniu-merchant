@@ -42,6 +42,15 @@ const routes = [{
         path: '/charge',
         component: (resolve) => require(['./views/charge'], resolve)
     },{
+        path: '/memberInfo',
+        component: (resolve) => require(['./views/member/memberInfo'], resolve)
+    },{
+        path: '/addMember',
+        component: (resolve) => require(['./views/member/addMember'], resolve)
+    },{
+        path: '/memberSearch',
+        component: (resolve) => require(['./views/member/memberSearch'], resolve)
+    },{
         path: '/entry',
         component: (resolve) => require(['./views/entry'], resolve)
     }
