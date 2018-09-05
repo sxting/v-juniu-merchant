@@ -2,10 +2,10 @@
     <div class="main">
         <div class="toper ub ub-ac">
             <div class="searchBox ub-f1"><i class="icon icon_search"></i><input type="text" placeholder="会员查询"></div>
-            <div class="openMember ub ub-ver ub-pc"><i class="icon icon_member"></i><p class="tx-c">开通会员</p></div>
+            <div class="openMember tx-c"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
         </div>
         <div class="content plr15">
-            <div class="ub ub-ac userInfo plr10">
+            <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
                 <img src="../assets/user.png" class="udb">
                 <div class="ub-f1 ml10">
                     <p class="f12">王云鹏</p>
@@ -63,6 +63,7 @@ export default {
             isShowBus:false,
             isSwitch1:true,
             isSwitch2:true,
+            isShowMember:false
         };
     },
     methods: {
@@ -99,14 +100,10 @@ export default {
 <style scoped>
 .main{background: #f2f2f2;padding-top:1.12rem;height: 100%;padding-bottom: 1rem;}
 .toper{height: 1.12rem;background: #f6f6f6;position: fixed;top: 0;left: 0;width: 100%;z-index: 999;}
-.toper .icon + p{font-size: 0.14rem;}
-.searchBox{padding-left: 0.60rem;margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.60rem;border-radius: 0.30rem;}
-.searchBox input{width: 100%;height: 0.60rem;line-height: 0.60rem}
+.searchBox{padding-left: 0.64rem;margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem}
+.searchBox input{width: 100%;height: 0.64rem;line-height: 0.64rem}
 .icon{display:inline-block;}
-.icon_search{position: absolute;top: 0.15rem;left: 0.14rem;width: 0.26rem;height: 0.29rem;background: url(../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
-.icon_member{width: 0.30rem;height: 0.28rem;background: url(../assets/icon_member.png) no-repeat center;background-size: 100% 100%;}
-.openMember{width: 1rem}
-.icon_member{margin: 0 auto}
+.icon_search{position: absolute;top: 0.15rem;left: 0.28rem;width: 0.26rem;height: 0.29rem;background: url(../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
 .content{position: relative;height: 100%;overflow: auto;}
 .orderInfo{margin-top:0.20rem;border-radius: 0.20rem;background-color: #ffffff;}
 .orderInfo .item{height: 1.0rem;line-height: 1.0rem;}

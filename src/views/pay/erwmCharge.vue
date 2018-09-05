@@ -1,17 +1,14 @@
 <template>
     <div class="main ub ub-ver">
-        <div class="toper">
-            <p class="rc f16 tx-c">20.00 <i class="f12 rc">元</i></p>
-            <p class="bc f12 tx-c">应收金额</p>
-        </div>
         <div class="content ub-f1">
             <div class="erwm ub ub-ver ub-pc">
-                <div class="f13 erwmTit ub ub-ac"><i class="icon_alipy"></i>支付宝</div>
+                <div class="f13 erwmHead tx-c"><i class="icon_alipy"></i><i class="f16 uds">支付宝</i></div>
                 <div class="erwmDiv">
                     <img src="../../assets/erwm.png" class="udb mato">
-                    <p class="f12 tx-c mt20">让顾客扫描二维码</p>
-                    <p class="f12 tx-c">向我付款</p>
+                    <p class="rc f20 tx-c mt20">￥20.00<i class="f14 rc">元</i></p>
+                    <p class="sc f12 tx-c mt05">应收金额</p>
                 </div>
+                <div class="erwmFoot tx-c">让顾客扫描二维码向我付款</div>
             </div>
         </div>
     </div>
@@ -19,7 +16,7 @@
 
 <script>
     export default {
-        name: "charge",
+        name: "erwmCharge",
         data() {
             return {
                 isDisabled:true,
@@ -42,12 +39,12 @@
 
 <style scoped>
 .main{height: 100%;}
-.toper{padding: 1rem 0;}
-.content{background: #ffae4e;padding: 0.40rem}
-.erwm{width: 100%;background: #fff;border-radius: 0.10rem;}
+.content{background: #ff6000;padding: 0.50rem 0.30rem;}
+.erwm{width: 100%;background: #fff;border-radius: 0.10rem;overflow: hidden;}
 .erwm img{width: 4rem;height: 4rem;}
 .mt20{margin-top: 0.30rem}
-.erwmTit{height: 0.88rem;padding-left: 0.40rem;font-size: 0.26rem;line-height: 0.88rem;background: #f6f6f6;border-radius: 0.10rem 0.1rem 0 0}
+.erwmHead{height: 0.94rem;padding-left: 0.40rem;font-size: 0.26rem;line-height: 0.94rem;background: #f6f6f6;}
 .erwmDiv{padding: 1rem 0 0.6rem 0;}
-.icon_alipy{display: block;width: 0.48rem;height: 0.48rem;background: url(../../assets/icon_alipay.png) no-repeat center center;background-size: 100% 100%;margin-right: 0.20rem}
+.erwmFoot{height: 1.0rem;font-size: 0.28rem;line-height: 0.88rem;background: #fff;color: #666;line-height: 1.0rem;border-top: 1px #eee solid;width: 90%;margin: 0 auto;}
+.icon_alipy{display: inline-block;width: 0.40rem;height: 0.40rem;background: url(../../assets/icon_alipay.png) no-repeat center center;background-size: 100% 100%;margin-right: 0.16rem;vertical-align: middle;}
 </style>
