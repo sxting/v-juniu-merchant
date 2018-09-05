@@ -199,10 +199,10 @@ export default {
 .main{height: 100%;}
 .list{padding-bottom: 1rem;/*transition: all .3s ease;*/}
 .toper{height: 1.12rem;background: #f6f6f6;;width: 100%;}
-.searchBox{padding-left: 0.60rem;margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem}
+.searchBox{padding-left: 0.64rem;margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem}
 .searchBox input{width: 100%;height: 0.64rem;line-height: 0.64rem}
 .icon{display:inline-block;}
-.icon_search{position: absolute;top: 0.15rem;left: 0.14rem;width: 0.26rem;height: 0.29rem;background: url(../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
+.icon_search{position: absolute;top: 0.18rem;left: 0.28rem;width: 0.26rem;height: 0.29rem;background: url(../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
 .content{background: #fff;padding-left: 1.7rem;position: relative;overflow: auto;}
 .sidebar{width: 1.5rem;position: fixed;top: 1.12rem;left: 0;background: #f6f6f6}
 .sidebar li{height: 0.80rem;padding-left: 0.30rem;font-size: 0.28rem;color: #333;line-height: 0.80rem;font-size: 0.26rem}

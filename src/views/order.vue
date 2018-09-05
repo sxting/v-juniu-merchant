@@ -18,7 +18,14 @@
                 <span class="ufr addGood" @click="addGood()">+添加产品</span>
             </div>
             <div class="orderInfo">
-                <div class="item plr20 bbc">项目名称</div>
+                <div class="item plr20 bbc ub ub-ac ub-pj">
+                    <p class="ub ub-ac"><i class="icon_order"></i>项目名称</p>
+                    <p class="ub ub-ac numBox">
+                        <span @click="" class="ctlbtn"><i class="icon-del iconfont"></i></span>
+                        <i class="number btbc">1</i>
+                        <span @click="" class="ctlbtn"><i class="icon-add iconfont"></i></span>
+                    </p>
+                </div>
                 <div class="bbc plr20">
                     <div class="item ub ub-pj ub-ac">
                         <p class="ub-f1 sc f13">服务技师</p>
@@ -103,7 +110,7 @@ export default {
 .searchBox{padding-left: 0.64rem;margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem}
 .searchBox input{width: 100%;height: 0.64rem;line-height: 0.64rem}
 .icon{display:inline-block;}
-.icon_search{position: absolute;top: 0.15rem;left: 0.28rem;width: 0.26rem;height: 0.29rem;background: url(../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
+.icon_search{position: absolute;top: 0.18rem;left: 0.28rem;width: 0.26rem;height: 0.29rem;background: url(../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
 .content{position: relative;height: 100%;overflow: auto;}
 .orderInfo{margin-top:0.20rem;border-radius: 0.20rem;background-color: #ffffff;}
 .orderInfo .item{height: 1.0rem;line-height: 1.0rem;}
@@ -122,4 +129,7 @@ export default {
 .userInfo{background-color: #fff;padding:0.16rem 0.24rem; border-radius: 0.20rem}
 .userInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.30rem;}
 .userbtn{background-color: #ff6600;color: #fff;width:1.6rem;height: 0.60rem;border-radius: 0.30rem;font-size: 0.24rem;text-align: center;line-height: 0.60rem;}
+
+.numBox .ctlbtn{width: 0.56rem;height:0.48rem;line-height: 0.48rem;background-color: #eee;text-align: center;}
+.numBox .number{width: 0.60rem;height:0.48rem;line-height: 0.48rem;background-color: #fff;text-align: center;}
 </style>

@@ -9,6 +9,7 @@ import ResetRem from './static/js/resetrem';
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css';
 import './static/css/reset.css';
+import './static/css/iconfont.css';
 
 
 // FastClick.attach(document.body);
