@@ -6,7 +6,7 @@
                 <img src="../../assets/user.png" class="udb">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_vip ml10"></i></p>
-                    <p class="f12 bc1 mt05"><i class="icon_tel"></i><i>10000000000</i></p>
+                    <p class="mt05"><i class="icon_tel"></i><a href="" class="f12 bc1">15011101110</a></p>
                 </div>
                 <div class="compilebtn ub ub-ac ub-pc" @click="toAddMember()"><i class="icon_compile"></i>编辑</div>
             </div>
@@ -26,15 +26,26 @@
                 <li :class="{'on':curTabIndex==1}" @click="swtichTab(1)">消费记录</li>
             </div>
             <div v-show="curTabIndex==0" class="voucher bgb">
-                <div class="item ub ub-ac ub-pj">
-                    <div>
-                        <p>黄金储值卡</p>
-                        <p class="f20 mt12">储值500元</p>
-                        <p class="f12 mt12">全店通用 <i class="ml30 f12">有效期：永久</i></p>
+                <div class="item">
+                    <div class="remark yi">已持有</div>
+                    <p>黄金储值卡</p>
+                    <div class="ub ub-pj ub-ac amount">
+                        <p class="f20">储值300元</p><p class="f20">￥300元</p>
                     </div>
-                    <div class="ub ub-ver ub-pc ub-ac">
-                        <p class="f18">￥300元</p>
-                        <button class="mt12">充值</button>
+                    <div class="btc1 ub ub-pj date">
+                        <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
+                        <button>充值</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="remark wei">未持有</div>
+                    <p>黄金储值卡</p>
+                    <div class="ub ub-pj ub-ac amount">
+                        <p class="f20">储值300元</p><p class="f20">￥300元</p>
+                    </div>
+                    <div class="btc1 ub ub-pj date">
+                        <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
+                        <button>充值</button>
                     </div>
                 </div>
             </div>
@@ -93,14 +104,16 @@
 .tabList li{width: 50%;float: left;line-height: 0.8rem;line-height: 0.8rem;text-align: center;font-size: 0.28rem;border-bottom: #eee 1px solid;color: #666;}
 li.on{color: #ff6000!important;border-bottom: #ff6000 1px solid!important;}
 
-.voucher{padding:0.01rem 0.24rem 0.24rem;}
-.voucher .item{width: 100%;padding: 0.24rem;margin-top: 0.20rem;background: linear-gradient(left,#FF6C6C,#ffb444);color: #fff;border-radius: 0.10rem}
+.voucher{padding:0.01rem 0.24rem 0.30rem;}
+.voucher .item{width: 100%;padding: 0.30rem;margin-top: 0.30rem;background: linear-gradient(left,#FF6C6C,#ffb444);color: #fff;border-radius: 0.10rem;position: relative;box-shadow: 0 10px 10px rgba(255,96,0,0.2);overflow: hidden}
+.voucher .item .remark{width: 1.2rem;height: 0.6rem;padding-top: 0.23rem;font-size: 0.22rem;color: #fff;background-color: #ff8000;transform: rotate(45deg);position: absolute;top: -0.06rem;right: -0.37rem;text-align: center;}
+.voucher .item .remark.yi{color: #fff;background-color: #ff8000;}
+.voucher .item .remark.wei{color: #999;background-color: #dedede;}
+.voucher .item .amount{margin-top: 0.25rem;margin-bottom: 0.28rem;}
+.voucher .item .date{padding-top: 0.26rem;padding-bottom: .05rem;}
 .voucher button{width: 1.1rem;line-height:0.42rem;height: 0.42rem;text-align: center;color: #ff6000;background-color: #fff;border-radius: 0.08rem;font-size: 0.28rem}
 
 .costRecord .item{border-bottom: 1px #eee solid;height: 1.32rem; padding-left: 0.20rem;padding-right: 0.20rem;}
 .costRecord .item .t{font-size: 0.24rem;color: #999}
 .costRecord .item .b{font-size: 0.24rem;color: #666;margin-top: 0.08rem}
-.ml30{margin-left: 0.60rem}
-.mt12{margin-top: 0.24rem}
-
 </style>

@@ -60,6 +60,7 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .bac { border: #eee 1px solid; }
 .bbc { border-bottom: #eee 1px solid; }
 .btc { border-top: 1px #eee solid; }
+.btc1{ border-top: 1px #eee dashed;}
 .btbc { border-top: #eee 1px solid; border-bottom: #eee 1px solid; }
 .mato{margin-left: auto; margin-right: auto}
 /*常用按钮*/
