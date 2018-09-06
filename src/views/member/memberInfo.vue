@@ -5,7 +5,7 @@
             <div class="ub ub-ac">
                 <img src="../../assets/user.png" class="udb">
                 <div class="ub-f1 ml10">
-                    <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_vip ml10"></i></p>
+                    <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="mt05"><i class="icon_tel"></i><a href="" class="f12 bc1">15011101110</a></p>
                 </div>
                 <div class="compilebtn ub ub-ac ub-pc" @click="toAddMember()"><i class="icon_compile"></i>编辑</div>
@@ -71,6 +71,7 @@
         name: "memberInfo",
         data() {
             return {
+                ishave:1,
                 curTabIndex:0
             };
         },
@@ -86,7 +87,7 @@
 
         },
         created() {
-
+            document.title = "会员";
         }
     };
 </script>
@@ -105,7 +106,7 @@
 li.on{color: #ff6000!important;border-bottom: #ff6000 1px solid!important;}
 
 .voucher{padding:0.01rem 0.24rem 0.30rem;}
-.voucher .item{width: 100%;padding: 0.30rem;margin-top: 0.30rem;background: linear-gradient(left,#FF6C6C,#ffb444);color: #fff;border-radius: 0.10rem;position: relative;box-shadow: 0 10px 10px rgba(255,96,0,0.2);overflow: hidden}
+.voucher .item{width: 100%;padding: 0.30rem;margin-top: 0.30rem;background: linear-gradient(left,#FF6C6C,#ffb444);color: #fff;border-radius: 0.10rem;position: relative;box-shadow: 0 8px 13px rgba(255,96,0,0.2);overflow: hidden}
 .voucher .item .remark{width: 1.2rem;height: 0.6rem;padding-top: 0.23rem;font-size: 0.22rem;color: #fff;background-color: #ff8000;transform: rotate(45deg);position: absolute;top: -0.06rem;right: -0.37rem;text-align: center;}
 .voucher .item .remark.yi{color: #fff;background-color: #ff8000;}
 .voucher .item .remark.wei{color: #999;background-color: #dedede;}

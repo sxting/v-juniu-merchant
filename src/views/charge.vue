@@ -2,16 +2,16 @@
     <div class="main ub ub-ver">
         <div class="toper ub ub-ac">
             <div class="searchBox ub-f1"><i class="icon icon_search"></i><input type="text" placeholder="会员查询"></div>
-            <div class="openMember tx-c"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
+            <div class="openMember tx-c" @click="toAddMember"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
             <div class="openMore tx-c"><i class="icon icon_more"></i><p class="tx-c f12">更多</p></div>
         </div>
         <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
             <img src="../assets/user.png" class="udb bac">
             <div class="ub-f1 ml10">
-                <p class="f12">王云鹏</p>
+                <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                 <p class="f12 mt05">10000000000</p>
             </div>
-            <div class="userbtn">售卡/充值</div>
+            <div class="userbtn" @click="toMemberCard">售卡/充值</div>
         </div>
         <div class="content ub-f1" @scroll="handleScroll" ref="productDiv">
             <ul class="sidebar":style="[{top:isShowMember ? '2.3rem' : '1.12rem'}]">
@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             isDisabled:true,
-            isShowMember:false,
+            isShowMember:true,
             bookNum:0,
             box:null,
             isShowBus:false,
@@ -153,6 +153,9 @@ export default {
                 }
             }
             this.isDisabled = !Boolean(this.productCount);
+        },
+        toMemberCard(){
+            this.$router.push('/memberCard');
         },
         handleScroll(){
             var list = this.$refs.productDiv;

@@ -51,6 +51,18 @@ const routes = [{
         path: '/memberSearch',
         component: (resolve) => require(['./views/member/memberSearch'], resolve)
     },{
+        path:'/memberCard',
+        component: (resolve) => require(['./views/member/memberCard'], resolve)
+    },{
+        path: '/bindAccount',
+        component: (resolve) => require(['./views/login/bindAccount'], resolve)
+    },{
+        path: '/bindAccountbycode',
+        component: (resolve) => require(['./views/login/bindAccountbycode'], resolve)
+    },{
+        path: '/forgetPsw',
+        component: (resolve) => require(['./views/login/forgetPsw'], resolve)
+    },{
         path: '/entry',
         component: (resolve) => require(['./views/entry'], resolve)
     }

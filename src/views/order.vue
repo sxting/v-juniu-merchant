@@ -2,16 +2,16 @@
     <div class="main">
         <div class="toper ub ub-ac">
             <div class="searchBox ub-f1"><i class="icon icon_search"></i><input type="text" placeholder="会员查询"></div>
-            <div class="openMember tx-c"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
+            <div class="openMember tx-c" @click="toAddMember"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
         </div>
         <div class="content plr15">
             <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
                 <img src="../assets/user.png" class="udb">
                 <div class="ub-f1 ml10">
-                    <p class="f12">王云鹏</p>
+                    <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="f12 mt05">10000000000</p>
                 </div>
-                <div class="userbtn">售卡/充值</div>
+                <div class="userbtn" @click="toMemberCard">售卡/充值</div>
             </div>
             <div class="clearfix h50 plr10 mt10">
                 <span class="ufl sc f13">服务信息</span>
@@ -70,7 +70,7 @@ export default {
             isShowBus:false,
             isSwitch1:true,
             isSwitch2:true,
-            isShowMember:false
+            isShowMember:true
         };
     },
     methods: {
@@ -88,11 +88,17 @@ export default {
         addGood(){
 
         },
+        toMemberCard(){
+            this.$router.push('/memberCard');
+        },
         addOne(){
             this.bookNum++;
         },
         openBookList(){
             this.isShowBus = !this.isShowBus;
+        },
+        toAddMember(){
+            this.$router.push('/addMember');
         },
         closeModal(){
             this.isShowBus = false;

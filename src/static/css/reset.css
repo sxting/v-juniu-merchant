@@ -53,6 +53,7 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .plr20 { padding-left: 0.4rem; padding-right: 0.4rem; }
 .mt10{margin-top: 0.20rem;}
 .mt15{margin-top: 0.30rem}
+.mt20{margin-top: 0.40rem}
 .mt30{margin-top: 0.60rem}
 .ml05{margin-left: 0.10rem}
 .ml10{margin-left: 0.20rem;}
@@ -67,7 +68,7 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .btn_common{background-image: linear-gradient(left,#FF5000,#FF8000);height: 0.88rem;width: 100%;color: #fff;font-size: 0.32rem;text-align: center;;line-height: 0.88rem;border-radius: 0.10rem;}
 /*常用图标*/
 .arrow-right{display: inline-block;width: 0.14rem;height: 0.30rem;background: url(../../assets/arrow-right.png) no-repeat center center;background-size:100% 100%;margin-left: 0.20rem}
-.icon_vip{display: inline-block;width: 0.80rem;height: 0.28rem;background: url(../../assets/icon_vip.png) no-repeat center center;background-size: 100% 100%;}
+.icon_card{display: inline-block;width: 0.80rem;height: 0.28rem;background: url(../../assets/icon_vip.png) no-repeat center center;background-size: 100% 100%;}
 .icon_male{display: inline-block;width: 0.24rem;height: 0.24rem;background: url(../../assets/icon_male.png) no-repeat center center;background-size: 100% 100%;}
 .icon_tel{display: inline-block;width: 0.20rem;height: 0.20rem;background: url(../../assets/icon_tel.png) no-repeat center center;background-size: 100% 100%;margin-left: 0.06rem;margin-right: 0.06rem;}
 .icon_compile{display: inline-block;width: 0.24rem;height: 0.24rem;background: url(../../assets/icon_compile.png) no-repeat center center;background-size: 100% 100%;margin-right: 0.08rem;}
@@ -78,3 +79,4 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .openMore{width: 0.80rem;}
 .icon_more{display:inline-block;width: 0.28rem;height: 0.28rem;background: url(../../assets/icon_more.png) no-repeat center;background-size: 100% 100%;}
 .icon_order{display: inline-block;width: 0.40rem;height: 0.40rem;background: url(../../assets/symbols-order_zk.png) no-repeat center center;background-size: 100% 100%;margin-right: 0.10rem}
+.icon_logo{width: 1.80rem;height: 0.80rem;background: url(../../assets/icon_logo.png) no-repeat center center;background-size: 100% 100%;}
