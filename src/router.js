@@ -54,14 +54,20 @@ const routes = [{
         path:'/memberCard',
         component: (resolve) => require(['./views/member/memberCard'], resolve)
     },{
+        path:'/recharge',
+        component: (resolve) => require(['./views/member/recharge'], resolve)
+    },{
         path: '/bindAccount',
         component: (resolve) => require(['./views/login/bindAccount'], resolve)
     },{
         path: '/bindAccountbycode',
         component: (resolve) => require(['./views/login/bindAccountbycode'], resolve)
     },{
-        path: '/forgetPsw',
-        component: (resolve) => require(['./views/login/forgetPsw'], resolve)
+        path: '/orderList',
+        component: (resolve) => require(['./views/order/orderList'], resolve)
+    },{
+        path: '/orderDetail',
+        component: (resolve) => require(['./views/order/orderDetail'], resolve)
     },{
         path: '/entry',
         component: (resolve) => require(['./views/entry'], resolve)

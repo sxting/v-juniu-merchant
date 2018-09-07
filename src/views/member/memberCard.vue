@@ -13,7 +13,7 @@
                     </div>
                     <div class="btc1 ub ub-pj date">
                         <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
-                        <button>充值</button>
+                        <button @click="toRecharge">充值</button>
                     </div>
                 </div>
                 <div class="item">
@@ -24,7 +24,7 @@
                     </div>
                     <div class="btc1 ub ub-pj date">
                         <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
-                        <button>充值</button>
+                        <button @click="toRecharge">充值</button>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="btc1 ub ub-pj date">
                         <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
-                        <button>充值</button>
+                        <button @click="toRecharge">充值</button>
                     </div>
                 </div>
                 <div class="item">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="btc1 ub ub-pj date">
                         <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
-                        <button>充值</button>
+                        <button @click="toRecharge">充值</button>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="btc1 ub ub-pj date">
                         <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
-                        <button>充值</button>
+                        <button @click="toRecharge">充值</button>
                     </div>
                 </div>
                 <div class="item">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="btc1 ub ub-pj date">
                         <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
-                        <button>充值</button>
+                        <button @click="toRecharge">充值</button>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="btc1 ub ub-pj date">
                         <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
-                        <button>充值</button>
+                        <button @click="toRecharge">充值</button>
                     </div>
                 </div>
                 <div class="item">
@@ -96,7 +96,7 @@
                     </div>
                     <div class="btc1 ub ub-pj date">
                         <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
-                        <button>充值</button>
+                        <button @click="toRecharge">充值</button>
                     </div>
                 </div>
             </div>
@@ -117,6 +117,9 @@
         methods: {
             swtichTab(num){
                 this.curTabIndex = num;
+            },
+            toRecharge(){
+                this.$router.push('/recharge');
             },
             toAddMember(){
                 this.$router.push('/addMember');

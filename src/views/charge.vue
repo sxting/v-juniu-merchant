@@ -33,7 +33,7 @@
         <div class="foot ub">
             <div class="icon_goodbus" @click="openBookList"></div>
             <div class="ub-f1 selected ub ub-ac ub-pc" @click="openBookList">已选择{{productCount}}款产品<i class="arrow-right"></i></div>
-            <button :disabled="isDisabled" type="button">下一步</button>
+            <button :disabled="isDisabled" type="button" @click="toOrder">下一步</button>
         </div>
     </div>
 </template>
@@ -153,6 +153,9 @@ export default {
                 }
             }
             this.isDisabled = !Boolean(this.productCount);
+        },
+        toOrder(){
+            this.$router.push('/order');
         },
         toMemberCard(){
             this.$router.push('/memberCard');

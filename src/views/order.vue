@@ -8,7 +8,7 @@
             <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
                 <img src="../assets/user.png" class="udb">
                 <div class="ub-f1 ml10">
-                    <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
+                    <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="f12 mt05">10000000000</p>
                 </div>
                 <div class="userbtn" @click="toMemberCard">售卡/充值</div>
@@ -29,7 +29,7 @@
                 <div class="bbc plr20">
                     <div class="item ub ub-pj ub-ac">
                         <p class="ub-f1 sc f13">服务技师</p>
-                        <p class="bc f13">王云鹏</p><i class="arrow-right"></i>
+                        <p class="bc f13">王某某</p><i class="arrow-right"></i>
                     </div>
                     <div class="item ub ub-pj ub-ac">
                         <p class="ub-f1 sc f13">是否指定服务技师</p>
@@ -38,7 +38,7 @@
                           <div class="icon-off" v-else @click="switchBoolen1"></div>
                         </div>
                     </div>
-                    <div class="item ub ub-pj ub-ac"><p class="ub-f1 sc f13">服务小工</p><p class="bc f13">王云鹏</p><i class="arrow-right"></i></div>
+                    <div class="item ub ub-pj ub-ac"><p class="ub-f1 sc f13">服务小工</p><p class="bc f13">王某某</p><i class="arrow-right"></i></div>
                 </div>
                 <div class="item plr20 bbc ub ub-ac ub-pj"><p class="ub-f1 sc f13">折扣</p><p class="f13">9.5折</p><i class="arrow-right"></i></div>
                 <div class="item plr20 ub ub-pj"><p>实付</p><p class="rc">￥190</p></div>
@@ -54,7 +54,7 @@
             </div>
             <div class="ub">
                 <div class="ub-f1 total">￥190</div>
-                <button :disabled="isDisabled" type="button">去结算</button>
+                <button :disabled="isDisabled" type="button" @click="toerwmCharge">去结算</button>
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@ export default {
     name: "order",
     data() {
         return {
-            isDisabled:true,
+            isDisabled:false,
             bookNum:0,
             isShowBus:false,
             isSwitch1:true,
@@ -84,6 +84,9 @@ export default {
         },
         switchBoolen2(){
             this.isSwitch2 = !this.isSwitch2;
+        },
+        toerwmCharge(){
+            this.$router.push('/erwmCharge');
         },
         addGood(){
 
