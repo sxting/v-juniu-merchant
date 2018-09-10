@@ -19,7 +19,7 @@
         </div>
         <div class="ub ub-pc h200">
           <div @click="toElseBind()"><div class="circle ub ub-ac ub-pc"><span class="icon_check"></span></div><p>验证码绑定</p></div>
-          <div class="ml50"><div class="circle ub ub-ac ub-pc"><span class="icon_sao"></span></div><p>扫码绑定</p></div>
+          <div @click="toCourse()" class="ml50"><div class="circle ub ub-ac ub-pc"><span class="icon_sao"></span></div><p>扫码绑定</p></div>
         </div>
       </div>
   </div>
@@ -42,24 +42,28 @@ export default {
       this.showTime = true;
     },
     submit(){
+      this.$router.push('/charge');
       var reg = /^1[23456789]\d{9}$/;
       var mobile = delBlank(this.mobile);
       var password = delBlank(this.password);
-      if (mobile == ""){
-        this.$toast("请输入手机号码！");return;
-      }
-      if (!reg.test(mobile)){
-        this.$toast("手机格式不正确！");return;
-      }
-      if(password==""){
-        this.$toast("密码不能为空！");return;
-      }
+      // if (mobile == ""){
+      //   this.$toast("请输入手机号码！");return;
+      // }
+      // if (!reg.test(mobile)){
+      //   this.$toast("手机格式不正确！");return;
+      // }
+      // if(password==""){
+      //   this.$toast("密码不能为空！");return;
+      // }
     },
     toElseBind(){
       this.$router.push('/bindAccountbycode')
     },
     toForgetPsw(){
       this.$router.push('/forgetPsw')
+    },
+    toCourse(){
+      this.$router.push('/bindCourse')
     }
   },
   mounted() {
@@ -74,7 +78,7 @@ export default {
 
 .elseDiv{position: fixed;position: fixed;width: 100%;bottom: 0;left: 0;}
 .elseWay{position: relative; width: 100%;height: 0.60rem;}
-.elseWay .line{border-bottom: 1px solid #999; width: 100%;}
+.elseWay .line{border-bottom: 1px solid #dedede; width: 100%;}
 .elseWay > div.tit{position: absolute;width: 100%;height: 100%;left: 0;top: -50%;text-align: center;}
 .elseWay > div.tit > span{font-size: 0.24rem;display: inline-block;line-height: 0.60rem;background-color: #fff;padding: 0 0.20rem;color: #999}
 .h200{height: 1.8rem}

@@ -1,35 +1,21 @@
 <template>
     <div>
-        <div class="userInfo ub ub-ac bbc">
-            <img src="../assets/user.png" class="udb" width="60" height="60">
-            <div class="ub-f1 ml10">
-                <p class="f14">微信名字</p>
-                <p class="f12">店铺名称</p>
+        <div class="userInfo tx-c">
+            <div>
+                <img src="../assets/user.png" class="user" />
+                <p class="f14 bc tx-c mt15">用户名</p>
+                <p class="f14 bc1 tx-c mt10">审美造型龙泽店</p>
             </div>
         </div>
-        <div class="bgb mt10 btc">
-            <div class="item bbc ub ub-pj ub-ac">
-                <p class="f14 bc">姓名</p>
-                <p class="sc">ddddddd</p>
-            </div>
-            <div class="item bbc ub ub-pj ub-ac">
-                <p class="f14 bc">手机号</p>
-                <p class="sc">ddddddd</p>
-            </div>
-            <div class="item bbc ub ub-pj ub-ac">
-                <p class="f14 bc">职务</p>
-                <p class="sc">ddddddd</p>
-            </div>
-            <div class="item bbc ub ub-pj ub-ac">
-                <p class="f14 bc">所属门店</p>
-                <p class="sc">ddddddd</p>
+        <div class="plr15">
+            <div class="item bbc ub ub-pj ub-ac" @click="toMyInfo">
+                <p class="f14 bc">个人信息</p>
+                <span class="arrow-right"></span>
             </div>
         </div>
     </div>
 </template>
-
 <script>
-
     export default {
         name: "my",
         data() {
@@ -38,7 +24,9 @@
             };
         },
         methods: {
-
+            toMyInfo(){
+                this.$router.push('/myInfo');
+            }
         },
         computed: {
 
@@ -50,7 +38,9 @@
 </script>
 
 <style scoped>
-.userInfo p{color: #fff}
-.item{height: 0.84rem;padding-right: 0.30rem;padding-left: 0.30rem;}
-.userInfo{padding: 0.40rem 0.30rem;background-color: #ff6600;}
+.userInfo{background-image: linear-gradient(90deg, #FF8000 0%, #FF5000 100%);height: 2.66rem;padding-left: 0.30rem;padding-right: 0.30rem;padding-top: 1.00rem;}
+.userInfo div{background-color: #fff;border-radius: 0.10rem;padding-top: 1px;padding-bottom: 0.40rem}
+.user{display: block;width: 1.20rem;height: 1.20rem;border-radius: 50%;;margin: -0.8rem auto 0;border: 5px solid #fff;box-sizing:content-box;background-color: #fff}
+.item{height: 0.96rem;padding-right: 0.30rem;padding-left: 0.30rem;background-color: #fff;margin-top: 1rem;border-radius: 0.10rem}
+.tit{padding-left: 0.30rem;line-height: 0.72rem;font-size: 0.24rem;color: #666;}
 </style>

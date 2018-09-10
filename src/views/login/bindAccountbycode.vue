@@ -20,7 +20,7 @@
             <div class="tit"><span>其他绑定方式</span></div>
         </div>
         <div class="ub ub-pc h200">
-          <div @click="toElseBind"><div class="circle ub ub-ac ub-pc"><span class="icon_check"></span></div><p>密码绑定</p></div>
+          <div @click="toElseBind"><div class="circle ub ub-ac ub-pc"><span class="icon_pwd"></span></div><p>密码绑定</p></div>
           <div class="ml50"><div class="circle ub ub-ac ub-pc"><span class="icon_sao"></span></div><p>扫码绑定</p></div>
         </div>
       </div>
@@ -107,7 +107,7 @@ export default {
 
 .elseDiv{position: fixed;position: fixed;width: 100%;bottom: 0;left: 0;}
 .elseWay{position: relative; width: 100%;height: 0.60rem;}
-.elseWay .line{border-bottom: 1px solid #999; width: 100%;}
+.elseWay .line{border-bottom: 1px solid #dedede; width: 100%;}
 .elseWay > div.tit{position: absolute;width: 100%;height: 100%;left: 0;top: -50%;text-align: center;}
 .elseWay > div.tit > span{font-size: 0.24rem;display: inline-block;line-height: 0.60rem;background-color: #fff;padding: 0 0.20rem;color: #999}
 .h200{height: 1.8rem}
@@ -115,5 +115,5 @@ export default {
 .circle + p{font-size: 0.20rem;margin-top: 0.10rem;text-align: center;color: #999}
 .ml50{margin-left: 1rem;}
 .icon_sao{width:0.44rem;height:0.44rem;display: inline-block;background: url(../../assets/icon_sao.png) no-repeat center center; background-size: contain;}
-.icon_check{width:0.44rem;height:0.44rem;display: inline-block;background: url(../../assets/icon_check.png) no-repeat center center; background-size: contain;}
+.icon_pwd{width:0.44rem;height:0.44rem;display: inline-block;background: url(../../assets/icon_pwd.png) no-repeat center center; background-size: contain;}
 </style>

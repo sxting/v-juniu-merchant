@@ -78,7 +78,7 @@
                 this.bathDate = year+'-'+(month<10?'0'+month:month)+"-"+(day<10?'0'+day:day);
             },
             submit(){
-
+                history.go(-1);
             }
         },
         computed: {

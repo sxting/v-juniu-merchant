@@ -1,12 +1,20 @@
 <template>
     <div class="main">
         <div class="toper ub ub-ac">
-            <div class="searchBox ub-f1"><i class="icon icon_search"></i><input type="text" @focus="showList()" placeholder="会员查询"></div>
+            <div class="searchBox ub ub-f1 ub-ac">
+                <i class="icon_search"></i>
+                <input type="text" @focus="showList()" placeholder="会员查询">
+            </div>
             <div class="plr15 rc" @click="searchThis()">搜索</div>
             <ul class="result" v-show="isShowList">
-                <li class="ub" v-for="item in userList" @click="slectedItem(item)"><p>{{item.name}}</p><p class="ml30">{{item.tel}}</p></li>
+                <li class="ub ub-ac" v-for="item in userList" @click="slectedItem(item)">
+                    <p class="ub ub-ac w100"><i v-if="item.card==1" class="icon_card"></i></p>
+                    <p>{{item.name}}</p>
+                    <p class="ml30">{{item.tel}}</p>
+                </li>
             </ul>
         </div>
+        <div class="bodyBg" @click="hideList"></div>
     </div>
 </template>
 
@@ -15,7 +23,11 @@
         name: "charge",
         data() {
             return {
-                userList:[{name:"王某某",tel:"15011235620"},{name:"王某某",tel:"15011235620"},{name:"王某某",tel:"15011235620"}],
+                userList:[
+                    {name:"王某某",tel:"15011235620",card:1},
+                    {name:"王某某",tel:"15011235620",card:0},
+                    {name:"王某某",tel:"15011235620",card:0}
+                ],
                 isShowList:false
             };
         },
@@ -29,9 +41,6 @@
             },
             hideList(){
                 this.isShowList = false;
-            },
-            closeModal(){
-                this.isShowBus = false;
             }
         },
         computed: {
@@ -45,13 +54,14 @@
 
 <style scoped>
 .main{background: #fff;height: 100%;}
-.toper{height: 1.12rem;background: #f6f6f6;position: relative;}
-.searchBox{padding-left: 0.60rem;margin-left: 0.25rem;position: relative;background: #fff;height: 0.66rem;border-radius: 0.10rem}
+.w100{width: 1.0rem;}
+.toper{height: 1.12rem;background: #f6f6f6;position: relative;z-index: 1}
+.searchBox{margin-left: 0.25rem;position: relative;background: #fff;height: 0.66rem;border-radius: 0.33rem}
+.icon_search{margin-left: 0.20rem;margin-right: 0.12rem;}
 .searchBox input{width: 100%;height: 0.60rem;line-height: 0.60rem}
-.icon{display:inline-block;}
-.icon_search{position: absolute;top: 0.15rem;left: 0.14rem;width: 0.26rem;height: 0.29rem;background: url(../../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
 .result{position: absolute;width: 100%;top: 1.12rem;left: 0;}
-.result li{background-color: #fff;line-height: 0.72rem;padding-left: 0.30rem;border-bottom: 1px #eee solid;}
+.result li{background-color: #fff;line-height: 0.76rem;padding-left: 0.30rem;border-bottom: 1px #eee solid;}
 .result li p{color: #666;font-size: 0.24rem}
 .ml30{margin-left: 0.60rem;}
+.bodyBg{background-color: #fff;position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 0}
 </style>

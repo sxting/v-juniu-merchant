@@ -1,12 +1,12 @@
 <template>
     <div class="main">
         <div class="toper ub ub-ac">
-            <div class="searchBox ub-f1"><i class="icon icon_search"></i><input type="text" placeholder="会员查询"></div>
+            <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac"><i class="icon_search mr05"></i>查询会员</div>
             <div class="openMember tx-c" @click="toAddMember"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
         </div>
         <div class="content plr15">
             <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
-                <img src="../assets/user.png" class="udb">
+                <img src="../assets/user.png" class="udb" @click="toMemberInfo">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="f12 mt05">10000000000</p>
@@ -88,8 +88,14 @@ export default {
         toerwmCharge(){
             this.$router.push('/erwmCharge');
         },
+        toMemberInfo(){
+            this.$router.push('/memberInfo');
+        },
         addGood(){
 
+        },
+        toMemberSearch(){
+            this.$router.push('/memberSearch');
         },
         toMemberCard(){
             this.$router.push('/memberCard');
@@ -116,10 +122,7 @@ export default {
 <style scoped>
 .main{background: #f2f2f2;padding-top:1.12rem;height: 100%;padding-bottom: 1rem;}
 .toper{height: 1.12rem;background: #f6f6f6;position: fixed;top: 0;left: 0;width: 100%;z-index: 999;}
-.searchBox{padding-left: 0.64rem;margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem}
-.searchBox input{width: 100%;height: 0.64rem;line-height: 0.64rem}
-.icon{display:inline-block;}
-.icon_search{position: absolute;top: 0.18rem;left: 0.28rem;width: 0.26rem;height: 0.29rem;background: url(../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
+.searchBox{margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem;padding-left: 0.20rem;color: #999;font-size: 0.28rem;}
 .content{position: relative;height: 100%;overflow: auto;}
 .orderInfo{margin-top:0.20rem;border-radius: 0.20rem;background-color: #ffffff;}
 .orderInfo .item{height: 1.0rem;line-height: 1.0rem;}

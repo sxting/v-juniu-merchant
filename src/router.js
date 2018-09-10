@@ -63,11 +63,23 @@ const routes = [{
         path: '/bindAccountbycode',
         component: (resolve) => require(['./views/login/bindAccountbycode'], resolve)
     },{
+        path: '/bindCourse',
+        component: (resolve) => require(['./views/login/bindCourse'], resolve)
+    },{
         path: '/orderList',
         component: (resolve) => require(['./views/order/orderList'], resolve)
     },{
         path: '/orderDetail',
         component: (resolve) => require(['./views/order/orderDetail'], resolve)
+    },{
+        path: '/myInfo',
+        component: (resolve) => require(['./views/my/myInfo'], resolve)
+    },{
+        path: '/booklist',
+        component: (resolve) => require(['./views/booklist'], resolve)
+    },{
+        path: '/dirCharge',
+        component: (resolve) => require(['./views/dirCharge'], resolve)
     },{
         path: '/entry',
         component: (resolve) => require(['./views/entry'], resolve)
@@ -75,7 +87,7 @@ const routes = [{
 ];
 
 const router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     base: '/',
     routes
 });

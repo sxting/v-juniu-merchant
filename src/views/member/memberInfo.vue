@@ -61,6 +61,17 @@
                         <span class="t">余额</span><span class="b">储值卡</span>
                     </div>
                 </div>
+                <div class="ub ub-pj ub-ac bgb item">
+                    <div class="tx-c">
+                        <span class="t">2018-02-02</span><span class="b">储值卡</span>
+                    </div>
+                    <div class="tx-c">
+                        <span class="t">发型总监设计</span><span class="b">储值卡</span>
+                    </div>
+                    <div class="tx-c">
+                        <span class="t">余额</span><span class="b">储值卡</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

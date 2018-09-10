@@ -1,51 +1,50 @@
 <template>
-    <div class="hexiao">
-        <div class="hexiao-content">
-            <group label-width="5em">
-                <popup-picker :title="title1" :data="list1" :columns="1" @on-show="onShow" @on-change="onChange" v-model="value1" show-name :placeholder="storeName"></popup-picker>
-            </group>
-            <div class="ub ub-ac bgb inputDiv btc plr15">
-                <p>核销码</p>
-                <input type="number" class="ub-f1 inputNumber tx-r" placeholder="请输入顾客核销码" v-model="receiptCode" @keyup="formatInput('receiptCode')" />
+    <div class="main">
+        <div class="ub ub-ac bgb">
+            <input type="number" class="ub-f1 code" placeholder="请输入券码对应的数字码" v-model="receiptCode" @keyup="formatInput('receiptCode')" />
+            <span class="icon_calener mr10"></span>
+        </div>
+        <div class="btn">
+            <button class="btn_common" @click="submitData(title)">确认核销</button>
+        </div>
+
+        <div class="recordItem">
+            <p class="time">今天</p>
+            <div class="ub ub-ac ub-pj item bbc">
+                <div>
+                    <p class="bc1 f14 tx-l">+100</p>
+                    <p class="bc1 f14 tx-l">15011150022</p>
+                </div>
+                <div>
+                    <p class="sc f13 tx-r">已核销</p>
+                    <p class="sc f13 tx-r">2018-04-09</p>
+                </div>
             </div>
-            <div class="btn" @click="submitData(title)">
-                <x-button type="primary" :gradients="['#FF6600', '#FF9500']">确认核销</x-button>
+            <div class="ub ub-ac ub-pj item">
+                <div>
+                    <p class="bc1 f14 tx-l">+100</p>
+                    <p class="bc1 f14 tx-l">15011150022</p>
+                </div>
+                <div>
+                    <p class="sc f13 tx-r">已核销</p>
+                    <p class="sc f13 tx-r">2018-04-09</p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { XInput, PopupPicker, Group, XButton } from 'vux';
 export default {
     name: "hexiao",
     data() {
         return {
-            title: '口碑核销',
-            title1: '请选择门店',
-            storeName: '请选择',
-            titletype: '核销码',
-            placeholderText: '请输入顾客核销码',
-            value1: [],
-            list1: ['门店1','门店2'],
-            ifShowLoading: false,
-            receiptCode: '',//核销码
-            shopId: '',//门店ID
-            onShow:false
+            shopId:'',
+            receiptCode: ''
         };
     },
-    components: {
-        PopupPicker,
-        Group,
-        XInput,
-        XButton,
-    },
+    components: {},
     methods: {
-        onChange (val) {
-            this.shopId = val[0];
-            console.log(this.shopId);
-        },
-        //格式化输入的字符
         formatInput(value) {
             this[value] = String(this[value]).replace(/[^\d]/g, ""); //清除“数字”以外的字符
         },
@@ -90,37 +89,16 @@ export default {
         }
     },
     created(){
-        document.title = "输码核销";
-        if(this.$route.params.type === 'meituan'){
-            this.title = '美团核销';
-            this.titletype = '输入券码';
-            this.placeholderText = '请输入团购券序列号'
-        }else if(this.$route.params.type === 'kouebi'){
-            this.title = '口碑核销';
-            this.titletype = '核销码';
-            this.placeholderText = '请输入顾客核销码'
-        }else {
-            this.title = '微信核销';
-            this.titletype = '核销码'
-        }
-        // let arrShopList = JSON.parse(sessionStorage.getItem('staffInfo')).alipayShopList||{};
-        var arrShopList = [];
-        var arrStoreList = [];
-        arrShopList.forEach(function (item) {
-            let list = {
-                name: item.shopName,
-                value: item.shopId
-            };
-            arrStoreList.push(list);
-        });
-        this.list1 = arrStoreList;
+
     }
 }
 </script>
 
 <style scoped>
-.hexiao{ width: 100%; height: 100%;}
-.btn{padding: 0 0.3rem; margin-top: 1rem;}
-.inputDiv{height: 1.0rem}
-.inputNumber{height: 0.96rem;line-height: 0.96rem;font-size: 0.28rem;margin-left: 0.20rem;}
+.main{height: 100%;padding: 0.30rem 0.30rem 0}
+.code{height: 0.88rem;line-height: 0.88rem;font-size: 0.28rem;padding-left: 0.20rem}
+.btn{margin-top: 0.60rem;}
+.time{padding-left: 0.06rem;font-size: 0.24rem;color: #999;line-height: 0.88rem;}
+.mr10{margin-right: 0.20rem}
+.item{background-color: #fff;padding:0.10rem 0.16rem;border-radius: 0.10rem}
 </style>

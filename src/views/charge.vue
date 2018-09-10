@@ -1,12 +1,16 @@
 <template>
     <div class="main ub ub-ver">
         <div class="toper ub ub-ac">
-            <div class="searchBox ub-f1"><i class="icon icon_search"></i><input type="text" placeholder="会员查询"></div>
-            <div class="openMember tx-c" @click="toAddMember"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
-            <div class="openMore tx-c"><i class="icon icon_more"></i><p class="tx-c f12">更多</p></div>
+            <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac"><i class="icon_search mr05"></i>会员查询</div>
+            <div class="openMember tx-c" @click="toPath('/addMember')"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
+            <div class="openMore tx-c" @click="showMenu"><i class="icon_more"></i><p class="tx-c f12">更多</p></div>
+            <ul class="menu" v-show="isShowMenu">
+                <li click="toHistory" @click="toPath('/orderList')">历史订单</li>
+                <li click="toCharge" @click="toPath('/dirCharge')">直接收款</li>
+            </ul>
         </div>
         <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
-            <img src="../assets/user.png" class="udb bac">
+            <img src="../assets/user.png" class="udb bac" @click="toMemberInfo">
             <div class="ub-f1 ml10">
                 <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                 <p class="f12 mt05">10000000000</p>
@@ -52,6 +56,7 @@ export default {
             isShowBus:false,
             bookNum:[0,0,0],
             productCount:0,
+            isShowMenu:false,
             tabList:['项目1','项目2','项目3','项目4'],
             curTabindex:0,
             productList:[{
@@ -154,11 +159,20 @@ export default {
             }
             this.isDisabled = !Boolean(this.productCount);
         },
+        showMenu(){
+            this.isShowMenu = !Boolean(this.isShowMenu);
+        },
+        toMemberInfo(){
+            this.$router.push('/memberInfo');
+        },
         toOrder(){
             this.$router.push('/order');
         },
         toMemberCard(){
             this.$router.push('/memberCard');
+        },
+        toMemberSearch(){
+            this.$router.push('/memberSearch');
         },
         handleScroll(){
             var list = this.$refs.productDiv;
@@ -169,15 +183,15 @@ export default {
             this.curTabindex = parseInt(this.productList[curIndex].type);
         },
         moveTop(index) {
-            this.curTabindex = index;
-            var timer = setInterval(() => {
-               var scrollTop = this.$refs.productDiv.scrollTop;
-               var speed = Math.floor(-scrollTop/6);
-               if(scrollTop==index*80){
-                   clearInterval(timer);
-               }
-               this.$refs.productDiv.scrollTop=scrollTop+speed;
-           },100);
+           //  this.curTabindex = index;
+           //  var timer = setInterval(() => {
+           //     var scrollTop = this.$refs.productDiv.scrollTop;
+           //     var speed = Math.floor(-scrollTop/6);
+           //     if(scrollTop==index*80){
+           //         clearInterval(timer);
+           //     }
+           //     this.$refs.productDiv.scrollTop=scrollTop+speed;
+           // },100);
         },
         openBookList(){
             this.isShowBus = !this.isShowBus;
@@ -185,8 +199,8 @@ export default {
         closeModal(){
             this.isShowBus = false;
         },
-        toAddMember(){
-            this.$router.push('/addMember');
+        toPath(str){
+            this.$router.push(str);
         }
     },
     computed: {
@@ -205,10 +219,11 @@ export default {
 .main{height: 100%;}
 .list{padding-bottom: 1rem;/*transition: all .3s ease;*/}
 .toper{height: 1.12rem;background: #f6f6f6;;width: 100%;}
-.searchBox{padding-left: 0.64rem;margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem}
-.searchBox input{width: 100%;height: 0.64rem;line-height: 0.64rem}
-.icon{display:inline-block;}
-.icon_search{position: absolute;top: 0.18rem;left: 0.28rem;width: 0.26rem;height: 0.29rem;background: url(../assets/icon_search.png) no-repeat center;background-size: 100% 100%;}
+.searchBox{margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem;padding-left: 0.20rem;color: #999;font-size: 0.28rem;}
+
+.menu{width: 2rem;background-color: #fff;border-radius: 0.10rem;position: absolute;top: 1.2rem;right: 0.10rem;z-index: 9999;box-shadow: #666 0px 0px 10px;}
+.menu li{text-align: center;line-height: 0.80rem}
+
 .content{background: #fff;padding-left: 1.7rem;position: relative;overflow: auto;}
 .sidebar{width: 1.5rem;position: fixed;top: 1.12rem;left: 0;background: #f6f6f6}
 .sidebar li{height: 0.80rem;padding-left: 0.30rem;font-size: 0.28rem;color: #333;line-height: 0.80rem;font-size: 0.26rem}
