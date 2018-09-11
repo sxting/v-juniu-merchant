@@ -18,8 +18,8 @@
                 </div>
             </div>
             <div class="tx-r pb30 mt10">
-                <button class="btn_concel" @click="cancelOrder()">拒绝</button>
-                <button class="btn_read" @click="readOrder()">接受</button>
+                <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
+                <button class="btn_read" @click="okOrder('id')">接受</button>
             </div>
         </div>
         <div class="orderInfo" v-show="curTabIndex==1">
@@ -36,10 +36,6 @@
                     <p class="f13 rc">￥200.00</p>
                 </div>
             </div>
-            <div class="tx-r pb30 mt10">
-                <button class="btn_concel" @click="cancelOrder()">拒绝</button>
-                <button class="btn_read" @click="readOrder()">接受</button>
-            </div>
         </div>
         <div class="orderInfo" v-show="curTabIndex==2">
             <p class="time">开单时间：2030-10-10 10:10:10</p>
@@ -54,10 +50,6 @@
                     <p class="f13 sc mt05">服务技师：王某某</p>
                     <p class="f13 rc">￥200.00</p>
                 </div>
-            </div>
-            <div class="tx-r pb30 mt10">
-                <button class="btn_concel" @click="cancelOrder()">拒绝</button>
-                <button class="btn_read" @click="readOrder()">接受</button>
             </div>
         </div>
     </div>
@@ -78,13 +70,13 @@ export default {
 
     },
     methods: {
-        readOrder(){
-            this.$router.push('/orderDetail');
+        okOrder(id){
+            console.log("订单已接受");
         },
         switchTab(index){
             this.curTabIndex = index;
         },
-        cancelOrder(){
+        cancelOrder(id){
             MessageBox.confirm('确定执行此操作?').then(action => {
                 console.log("订单已撤销");
             });

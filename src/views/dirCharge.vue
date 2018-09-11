@@ -15,13 +15,16 @@
             </div>
             <div class="orderInfo mt10">
                 <div class="item bbc ub ub-ac">
-                    <p class="ub-f1 sc f13">请输入结算金额</p><input type="text"><p class="f13 rc">元</p>
+                    <p class="ub-f1 sc f13">请输入结算金额</p><input type="text" class="tx-c"><p class="f13 rc">元</p>
                 </div>
-                <div v-if="isShowMember" class="item ub ub-ac">
-                    <p class="ub-f1">选择扣卡</p><p class="f13 rc mr05">-￥13.00</p><p class="bc">黄金储值卡</p><i class="arrow-right"></i>
+                <div v-if="isShowMember" class="item ub ub-ac" @click="showCard">
+                    <p class="ub-f1">选择扣卡</p><p class="f13 rc mr05" v-if="cardName!='选择优惠'">-￥13.00</p><p class="bc">{{cardName}}</p><i class="arrow-right"></i>
                 </div>
             </div>
         </div>
+        <mt-popup v-model="sheetVisible" position="bottom" class="w_100">
+          <div class="selectItem" v-for="item in slotArr" @click="selectCard(item)">{{item}}</div>
+        </mt-popup>
     </div>
 </template>
 
@@ -33,6 +36,9 @@ export default {
             isDisabled:true,
             isShowMember:true,
             isShowBus:false,
+            sheetVisible:false,
+            slotArr:['超值折扣卡','黄金储值卡','白金优惠卡'],
+            cardName:'选择优惠',
         };
     },
     methods: {
@@ -47,6 +53,13 @@ export default {
         },
         toPath(str){
             this.$router.push(str);
+        },
+        showCard(){
+            this.sheetVisible=true;
+        },
+        selectCard(item){
+            this.cardName = item;
+            this.sheetVisible=false;
         }
     },
     computed: {
@@ -71,7 +84,7 @@ export default {
 .userInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.30rem;}
 .userbtn{background-color: #ff6000;color: #fff;width:1.6rem;height: 0.50rem;border-radius: 0.30rem;font-size: 0.24rem;text-align: center;line-height: 0.46rem;}
 .orderInfo{background-color: #fff; border-radius: 0.10rem}
-.item input{height: 0.60rem;border-bottom: 1px #ff6000 solid;width: 1rem}
+.item input{height: 0.60rem;border-bottom: 1px #ff6000 solid;width: 1rem;font-size: 0.30rem}
 .orderInfo .item{padding-left: 0.20rem;padding-right: 0.20rem;height: 0.96rem;}
 .mr05{margin-right: 0.10rem;}
 </style>

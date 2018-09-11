@@ -1,13 +1,8 @@
 <template>
     <div class="main">
         <div class="toper">
-            <img src="../../assets/icon_success.png" class="udb mato" width="60" height="60">
-            <p class="bc f16 tx-c mt15">核销成功</p>
-            <p class="sc f12 tx-c mt05">顾客名称(15011562222)</p>
-            <div class="mt20 ub plr15">
-                <div class="btn_back ub-f1 ub ub-ac ub-pc mr20">返回首页</div>
-                <div class="btn_print ub-f1 ub ub-ac ub-pc">打印小票</div>
-            </div>
+            <h1>¥99.5</h1>
+            <p class="f14">商家实收（元）</p>
         </div>
         <p class="tit">商品信息</p>
         <div class="item ub ub-ac ub-pj">
@@ -80,7 +75,9 @@
 
 <style scoped>
 .main{height: 100%;overflow: auto}
-.toper{padding: 0.8rem 0 0.50rem;background-color: #fff}
+.toper{padding: 0.88rem;background-color: #ff6000;color: #fff}
+.toper h1{font-size: 0.60rem;font-weight: bold;text-align: center;}
+.toper p{font-size: 0.28rem;text-align: center;}
 .tit{padding-left: 0.30rem;line-height: 0.60rem;font-size: 0.28rem;color: #666;font-size: 0.24rem;}
 .btn{width: 2.8rem; height: 0.70rem;font-size: 0.28rem;line-height: 0.68rem;text-align: center;background-color: #fff;color:#999;border-radius: 0.10rem;border:1px #eee solid;}
 .userInfo{background-color: #fff;padding:0.25rem 0.30rem; border-radius: 0.20rem}

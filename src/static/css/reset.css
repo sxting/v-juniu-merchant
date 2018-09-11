@@ -78,8 +78,14 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .openMember{width: 1.6rem}
 .icon_member{display: inline-block;width: 0.34rem;height: 0.28rem;background: url(../../assets/icon_member.png) no-repeat center;background-size: 100% 100%;}
 .openMore{width: 0.80rem;}
-.icon_more{display:inline-block;width: 0.28rem;height: 0.28rem;background: url(../../assets/icon_more.png) no-repeat center;background-size: 100% 100%;}
+.icon_more{display:inline-block;width: 0.34rem;height: 0.28rem;background: url(../../assets/icon_more.png) no-repeat center;background-size: 100% 100%;}
 .icon_order{display: inline-block;width: 0.40rem;height: 0.40rem;background: url(../../assets/symbols-order_zk.png) no-repeat center center;background-size: 100% 100%;margin-right: 0.10rem}
 .icon_search{display: inline-block;width: 0.28rem;height: 0.29rem;background: url(../../assets/icon_search.png) no-repeat center center;background-size: 100% 100%;}
 
 .icon_logo{width: 1.80rem;height: 0.80rem;background: url(../../assets/icon_logo.png) no-repeat center center;background-size: 100% 100%;}
+
+.w_100{width: 100%;}
+.selectItem{width: 100%;font-size: 14px;text-align: center;border-bottom: 1px #eee solid;padding: 0.16rem 0}
+
+.picker-confirm{width: 1.4rem; float: right; color: #ff6000;display: inline-block; text-align: center; line-height: 40px; font-size: 16px;}
+.picker-cancel{width: 1.4rem; float: left; color: #999999;display: inline-block; text-align: center; line-height: 40px; font-size: 16px;}

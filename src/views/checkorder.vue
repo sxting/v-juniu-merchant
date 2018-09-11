@@ -2,10 +2,10 @@
     <div class="main">
         <div class="ub ub-ac bgb">
             <input type="number" class="ub-f1 code" placeholder="请输入券码对应的数字码" v-model="receiptCode" @keyup="formatInput('receiptCode')" />
-            <span class="icon_calener mr10"></span>
+            <span class="icon_sao1 mr10"></span>
         </div>
         <div class="btn">
-            <button class="btn_common" @click="submitData(title)">确认核销</button>
+            <button class="btn_common" @click="submit()">确认核销</button>
         </div>
 
         <div class="recordItem">
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-    name: "hexiao",
+    name: "checkOrder",
     data() {
         return {
             shopId:'',
@@ -48,44 +48,41 @@ export default {
         formatInput(value) {
             this[value] = String(this[value]).replace(/[^\d]/g, ""); //清除“数字”以外的字符
         },
-        submitData(type){
-            console.log('submit data' + type);
-            let self = this;
-            if(type === '口碑核销'){
-                console.log(self.receiptCode);
-                this.$ajax.get("merchant/order/koubei/ticket.json", {
-                    params: {
-                        shopId: self.shopId,
-                        ticketNo: self.receiptCode,
-                        isQuery: 'T'
-                    }
-                }).then(function (result) {
-                    console.log(result.data);
-                    if (result.data.errorCode == "10000") {
-                        alert('核销成功');
-                        self.$router.push('/home');
-                    } else {
-                        alert(result.data.errorInfo);
-                    }
-                });
-            }else if(type === '美团核销'){
-                this.$ajax.get("xmd/tuangou/receipt/prepare.json",{
-                    params: {
-                        storeId: self.shopId,
-                        receiptCode: self.receiptCode
-                    }
-                }).then(function (result) {
-                    console.log(result.data);
-                    if (result.data.errorCode == "10000") {
-                        alert('核销成功');
-                        self.$router.push('/home');
-                    } else {
-                        alert(result.data.errorInfo);
-                    }
-                });
-            }else {//微信核销
-
-            }
+        submit(){
+            this.$router.push('/checkConfirm');
+            // if(type === '口碑核销'){
+            //     console.log(self.receiptCode);
+            //     this.$ajax.get("merchant/order/koubei/ticket.json", {
+            //         params: {
+            //             shopId: self.shopId,
+            //             ticketNo: self.receiptCode,
+            //             isQuery: 'T'
+            //         }
+            //     }).then(function (result) {
+            //         console.log(result.data);
+            //         if (result.data.errorCode == "10000") {
+            //             alert('核销成功');
+            //             self.$router.push('/home');
+            //         } else {
+            //             alert(result.data.errorInfo);
+            //         }
+            //     });
+            // }else if(type === '美团核销'){
+            //     this.$ajax.get("xmd/tuangou/receipt/prepare.json",{
+            //         params: {
+            //             storeId: self.shopId,
+            //             receiptCode: self.receiptCode
+            //         }
+            //     }).then(function (result) {
+            //         console.log(result.data);
+            //         if (result.data.errorCode == "10000") {
+            //             alert('核销成功');
+            //             self.$router.push('/home');
+            //         } else {
+            //             alert(result.data.errorInfo);
+            //         }
+            //     });
+            // }
         }
     },
     created(){
@@ -101,4 +98,5 @@ export default {
 .time{padding-left: 0.06rem;font-size: 0.24rem;color: #999;line-height: 0.88rem;}
 .mr10{margin-right: 0.20rem}
 .item{background-color: #fff;padding:0.10rem 0.16rem;border-radius: 0.10rem}
+.icon_sao1{display: inline-block;width: 0.40rem;height: 0.40rem;background: url(../assets/icon_sao1.png) no-repeat center center;background-size: 100% 100%;}
 </style>

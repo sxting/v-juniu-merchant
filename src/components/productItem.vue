@@ -46,5 +46,4 @@ export default {
 .icon_del{width: 0.40rem;height: 0.40rem;background: url(../assets/icon_del.png);background-size: 100% 100%;display:block;}
 .icon_add{width: 0.40rem;height: 0.40rem;background: url(../assets/icon_add.png);background-size: 100% 100%;display:block;}
 .book_num{width: 0.48rem;height: 0.48rem;text-align: center;font-size: 0.28rem;display: block;}
-
 </style>

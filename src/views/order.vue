@@ -13,20 +13,20 @@
                 </div>
                 <div class="userbtn" @click="toMemberCard">售卡/充值</div>
             </div>
-            <div class="clearfix h50 plr10 mt10">
-                <span class="ufl sc f13">服务信息</span>
-                <span class="ufr addGood" @click="addGood()">+添加产品</span>
+            <div class="h50 plr10 mt10 ub ub-ac ub-pj">
+                <span class="sc f13">服务信息</span>
+                <span class="addGood" @click="addGood()">+添加产品</span>
             </div>
             <div class="orderInfo">
                 <div class="item plr20 bbc ub ub-ac ub-pj">
-                    <p class="ub ub-ac"><i class="icon_order"></i>项目名称</p>
+                    <p class="ub ub-ac"><i class="icon_drop" @click="dropOrder"></i>项目名称</p>
                     <p class="ub ub-ac numBox">
-                        <span @click="" class="ctlbtn"><i class="icon-del iconfont"></i></span>
-                        <i class="number btbc">1</i>
-                        <span @click="" class="ctlbtn"><i class="icon-add iconfont"></i></span>
+                        <span @click="delOne" class="ctlbtn"><i class="icon-del iconfont"></i></span>
+                        <i class="number btbc">{{bookNum}}</i>
+                        <span @click="addOne()" class="ctlbtn"><i class="icon-add iconfont"></i></span>
                     </p>
                 </div>
-                <div class="bbc plr20">
+                <div class="bbc plr20" v-show="isShowMoreItem">
                     <div class="item ub ub-pj ub-ac">
                         <p class="ub-f1 sc f13">服务技师</p>
                         <p class="bc f13">王某某</p><i class="arrow-right"></i>
@@ -67,6 +67,7 @@ export default {
         return {
             isDisabled:false,
             bookNum:0,
+            isShowMoreItem:false,
             isShowBus:false,
             isSwitch1:true,
             isSwitch2:true,
@@ -78,6 +79,9 @@ export default {
             if(this.bookNum>0){
                 this.bookNum--;
             }
+        },
+        dropOrder(){
+            this.isShowMoreItem = !this.isShowMoreItem;
         },
         switchBoolen1(){
             this.isSwitch1 = !this.isSwitch1;
@@ -92,7 +96,7 @@ export default {
             this.$router.push('/memberInfo');
         },
         addGood(){
-
+            this.$router.push('/charge');
         },
         toMemberSearch(){
             this.$router.push('/memberSearch');
@@ -102,6 +106,10 @@ export default {
         },
         addOne(){
             this.bookNum++;
+        },
+        delOne(){
+            if(this.bookNum>0)
+            this.bookNum--;
         },
         openBookList(){
             this.isShowBus = !this.isShowBus;
@@ -144,4 +152,6 @@ export default {
 
 .numBox .ctlbtn{width: 0.56rem;height:0.48rem;line-height: 0.48rem;background-color: #eee;text-align: center;}
 .numBox .number{width: 0.60rem;height:0.48rem;line-height: 0.48rem;background-color: #fff;text-align: center;}
+
+.icon_drop{width: 0.32rem;height: 0.28rem;background: url(../assets/icon_drop.png);background-size: 100% 100%;margin-right: 0.08rem}
 </style>

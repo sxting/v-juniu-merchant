@@ -1,38 +1,27 @@
 <!-- 主页view -->
 <template>
-    <div id="index">
-        业绩
+    <div class="main ub ub-ac ub-pc">
+        这是业绩页面
     </div>
 </template>
 
 <script>
+export default {
+    name: "records",
+    data() {
+        return {
+            msg: 'my',
+        };
+    },
+    methods: {
 
-    export default {
-        name: "App",
-        data() {
-            return {
-                msg: 'my',
-            };
-        },
-        methods: {
-            sayHi() {
-                this.msg = 'hi, my'
-            }
-        },
-        computed: {
-            getNavIndex() {
-                return '';
-            }
-        },
-        created() {
+    },
+    created() {
 
-        }
-    };
-
+    }
+};
 </script>
 
-<style>
-.h48{height: 0.96rem;}
-.userList p{font-size: 0.30rem;line-height: 0.96rem;}
-
+<style scoped>
+.main{height: 100%;}
 </style>
