@@ -11,11 +11,11 @@
                     <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="f12 mt05">10000000000</p>
                 </div>
-                <div class="userbtn" @click="toMemberCard">售卡/充值</div>
+                <div class="userbtn btn_vc" @click="toMemberCard">售卡/充值</div>
             </div>
             <div class="h50 plr10 mt10 ub ub-ac ub-pj">
                 <span class="sc f13">服务信息</span>
-                <span class="addGood" @click="addGood()">+添加产品</span>
+                <div class="addGood btn_vc" @click="addGood()">+添加产品</div>
             </div>
             <div class="orderInfo">
                 <div class="item plr20 bbc ub ub-ac ub-pj">
@@ -27,9 +27,9 @@
                     </p>
                 </div>
                 <div class="bbc plr20" v-show="isShowMoreItem">
-                    <div class="item ub ub-pj ub-ac">
+                    <div class="item ub ub-pj ub-ac" @click="openPicker1">
                         <p class="ub-f1 sc f13">服务技师</p>
-                        <p class="bc f13">王某某</p><i class="arrow-right"></i>
+                        <p class="bc f13">{{name1}}</p><i class="arrow-right"></i>
                     </div>
                     <div class="item ub ub-pj ub-ac">
                         <p class="ub-f1 sc f13">是否指定服务技师</p>
@@ -38,9 +38,16 @@
                           <div class="icon-off" v-else @click="switchBoolen1"></div>
                         </div>
                     </div>
-                    <div class="item ub ub-pj ub-ac"><p class="ub-f1 sc f13">服务小工</p><p class="bc f13">王某某</p><i class="arrow-right"></i></div>
+                    <div class="item ub ub-pj ub-ac" @click="openPicker2">
+                        <p class="ub-f1 sc f13">服务小工</p>
+                        <p class="bc f13">{{name2}}</p><i class="arrow-right"></i>
+                    </div>
                 </div>
-                <div class="item plr20 bbc ub ub-ac ub-pj"><p class="ub-f1 sc f13">折扣</p><p class="f13">9.5折</p><i class="arrow-right"></i></div>
+                <div class="item plr20 bbc ub ub-ac ub-pj" @click="openPicker3">
+                    <p class="ub-f1 sc f13">折扣</p>
+                    <p class="f13">{{name3}}</p>
+                    <i class="arrow-right"></i>
+                </div>
                 <div class="item plr20 ub ub-pj"><p>实付</p><p class="rc">￥190</p></div>
             </div>
         </div>
@@ -57,12 +64,40 @@
                 <button :disabled="isDisabled" type="button" @click="toerwmCharge">去结算</button>
             </div>
         </div>
+        <!-- 服务技师 -->
+        <mt-popup v-model="pickerVisible1" position="bottom" class="w_100">
+            <div class="picker-toolbar bbc">
+                <span class="picker-cancel" @click="closePicker">取消</span> 
+                <span class="picker-confirm" @click="closePicker">完成</span>
+            </div>
+            <mt-picker :slots="actions1" @change="onPickerChange1"></mt-picker>
+        </mt-popup>
+        <!-- 服务小工 -->
+        <mt-popup v-model="pickerVisible2" position="bottom" class="w_100">
+            <div class="picker-toolbar bbc">
+                <span class="picker-cancel" @click="closePicker">取消</span> 
+                <span class="picker-confirm" @click="closePicker">完成</span>
+            </div>
+            <mt-picker :slots="actions2" @change="onPickerChange2"></mt-picker>
+        </mt-popup>
+        <!-- 折扣 -->
+        <mt-popup v-model="pickerVisible3" position="bottom" class="w_100">
+            <div class="picker-toolbar bbc">
+                <span class="picker-cancel" @click="closePicker">取消</span> 
+                <span class="picker-confirm" @click="closePicker">完成</span>
+            </div>
+            <mt-picker :slots="actions3" @change="onPickerChange3"></mt-picker>
+        </mt-popup>
+        <payWay ref="payWay" v-show="isShowPayWay" :isShowPayWay.sync="isShowPayWay"></payWay>
     </div>
 </template>
 
 <script>
+import {popup,picker } from 'mint-ui';
+import payWay from '@/components/payWay.vue';
 export default {
     name: "order",
+    components:{payWay},
     data() {
         return {
             isDisabled:false,
@@ -71,7 +106,24 @@ export default {
             isShowBus:false,
             isSwitch1:true,
             isSwitch2:true,
-            isShowMember:true
+            isShowMember:true,
+            //弹框选择
+            pickerVisible1:false,//服务技师
+            pickerVisible2:false,//服务小工
+            pickerVisible3:false,//折扣
+            actions1:[{
+              values: ['技师1', '技师2', '技师3', '技师4', '技师5', '技师6']
+            }],
+            actions2:[{
+              values: ['小工1', '小工2', '小工3', '小工4', '小工5', '小工6']
+            }],
+            actions3:[{
+              values: ['折扣1', '折扣2', '折扣3', '折扣4', '折扣5', '折扣6']
+            }],
+            name1:'',
+            name2:'',
+            name3:'',
+            isShowPayWay:false,
         };
     },
     methods: {
@@ -90,7 +142,8 @@ export default {
             this.isSwitch2 = !this.isSwitch2;
         },
         toerwmCharge(){
-            this.$router.push('/erwmCharge');
+            this.isShowPayWay=true;
+            // this.$router.push('/erwmCharge');
         },
         toMemberInfo(){
             this.$router.push('/memberInfo');
@@ -110,6 +163,29 @@ export default {
         delOne(){
             if(this.bookNum>0)
             this.bookNum--;
+        },
+        openPicker1(){
+            this.pickerVisible1 = true;
+        },
+        openPicker2(){
+            this.pickerVisible2 = true;
+        },
+        openPicker3(){
+            this.pickerVisible3 = true;
+        },
+        closePicker(){
+            this.pickerVisible1 = false;
+            this.pickerVisible2 = false;
+            this.pickerVisible3 = false;
+        },
+        onPickerChange1(picker,values){
+            this.name1 = values[0];
+        },
+        onPickerChange2(picker,values){
+            this.name2 = values[0];
+        },
+        onPickerChange3(picker,values){
+            this.name3 = values[0];
         },
         openBookList(){
             this.isShowBus = !this.isShowBus;
@@ -135,12 +211,12 @@ export default {
 .orderInfo{margin-top:0.20rem;border-radius: 0.20rem;background-color: #ffffff;}
 .orderInfo .item{height: 1.0rem;line-height: 1.0rem;}
 .h50{height: 0.5rem}
-.foot{height: 2rem;position: fixed;bottom: 0;left: 0;width: 100%;z-index: 10000;background-color: #fff;border-radius: 0.20rem 0.20rem 0 0} 
+.foot{height: 2rem;position: fixed;bottom: 0;left: 0;width: 100%;z-index: 999;background-color: #fff;border-radius: 0.20rem 0.20rem 0 0;-webkit-box-shadow: 0 -5px 10px #dbdcdd; box-shadow: 0 -5px 10px #dbdcdd;} 
 .foot .total{background-color: rgba(0,0,0,.9);line-height: 1rem;text-align: left;color: #fff;font-size: 0.40rem;padding-left: 0.30rem;font-weight: bold}
 .foot button{background-color: #ff6600;font-size: 0.28rem;line-height: 1rem;width: 2.0rem;text-align: center;color: #fff;}
 .foot button:disabled{background-color: #808080}
 .icon_goodbus{width: 1.05rem;height: 1.05rem;background: #666666 url(../assets/icon_goodbus.png) no-repeat center center;position: absolute;top: -0.5rem;left: 0.4rem;border-radius: 50%;background-size: 50% 50%;}
-.addGood{display:inline-block;width: 1.64rem;height: 0.46rem;border-radius: 0.25rem;border:1px #333 solid;text-align: center;line-height: 0.44rem;font-size: 0.24rem}
+.addGood{width: 1.64rem;height: 0.46rem;border-radius: 0.25rem;border:1px #333 solid;font-size: 0.24rem}
 .arrow-right{display: inline-block;width: 0.14rem;height: 0.30rem;background: url(../assets/arrow-right.png) no-repeat center center;background-size:100% 100%;margin-left: 0.20rem}
 .switchDiv{height: 1rem;}
 .icon-on{width:0.82rem;height:0.4rem;background: url(../assets/icon_switch_open.png);background-size: 100% 100%;}
@@ -148,10 +224,9 @@ export default {
 
 .userInfo{background-color: #fff;padding:0.16rem 0.24rem; border-radius: 0.20rem}
 .userInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.30rem;}
-.userbtn{background-color: #ff6600;color: #fff;width:1.6rem;height: 0.60rem;border-radius: 0.30rem;font-size: 0.24rem;text-align: center;line-height: 0.60rem;}
+.userbtn{background-color: #ff6600;color: #fff;width:1.6rem;height: 0.60rem;border-radius: 0.30rem;font-size: 0.24rem;}
 
 .numBox .ctlbtn{width: 0.56rem;height:0.48rem;line-height: 0.48rem;background-color: #eee;text-align: center;}
 .numBox .number{width: 0.60rem;height:0.48rem;line-height: 0.48rem;background-color: #fff;text-align: center;}
-
 .icon_drop{width: 0.32rem;height: 0.28rem;background: url(../assets/icon_drop.png);background-size: 100% 100%;margin-right: 0.08rem}
 </style>

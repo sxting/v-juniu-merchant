@@ -52,7 +52,7 @@
                 <span class="picker-cancel" @click="closePicker2">取消</span> 
                 <span class="picker-confirm" @click="closePicker2">确定</span>
             </div>
-            <mt-picker :slots="actions1" @change="onPickerChange2" :visible-item-count="5"></mt-picker>
+            <mt-picker :slots="actions2" @change="onPickerChange2" :visible-item-count="5"></mt-picker>
         </mt-popup>
     </div>
 </template>

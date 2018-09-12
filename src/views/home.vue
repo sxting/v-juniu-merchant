@@ -1,7 +1,7 @@
 <!-- 主页view -->
 <template>
     <div class="main">
-        <div class="bar" @click="showSells">{{sellName}}<i class="iconfont icon-arrow"></i></div>
+        <div class="bar" @click="toPath('/selectSell')">{{sellName}}<i class="iconfont icon-arrow"></i></div>
         <div @click="toPath('/charge')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%" :style="{height:height}">
             <span class="icon icon_mt"></span>
             <p>收银</p>
@@ -24,24 +24,18 @@
                 <p>预约管理</p>
             </div>
         </div>
-        <mt-popup v-model="pickerVisible" position="bottom" class="w_100">
-            <div class="picker-toolbar bbc">
-                <span class="picker-cancel" @click="closePicker">取消</span> 
-                <span class="picker-confirm" @click="closePicker">确定</span>
-            </div>
-            <mt-picker :slots="actions" @change="onPickerChange" :visible-item-count="5"></mt-picker>
-        </mt-popup>
         <div class="logo_bg"></div>
     </div>
 </template>
 
 <script>
+import {popup,picker } from 'mint-ui';
 export default {
     name: "home",
     data() {
         return {
             pickerVisible:false,
-            sellName:'请选择店铺名称',
+            sellName:'店铺名称',
             width: '',
             actions:[{
               values: ['店铺1', '店铺2', '店铺3', '店铺4', '店铺5', '店铺6']
@@ -53,20 +47,12 @@ export default {
         slideImgChange(index) {
             this.curIndex = index
         },
-        showSells(){
-            this.pickerVisible = true;
-        },
-        closePicker(){
-            this.pickerVisible = false;
-        },
-        onPickerChange(picker,values){
-            this.sellName = values[0];
-        },
         toPath(str){
             this.$router.push(str);
         }
     },
     created() {
+        document.title = '工作';
         var width = document.body.clientWidth;
         this.width = (width-60)/2+'px';
         this.height = (width-60)/2*28/33+'px';

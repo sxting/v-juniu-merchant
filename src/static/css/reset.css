@@ -87,5 +87,10 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .w_100{width: 100%;}
 .selectItem{width: 100%;font-size: 14px;text-align: center;border-bottom: 1px #eee solid;padding: 0.16rem 0}
 
+.mint-popup-bottom{z-index: 9999}
 .picker-confirm{width: 1.4rem; float: right; color: #ff6000;display: inline-block; text-align: center; line-height: 40px; font-size: 16px;}
 .picker-cancel{width: 1.4rem; float: left; color: #999999;display: inline-block; text-align: center; line-height: 40px; font-size: 16px;}
+.mint-popup{border-radius: 10px 10px 0 0;overflow: hidden;}
+.picker-toolbar{background-color: #f2f2f2;}
+
+.btn_vc{display: -webkit-flex; display: flex;-webkit-align-items: center; align-items: center;-webkit-justify-content: center; justify-content: center; }

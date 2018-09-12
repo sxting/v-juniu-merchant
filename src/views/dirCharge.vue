@@ -22,22 +22,27 @@
                 </div>
             </div>
         </div>
-        <mt-popup v-model="sheetVisible" position="bottom" class="w_100">
-          <div class="selectItem" v-for="item in slotArr" @click="selectCard(item)">{{item}}</div>
+        <mt-popup v-model="pickerVisible" position="bottom" class="w_100">
+            <div class="picker-toolbar bbc">
+                <span class="picker-cancel" @click="closePicker">取消</span> 
+                <span class="picker-confirm" @click="closePicker">确定</span>
+            </div>
+            <mt-picker :slots="slotArr" @change="onPickerChange" :visible-item-count="5"></mt-picker>
         </mt-popup>
     </div>
 </template>
 
 <script>
+import {popup,picker } from 'mint-ui';
 export default {
     name: "dirCharge",
     data() {
         return {
-            isDisabled:true,
             isShowMember:true,
-            isShowBus:false,
-            sheetVisible:false,
-            slotArr:['超值折扣卡','黄金储值卡','白金优惠卡'],
+            pickerVisible:false,
+            slotArr:[{
+              values: ['超值折扣卡','黄金储值卡','白金优惠卡']
+            }],
             cardName:'选择优惠',
         };
     },
@@ -51,15 +56,21 @@ export default {
         toMemberInfo(){
             this.$router.push('/memberInfo');
         },
+        closePicker(){
+            this.pickerVisible = false;
+        },
+        onPickerChange(picker,values){
+            this.cardName = values[0];
+        },
         toPath(str){
             this.$router.push(str);
         },
         showCard(){
-            this.sheetVisible=true;
+            this.pickerVisible=true;
         },
         selectCard(item){
             this.cardName = item;
-            this.sheetVisible=false;
+            this.pickerVisible=false;
         }
     },
     computed: {

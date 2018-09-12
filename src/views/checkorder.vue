@@ -10,7 +10,7 @@
 
         <div class="recordItem">
             <p class="time">今天</p>
-            <div class="ub ub-ac ub-pj item bbc">
+            <div class="ub ub-ac ub-pj item bbc" @click="toDetail">
                 <div>
                     <p class="bc1 f14 tx-l">+100</p>
                     <p class="bc1 f14 tx-l">15011150022</p>
@@ -20,7 +20,7 @@
                     <p class="sc f13 tx-r">2018-04-09</p>
                 </div>
             </div>
-            <div class="ub ub-ac ub-pj item">
+            <div class="ub ub-ac ub-pj item" @click="toDetail">
                 <div>
                     <p class="bc1 f14 tx-l">+100</p>
                     <p class="bc1 f14 tx-l">15011150022</p>
@@ -47,6 +47,9 @@ export default {
     methods: {
         formatInput(value) {
             this[value] = String(this[value]).replace(/[^\d]/g, ""); //清除“数字”以外的字符
+        },
+        toDetail(){
+            this.$router.push('/checkDetail');
         },
         submit(){
             this.$router.push('/checkConfirm');

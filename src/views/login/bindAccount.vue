@@ -42,7 +42,7 @@ export default {
       this.showTime = true;
     },
     submit(){
-      this.$router.push('/charge');
+      this.$router.push('/home');
       var reg = /^1[23456789]\d{9}$/;
       var mobile = delBlank(this.mobile);
       var password = delBlank(this.password);

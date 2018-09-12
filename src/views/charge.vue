@@ -4,9 +4,13 @@
             <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac"><i class="icon_search mr05"></i>会员查询</div>
             <div class="openMember tx-c" @click="toPath('/addMember')"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
             <div class="openMore tx-c" @click="showMenu"><i class="icon_more"></i><p class="tx-c f12">更多</p></div>
-            <ul class="menu" v-show="isShowMenu">
-                <li click="toHistory" @click="toPath('/orderList')">历史订单</li>
-                <li click="toCharge" @click="toPath('/dirCharge')">直接收款</li>
+        </div>
+        <div class="modal" v-show="isShowMenu">
+            <div class="mask" @click="closeModal1()"></div>
+            <div class="arrow-up"></div>
+            <ul class="menu">
+                <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')"><span class="icon_orderlist"></span>历史订单</li>
+                <li class="ub ub-ac ub-pc" @click="toPath('/dirCharge')"><span class="icon_sk"></span>直接收款</li>
             </ul>
         </div>
         <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
@@ -15,7 +19,7 @@
                 <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                 <p class="f12 mt05">10000000000</p>
             </div>
-            <div class="userbtn" @click="toMemberCard">售卡/充值</div>
+            <div class="userbtn btn_vc" @click="toMemberCard">售卡/充值</div>
         </div>
         <div class="content ub-f1" @scroll="handleScroll" ref="productDiv">
             <ul class="sidebar":style="[{top:isShowMember ? '2.3rem' : '1.12rem'}]">
@@ -26,17 +30,14 @@
             </ul>
         </div>
         <div class="modal" v-show="isShowBus">
-            <div class="mask" @click="closeModal()"></div>
+            <div class="mask" @click="closeModal2()"></div>
             <div class="goodBusList" v-if="productCount>0">
                 <productBusItem v-for="(item,index) in productList" :productInfo="item" :key="index" v-if="item.count>0" @updateCount="updateCount"></productBusItem>
             </div>
-            <div class="noGood" v-if="productCount==0" @click="closeModal()">
-                您还没选择产品
-            </div>
         </div>
         <div class="foot ub">
-            <div class="icon_goodbus" @click="openBookList"></div>
-            <div class="ub-f1 selected ub ub-ac ub-pc" @click="openBookList">已选择{{productCount}}款产品<i class="arrow-right"></i></div>
+            <div class="icon_goodbus" @click="openBookList"><div class="icon_num" v-show="productCount>0">{{productCount}}</div></div>
+            <div class="ub-f1 selected ub ub-ac ub-pc" @click="openBookList">已选择{{productCount}}款产品<i class="arrow-right" v-show="productCount>0"></i></div>
             <button :disabled="isDisabled" type="button" @click="toOrder">下一步</button>
         </div>
     </div>
@@ -194,9 +195,13 @@ export default {
            // },100);
         },
         openBookList(){
+            if(this.productCount==0){return}
             this.isShowBus = !this.isShowBus;
         },
-        closeModal(){
+        closeModal1(){
+            this.isShowMenu = false;
+        },
+        closeModal2(){
             this.isShowBus = false;
         },
         toPath(str){
@@ -221,8 +226,11 @@ export default {
 .toper{height: 1.12rem;background: #f6f6f6;;width: 100%;}
 .searchBox{margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem;padding-left: 0.20rem;color: #999;font-size: 0.28rem;}
 
-.menu{width: 2rem;background-color: #fff;border-radius: 0.10rem;position: absolute;top: 1.2rem;right: 0.10rem;z-index: 9999;box-shadow: #666 0px 0px 10px;}
+.arrow-up{width:0;height:0;border-left:0.2rem solid transparent;border-right:0.2rem solid transparent;border-bottom:0.2rem solid #fff;position:absolute;top:1.02rem;right:0.3rem;}
+.menu{width: 2rem;background-color: #fff;border-radius: 0.10rem;position: absolute;top: 1.2rem;right: 0.10rem;z-index: 9999;}
 .menu li{text-align: center;line-height: 0.80rem}
+.icon_sk{display:inline-block;width: 0.30rem;height: 0.34rem;background: url(../assets/icon_sk.png) no-repeat center center;background-size: contain;margin-right: 0.06rem}
+.icon_orderlist{display:inline-block;width: 0.30rem;height: 0.34rem;background: url(../assets/icon_orderlist.png) no-repeat center center;background-size: contain;margin-right: 0.06rem}
 
 .content{background: #fff;padding-left: 1.7rem;position: relative;overflow: auto;}
 .sidebar{width: 1.5rem;position: fixed;top: 1.12rem;left: 0;background: #f6f6f6}
@@ -233,7 +241,7 @@ export default {
 .foot button{background-color: #ff6600;font-size: 0.28rem;line-height: 1rem;width: 2.0rem;text-align: center;color: #fff;}
 .foot button:disabled{background-color: #808080}
 .icon_goodbus{width: 1.05rem;height: 1.05rem;background: #666666 url(../assets/icon_goodbus.png) no-repeat center center;position: absolute;top: -0.5rem;left: 0.4rem;border-radius: 50%;background-size: 50% 50%;z-index: 9999}
-
+.icon_num{width: 0.40rem;height: 0.40rem;text-align: center;line-height: 0.40rem;position: absolute;top: -0.05rem;right: -0.05rem;background-color: #fd4f00;border-radius: 50%;color: #fff;font-size: .24rem}
 .modal{width: 100%;height: 100%;position: fixed;left: 0;top: 0;z-index: 9999}
 .modal .mask{background-color: rgba(51,51,51,0.5);position: absolute;width: 100%;height: 100%;left: 0;top: 0;}
 .goodBusList{background-color: #fff;position: fixed;bottom:1rem;left: 0;width: 100%;border-radius: 0.20rem 0.20rem 0 0;padding-bottom: 0.6rem}
@@ -241,5 +249,5 @@ export default {
 
 .userInfo{padding:0.16rem 0.24rem; border-radius: 0.20rem}
 .userInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.30rem;}
-.userbtn{background-color: #fff;color: #333;width:1.6rem;height: 0.50rem;border-radius: 0.30rem;font-size: 0.24rem;text-align: center;line-height: 0.46rem;border: 1px #666 solid;}
+.userbtn{background-color: #fff;color: #333;width:1.6rem;height: 0.50rem;border-radius: 0.30rem;font-size: 0.24rem;border: 1px #666 solid;}
 </style>

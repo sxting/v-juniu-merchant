@@ -25,6 +25,9 @@
                 </div>
             </div>
         </div>
+        <comfirmBox ref="comfirmBox"></comfirmBox>
+
+        <alertBox ref="alertBox"></alertBox>
     </div>
 </template>
 
@@ -44,14 +47,27 @@ export default {
         readOrder(){
             this.$router.push('/orderDetail');
         },
+        showConfirm(option){
+            this.$refs.comfirmBox.show(option);
+        },
         cancelOrder(){
-            MessageBox.confirm('确定执行此操作?').then(action => {
-                console.log("订单已撤销");
+            this.showConfirm({
+              title: '提示',
+              content: '1.扣卡首款撤销卡额度恢复到扣卡前状态<br/>2.扫码首款撤销付款金额原路返回<br/>3.会员开卡撤销只可撤销未消费的会员卡',
+              leftname: '取消',
+              rightname: '确定',
+              leftListener: () => {
+                console.log('cancel');
+              },
+              rightListener: () => {
+
+              }
             });
         }
     },
     created() {
         document.title = "历史订单";
+        this.$refs.alertBox.alert('111111111111111111111111')
     }
 };
 </script>

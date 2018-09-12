@@ -20,6 +20,12 @@ const routes = [{
             component: (resolve) => require(['./views/my'], resolve)
         }]
     },{
+        path: '/selectSell',
+        component: (resolve) => require(['./views/selectSell'], resolve)
+    },{
+        path: '/errorAlert',
+        component: (resolve) => require(['./views/errorAlert'], resolve)
+    },{
         path: '/order',//订单
         component: (resolve) => require(['./views/order'], resolve)
     },{

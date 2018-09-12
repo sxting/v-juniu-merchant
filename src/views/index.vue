@@ -1,9 +1,9 @@
 <template>
     <div id="index">
         <div class="index_main">
-            <transition name="fade">
-                <router-view></router-view>
-            </transition>
+            <!-- <transition name="fade"> -->
+            <router-view></router-view>
+            <!-- </transition> -->
         </div>
         <div class="index_footer ub ub-ac">
             <li class="ub-f1 ub-pc ub-ac ub-ver" @click="toHome(1,'home')">
@@ -48,7 +48,6 @@ export default {
 .index_footer p{color: #333;font-size: 0.24rem;}
 .index_footer .active + p{color: #ff6000}
 .icon{width: 0.40rem;height: 0.40rem;background: #666;display: block;margin: 0 auto;}
-
 .icon_index1{background: url(../assets/icon_index1.png) no-repeat center center;background-size: contain;}
 .icon_index2{background: url(../assets/icon_index2.png) no-repeat center center;background-size: contain;}
 .icon_index3{background: url(../assets/icon_index3.png) no-repeat center center;background-size: contain;}
