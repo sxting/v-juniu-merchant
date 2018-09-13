@@ -6,7 +6,7 @@
         </div>
         <div class="content plr15 mt05">
             <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
-                <img src="../assets/my.png" class="udb" @click="toMemberInfo">
+                <img src="../assets/user.png" class="udb" @click="toMemberInfo">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="f12 mt05 bc1">10000000000</p>
@@ -21,6 +21,7 @@
                 <div class="item plr20 bbc ub ub-ac ub-pj">
                     <p class="ub ub-ac"><i :class="{'icon_drop':!isShowMoreItem,'icon_down':isShowMoreItem}" @click="dropOrder"></i>项目名称</p>
                     <p class="ub ub-ac numBox">
+                        <span class="money f14">￥200</span>
                         <span @click="delOne" class="ctlbtn"><i class="icon-del sc iconfont"></i></span>
                         <i class="number btbc">{{bookNum}}</i>
                         <span @click="addOne()" class="ctlbtn"><i class="icon-add sc iconfont"></i></span>
@@ -45,6 +46,7 @@
                 </div>
                 <div class="item plr20 bbc ub ub-ac ub-pj" @click="openPicker3">
                     <p class="ub-f1 sc f13 pl48">折扣</p>
+                    <span class="money f13">￥10</span>
                     <p class="f13">{{name3}}</p>
                     <i class="arrow-down"></i>
                 </div>
@@ -232,4 +234,5 @@ export default {
 .icon_down{width: 0.32rem;height: 0.28rem;background: url(../assets/icon_down.png);background-size: 100% 100%;margin-right: 0.20rem}
 .icon_add1{font-size: 0.24rem!important;margin-right: 0.08rem}
 .pl48{padding-left: 0.48rem;}
+.money{margin-right: 0.24rem;color: #ff6000;font-weight: bold;}
 </style>

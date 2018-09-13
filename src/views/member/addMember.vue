@@ -11,7 +11,7 @@
             </div>
             <div class="item bbc ub ub-pj ub-ac" @click="showPicker">
                 <p class="f14 bc">生日</p>
-                <input class="ub-f1 tx-r f14" v-model="bathDate" placeholder="请选择生日" />
+                <input class="ub-f1 tx-r f14 bgb" readonly v-model="bathDate" placeholder="请选择生日" />
                 <div class="icon_calener"></div>
             </div>
             <div class="item ub ub-pj ub-ac">

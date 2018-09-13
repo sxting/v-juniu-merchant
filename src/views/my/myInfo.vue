@@ -3,7 +3,7 @@
         <div class="plr15 bgb">
             <div class="item1 ub ub-pj ub-ac">
                 <p class="f14 bc">头像</p>
-                <img src="../../assets/my.png" class="user" />
+                <img src="../../assets/user.png" class="user" />
             </div>
         </div>
         <p class="tit">基本信息</p>

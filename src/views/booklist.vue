@@ -11,7 +11,7 @@
                 <p class="bc1"><i class="icon_tel"></i>15011150022</p>
             </div>
             <div class="ub ub-ac orderCon">
-                <img src="../assets/user.png" class="goodImg">
+                <img src="../assets/default.png" class="goodImg">
                 <div class="ub-f1 ml10">
                     <p class="f14">项目名称</p>
                     <p class="f13 sc">服务技师：王某某</p>
@@ -48,7 +48,7 @@
                 <p class="bc1"><i class="icon_tel"></i>15011150022</p>
             </div>
             <div class="ub ub-ac orderCon">
-                <img src="../assets/user.png" class="goodImg">
+                <img src="../assets/default.png" class="goodImg">
                 <div class="ub-f1 ml10">
                     <p class="f14">项目名称</p>
                     <p class="f13 sc">服务技师：王某某</p>
@@ -69,7 +69,7 @@
                 <p class="bc1"><i class="icon_tel"></i>15011150022</p>
             </div>
             <div class="ub ub-ac orderCon">
-                <img src="../assets/user.png" class="goodImg">
+                <img src="../assets/default.png" class="goodImg">
                 <div class="ub-f1 ml10">
                     <p class="f14">项目名称</p>
                     <p class="f13 sc">服务技师：王某某</p>

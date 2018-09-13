@@ -2,7 +2,7 @@
     <div class="main">
         <div class="memberInfo">
             <div class="ub ub-ac bbc pb10 mb20">
-                <img src="../../assets/my.png" class="udb">
+                <img src="../../assets/user.png" class="udb">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="mt05"><a href="" class="f12 bc1">15011101110</a></p>

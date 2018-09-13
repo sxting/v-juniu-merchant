@@ -1,6 +1,6 @@
 <template>
     <li class="ub item bbc ub-ac ub-pj">
-        <img src="../assets/user.png" class="udb">
+        <img src="../assets/default.png" class="udb">
         <div class="ub-f1 msg">
             <p class="tit">{{productInfo.name}}</p>
             <p class="desc">{{productInfo.desc}}</p>

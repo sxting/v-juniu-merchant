@@ -8,7 +8,7 @@
                     <p class="bc">15011150022</p>
                 </div>
                 <div class="ub ub-ac orderCon">
-                    <img src="../../assets/user.png" class="goodImg">
+                    <img src="../../assets/default.png" class="goodImg">
                     <div class="ub-f1 ml10">
                         <p class="f14 ub ub-ac ub-pj">项目名称<i class="curreny f14">×3</i></p>
                         <p class="f13 sc mt05">服务技师：王某某</p>

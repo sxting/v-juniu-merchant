@@ -2,7 +2,7 @@
     <div>
         <div class="userInfo tx-c">
             <div>
-                <img src="../assets/my.png" class="user" />
+                <img src="../assets/user.png" class="user" />
                 <p class="tit tx-c mt15">用户名</p>
                 <p class="f14 bc1 tx-c mt05">审美造型龙泽店</p>
             </div>

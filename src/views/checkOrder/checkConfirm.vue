@@ -2,7 +2,7 @@
     <div class="main">
         <div class="item1 ub ub-ac plr15">
             <p class="ub-f1">用户名</p>
-            <img src="../../assets/my.png" class="user"/>
+            <img src="../../assets/user.png" class="user"/>
             <p class="ml05">帝格(15201375235)</p>
         </div>
         <p class="tit">本次核销信息</p>

@@ -6,7 +6,7 @@
         </div>
         <div class="plr15 mt05">
             <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
-                <img src="../assets/my.png" class="udb bac" @click="toMemberInfo">
+                <img src="../assets/user.png" class="udb bac" @click="toMemberInfo">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="f12 mt05 bc1">15000000000</p>
