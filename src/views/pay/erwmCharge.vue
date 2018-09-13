@@ -16,23 +16,24 @@
 </template>
 
 <script>
-    export default {
-        name: "erwmCharge",
-        data() {
-            return {
-                isWx:true,
-                isDisabled:true,
-                bookNum:0,
-                isShowBus:false
-            };
-        },
-        methods: {
+import store from '@/store/store.js';
+export default {
+    name: "erwmCharge",
+    data() {
+        return {
+            isWx:store.state.payType=='wx',
+            isDisabled:true,
+            bookNum:0,
+            isShowBus:false
+        };
+    },
+    methods: {
 
-        },
-        created() {
-            document.title="二维码收款";
-        }
-    };
+    },
+    created() {
+        document.title="二维码收款";
+    }
+};
 </script>
 
 <style scoped>

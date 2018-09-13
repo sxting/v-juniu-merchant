@@ -17,9 +17,20 @@
             <div class="line"></div>
             <div class="tit"><span>其他绑定方式</span></div>
         </div>
-        <div class="ub ub-pc h200">
-          <div @click="toElseBind()"><div class="circle ub ub-ac ub-pc"><span class="icon_check"></span></div><p>验证码绑定</p></div>
-          <div @click="toCourse()" class="ml50"><div class="circle ub ub-ac ub-pc"><span class="icon_sao"></span></div><p>扫码绑定</p></div>
+        <div class="ub ub-pc h200 mt10">
+          <div @click="toElseBind()">
+            <div class="circle ub ub-ac ub-pc">
+              <span class="icon_check"></span>
+            </div>
+            <p>验证码绑定</p>
+          </div>
+          <div class="ml50">
+            <div class="circle ub ub-ac ub-pc">
+              <span class="icon_sao"></span>
+              <i @click="toCourse()" class="icon_course"></i>
+            </div>
+            <p>扫码绑定</p>
+          </div>
         </div>
       </div>
   </div>
@@ -33,9 +44,6 @@ export default {
       mobile:'',
       password:''
     }
-  },
-  components: {
-
   },
   methods: {
     getCode(){
@@ -67,16 +75,16 @@ export default {
     }
   },
   mounted() {
-
+      document.title = '桔牛';
   }
 }
 </script>
 <style scoped>
-.main{height: 100%;background-color: #fff;padding-top: 0.60rem}
+.main{height: 100%;background-color: #fff;padding-top: 0.60rem;position: relative;}
 .pageTit{font-size: 0.40rem;color: #000;}
 .form-input{width: 100%;height: 0.88rem;border-radius: 0.08rem;padding-left: 10px;background:#f2f2f2;font-size: 0.28rem;}
 
-.elseDiv{position: fixed;position: fixed;width: 100%;bottom: 0;left: 0;}
+.elseDiv{position: absolute;width: 100%;bottom: 0;left: 0;}
 .elseWay{position: relative; width: 100%;height: 0.60rem;}
 .elseWay .line{border-bottom: 1px solid #dedede; width: 100%;}
 .elseWay > div.tit{position: absolute;width: 100%;height: 100%;left: 0;top: -50%;text-align: center;}
@@ -87,4 +95,5 @@ export default {
 .ml50{margin-left: 1rem;}
 .icon_sao{width:0.44rem;height:0.44rem;display: inline-block;background: url(../../assets/icon_sao.png) no-repeat center center; background-size: contain;}
 .icon_check{width:0.44rem;height:0.44rem;display: inline-block;background: url(../../assets/icon_check.png) no-repeat center center; background-size: contain;}
+.icon_course{display: block;width: 1rem;height: 0.4rem;background: url(../../assets/icon_course.png) no-repeat center center; background-size: contain;position:absolute;top: -0.3rem;right: -0.8rem}
 </style>

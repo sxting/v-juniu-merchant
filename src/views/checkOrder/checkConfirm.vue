@@ -1,43 +1,47 @@
 <template>
     <div class="main">
-        <div class="item ub ub-ac">
+        <div class="item1 ub ub-ac plr15">
             <p class="ub-f1">用户名</p>
             <img src="../../assets/user.png" class="user"/>
             <p class="ml05">帝格(15201375235)</p>
         </div>
         <p class="tit">本次核销信息</p>
-        <div class="item ub ub-ac ub-pj">
-            <p class="bc">商品名称</p>
-            <p class="bc1">商品名称</p>
-        </div>
-        <div class="item ub ub-ac ub-pj">
-            <p class="bc">商品价格</p>
-            <p class="rc">￥20</p>
-        </div>
-        <div class="item ub ub-ac ub-pj">
-            <p class="bc">截至有效期</p>
-            <p class="bc1">2018-09-08</p>
-        </div>
-        <div class="item ub ub-ac ub-pj">
-            <p class="bc">选择本次核销份数</p>
-            <p class="ub ub-ac numBox">
-                <span @click="delOne" class="ctlbtn"><i class="icon-del iconfont"></i></span>
-                <i class="number btbc">{{bookNum}}</i>
-                <span @click="addOne" class="ctlbtn"><i class="icon-add iconfont"></i></span>
-            </p>
+        <div class="plr15 bgb">
+            <div class="item bbc ub ub-ac ub-pj">
+                <p class="bc">商品名称</p>
+                <p class="bc1">商品名称</p>
+            </div>
+            <div class="item bbc ub ub-ac ub-pj">
+                <p class="bc">商品价格</p>
+                <p class="rc">￥20</p>
+            </div>
+            <div class="item bbc ub ub-ac ub-pj">
+                <p class="bc">截至有效期</p>
+                <p class="bc1">2018-09-08</p>
+            </div>
+            <div class="item ub ub-ac ub-pj">
+                <p class="bc">选择本次核销份数</p>
+                <p class="ub ub-ac numBox">
+                    <span @click="delOne" class="ctlbtn"><i class="icon-del sc iconfont"></i></span>
+                    <i class="number btbc">{{bookNum}}</i>
+                    <span @click="addOne" class="ctlbtn"><i class="icon-add sc iconfont"></i></span>
+                </p>
+            </div>
         </div>
         <p class="tit">添加服务技师</p>
-        <div class="item ub ub-ac ub-pj" @click="openPicker1">
-            <p class="bc ub-f1">添加技师</p>
-            <p class="bc1">{{name1}}</p>
-            <span class="arrow-right"></span>
+        <div class="plr15 bgb">
+            <div class="item bbc ub ub-ac ub-pj" @click="openPicker1">
+                <p class="bc ub-f1">添加技师</p>
+                <p class="bc1">{{name1}}</p>
+                <span class="arrow-down"></span>
+            </div>
+            <div class="item ub ub-ac ub-pj" @click="openPicker2">
+                <p class="bc ub-f1">添加小工</p>
+                <p class="bc1">{{name2}}</p>
+                <span class="arrow-down"></span>
+            </div>
         </div>
-        <div class="item ub ub-ac ub-pj" @click="openPicker2">
-            <p class="bc ub-f1">添加小工</p>
-            <p class="bc1">{{name2}}</p>
-            <span class="arrow-right"></span>
-        </div>
-        <div class="mt30 plr15">
+        <div class="mt40 plr15">
             <div class="btn_common" @click="submit">确认核销</div>
         </div>
         <mt-popup v-model="pickerVisible1" position="bottom" class="w_100">
@@ -60,7 +64,7 @@
 <script>
 import {popup,picker } from 'mint-ui';
 export default {
-    name: "checkSuccess",
+    name: "checkConfirm",
     data() {
         return {
             pickerVisible1:false,
@@ -122,13 +126,14 @@ export default {
 .toper{padding: 0.8rem 0 0.50rem;background-color: #fff}
 .tit{padding-left: 0.30rem;line-height: 0.60rem;font-size: 0.28rem;color: #666;font-size: 0.24rem;}
 .btn{width: 2.8rem; height: 0.70rem;font-size: 0.28rem;line-height: 0.68rem;text-align: center;background-color: #fff;color:#999;border-radius: 0.10rem;border:1px #eee solid;}
-.user{width: 0.80rem; height: 0.80rem;border-radius: 0.40rem;margin-right: 0.08rem;}
+.user{width: 0.60rem; height: 0.60rem;border-radius: 50%;margin-right: 0.08rem;}
 .mr20{margin-right: 0.40rem;}
 .h50{height: 1.0rem;}
 .btn_back{background:#fff;height: 0.88rem;color: #ff6000;font-size: 0.32rem;border-radius: 0.10rem;border:1px #ff6000 solid;}
 .btn_print{background:#FF6000;height: 0.88rem;color: #fff;font-size: 0.32rem;border-radius: 0.10rem;}
 .ml05{margin-left: 0.10rem}
-.item{padding:0.20rem 0.30rem;;background-color: #fff;border-top:1px #eee solid;}
+.item{height: 1rem;}
+.item1{height: 1rem;background-color: #fff}
 .numBox .ctlbtn{width: 0.56rem;height:0.48rem;line-height: 0.48rem;background-color: #eee;text-align: center;}
 .numBox .number{width: 0.60rem;height:0.48rem;line-height: 0.48rem;background-color: #fff;text-align: center;}
 </style>

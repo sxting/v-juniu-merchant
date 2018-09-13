@@ -35,7 +35,6 @@
 
 <script>
     export default {
-        name: "charge",
         data() {
             return {
                 isDisabled:true,

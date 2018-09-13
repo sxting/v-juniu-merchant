@@ -6,11 +6,11 @@
                 <input type="text" @focus="showList()" placeholder="会员查询">
             </div>
             <div class="plr15 rc" @click="searchThis()">搜索</div>
-            <ul class="result" v-show="isShowList">
-                <li class="ub ub-ac" v-for="item in userList" @click="slectedItem(item)">
+            <ul class="result plr15" v-show="isShowList">
+                <li class="ub ub-ac bbc" v-for="item in userList" @click="slectedItem(item)">
                     <p class="ub ub-ac w100"><i v-if="item.card==1" class="icon_card"></i></p>
                     <p>{{item.name}}</p>
-                    <p class="ml30">{{item.tel}}</p>
+                    <p class="ml20">{{item.tel}}</p>
                 </li>
             </ul>
         </div>
@@ -20,7 +20,7 @@
 
 <script>
     export default {
-        name: "charge",
+        name: "memberSearch",
         data() {
             return {
                 userList:[
@@ -47,7 +47,7 @@
 
         },
         created() {
-            document.title="收银";
+            document.title="查询会员";
         }
     };
 </script>
@@ -56,12 +56,13 @@
 .main{background: #fff;height: 100%;}
 .w100{width: 1.0rem;}
 .toper{height: 1.12rem;background: #f6f6f6;position: relative;z-index: 1}
-.searchBox{margin-left: 0.25rem;position: relative;background: #fff;height: 0.66rem;border-radius: 0.33rem}
+.searchBox{margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.66rem;border-radius: 0.33rem}
 .icon_search{margin-left: 0.20rem;margin-right: 0.12rem;}
-.searchBox input{width: 100%;height: 0.60rem;line-height: 0.60rem}
+.searchBox input{width: 100%;height: 0.60rem;line-height: 0.60rem;font-size: 0.28rem;}
 .result{position: absolute;width: 100%;top: 1.12rem;left: 0;}
-.result li{background-color: #fff;line-height: 0.76rem;padding-left: 0.30rem;border-bottom: 1px #eee solid;}
+.result li{background-color: #fff;line-height: 1.0rem;}
 .result li p{color: #666;font-size: 0.24rem}
+.ml20{margin-left: 0.40rem}
 .ml30{margin-left: 0.60rem;}
 .bodyBg{background-color: #fff;position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 0}
 </style>

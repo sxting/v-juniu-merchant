@@ -1,7 +1,7 @@
 <template>
-	<li class="ub ub-ac plr10 bbc">
+	<li class="ub ub-ac bbc">
 	    <p class="ub-f1">{{productInfo.name}}</p>
-	    <p class="price">￥{{productInfo.price}}</p>
+	    <p class="price rc">￥{{productInfo.price}}</p>
 	    <div class="ctrl ub">
           <i class="icon_del" @click="delOne"></i><i class="book_num">{{productInfo.count}}</i><i class="icon_add" @click="addOne"></i>
 	    </div>

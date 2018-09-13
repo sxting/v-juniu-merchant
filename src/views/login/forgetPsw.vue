@@ -7,7 +7,7 @@
       <div class="mt10 ub">
           <input class="form-input1 ub-f1" type="text" @keyup="" autocomplete="off" v-model="msgCode" placeholder="请输入验证码" />
           <span v-if="showTime" class="msgCode on">{{count}}秒后重试</span>
-          <span v-else class="msgCode" @click="getCode">获取验证码</span>
+          <button v-else class="msgCode" :disabled="isDisable" @click="getCode()">获取验证码</button>
       </div>
       <div class="mt10">
         <input class="form-input" type="password" @keyup="" autocomplete="off" v-model="password" placeholder="至少6位密码区分大小写" />
@@ -31,12 +31,19 @@ export default {
       msgCode:'',
       password:'',
       repassword:'',
+      isDisable:true,
       showTime:false,
       count:60
     }
   },
-  components: {
-
+  watch:{
+      "mobile": function toggle(){
+          if(this.mobile.length==11){
+              this.isDisable = false;
+          }else{
+              this.isDisable = true;
+          }
+      }
   },
   methods: {
     submit(){
@@ -99,7 +106,7 @@ export default {
     }
   },
   mounted() {
-
+      document.title = '忘记密码';
   }
 }
 </script>
@@ -108,6 +115,7 @@ export default {
 .pageTit{font-size: 0.40rem;color: #000;}
 .form-input{width: 100%;height: 0.88rem;border-radius: 0.08rem;padding-left: 10px;background:#f2f2f2;font-size: 0.28rem;}
 .form-input1{height: 0.88rem;border-radius: 4px;padding-left: 10px;background:#f2f2f2;font-size:0.28rem;}
-.msgCode{height: 0.88rem;width: 2rem;text-align: center;font-size: 0.28rem;text-align: center;line-height: 0.88rem;margin-left: 0.20rem;background-color: #f2f2f2;border-radius: 0.08rem;}
+.msgCode{height: 0.88rem;width: 2rem;text-align: center;font-size: 0.28rem;text-align: center;line-height: 0.88rem;margin-left: 0.20rem;color: #fff;border-radius: 0.08rem;background-color: #ff6000}
+button.msgCode:disabled{color: #999;background-color: #e1e1e1}
 .msgCode.on{background-color: #ff6000;color: #fff}
 </style>

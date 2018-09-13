@@ -1,5 +1,5 @@
 <template>
-    <li class="ub item bbc ub-ac">
+    <li class="ub item bbc ub-ac ub-pj">
         <img src="../assets/user.png" class="udb">
         <div class="ub-f1 msg">
             <p class="tit">{{productInfo.name}}</p>
@@ -56,13 +56,13 @@ export default {
 </script>
 
 <style scoped>
-.item{height: 2rem;position: relative;}
+.item{height: 2.6rem;position: relative;}
 .item img{width: 1.6rem;height: 1.6rem;}
 .item div.msg{margin-left: 0.20rem}
-.item div.msg p.tit{font-size: 0.24rem;color: #000;}
-.item div.msg p.desc{font-size: 0.20rem;color: #666;margin-top: 0.20rem;}
-.item div.msg p.price{font-size: 0.32rem;color: #ff6600;margin-top: 0.20rem}
-.item div.ctrl{width: 1.6rem;position:absolute;bottom: 0.20rem;right: 0.40rem;-webkit-justify-content: flex-end; justify-content: flex-end;}
+.item div.msg p.tit{font-size: 0.30rem;color: #000;margin-top: 0.20rem}
+.item div.msg p.desc{font-size: 0.26rem;color: #666;}
+.item div.msg p.price{font-size: 0.34rem;color: #ff6600;margin-top: 0.20rem}
+.item div.ctrl{width: 1.6rem;margin-right:0.30rem;-webkit-justify-content: flex-end; justify-content: flex-end;}
 .icon_del{width: 0.40rem;height: 0.40rem;background: url(../assets/icon_del.png);background-size: 100% 100%;display:block;}
 .icon_add{width: 0.40rem;height: 0.40rem;background: url(../assets/icon_add.png);background-size: 100% 100%;display:block;}
 .book_num{width: 0.48rem;height: 0.40rem;text-align: center;font-size: 0.28rem;display: block;}

@@ -2,17 +2,17 @@
   <div v-show="isShowPayWay" class="modal ub ub-ac ub-pc" @click="modalListener">
     <div class="paybox plr10">
       <div class="content">
-        <div class="title">扫码支付</div>
+        <div class="title">扫码收款</div>
         <div class="ub ub-ac ub-pj mt05">
           <div class="item">
-            <img src="../assets/icon_success.png" class="udb">
+            <img src="../assets/ion_sys.png" class="udb">
             <p class="sc f12">扫一扫</p>          
           </div>
-          <div class="item">
+          <div class="item" @click="toerwmCharge('alipay')">
             <img src="../assets/ion_alipay.png" class="udb">
             <p class="sc f12">支付宝</p>          
           </div>
-          <div class="item">
+          <div class="item" @click="toerwmCharge('wx')">
             <img src="../assets/ion_wx.png" class="udb">
             <p class="sc f12">微信</p>          
           </div>
@@ -56,13 +56,17 @@ export default {
   data() {
     return {
       option: {
-        modalClickHide: true,//模态背景层点击是否可以隐藏
+        modalClickHide: false,//模态背景层点击是否可以隐藏
         title: '提示',
         content: '请确认',
       }
     }
   },
   methods: {
+    toerwmCharge(str){
+      this.$store.commit('updatePayType',str);
+      this.$router.push('/erwmCharge');
+    },
     modalListener() {
       if (this.option.modalClickHide) {
         this.$emit('update:isShowPayWay', false);
@@ -82,5 +86,5 @@ export default {
 .item{text-align: left;width: 0.98rem;}
 .item img{width: 0.98rem; height: 0.98rem}
 .item p{text-align: center;margin-top: 0.05rem}
-.btn_concel{height: 0.88rem;line-height: 0.88rem;color: #666;border-top:1px #eee solid;margin-left: -0.15rem;margin-right: -0.15rem}
+.btn_concel{height: 0.88rem;line-height: 0.88rem;color: #666;border-top:1px #eee solid;}
 </style>

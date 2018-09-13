@@ -34,26 +34,25 @@
 </template>
 
 <script>
-    export default {
-        name: "charge",
-        data() {
-            return {
-                isShowMember:false
-            };
-        },
-        components: {},
-        methods: {
-            toDetail(){
-                this.$router.push('/memberInfo');
-            }
-        },
-        computed: {
-
-        },
-        created() {
-            document.title="收银成功";
+export default {
+    data() {
+        return {
+            isShowMember:false
+        };
+    },
+    components: {},
+    methods: {
+        toDetail(){
+            this.$router.push('/memberInfo');
         }
-    };
+    },
+    computed: {
+
+    },
+    created() {
+        document.title="收银失败";
+    }
+};
 </script>
 
 <style scoped>

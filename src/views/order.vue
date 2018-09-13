@@ -15,40 +15,40 @@
             </div>
             <div class="h50 plr10 mt10 ub ub-ac ub-pj">
                 <span class="sc f13">服务信息</span>
-                <div class="addGood btn_vc" @click="addGood()">+添加产品</div>
+                <div class="addGood btn_vc" @click="addGood()"><i class="icon-add sc iconfont icon_add1"></i>添加产品</div>
             </div>
             <div class="orderInfo">
                 <div class="item plr20 bbc ub ub-ac ub-pj">
-                    <p class="ub ub-ac"><i class="icon_drop" @click="dropOrder"></i>项目名称</p>
+                    <p class="ub ub-ac"><i :class="{'icon_drop':!isShowMoreItem,'icon_down':isShowMoreItem}" @click="dropOrder"></i>项目名称</p>
                     <p class="ub ub-ac numBox">
-                        <span @click="delOne" class="ctlbtn"><i class="icon-del iconfont"></i></span>
+                        <span @click="delOne" class="ctlbtn"><i class="icon-del sc iconfont"></i></span>
                         <i class="number btbc">{{bookNum}}</i>
-                        <span @click="addOne()" class="ctlbtn"><i class="icon-add iconfont"></i></span>
+                        <span @click="addOne()" class="ctlbtn"><i class="icon-add sc iconfont"></i></span>
                     </p>
                 </div>
                 <div class="bbc plr20" v-show="isShowMoreItem">
                     <div class="item ub ub-pj ub-ac" @click="openPicker1">
-                        <p class="ub-f1 sc f13">服务技师</p>
-                        <p class="bc f13">{{name1}}</p><i class="arrow-right"></i>
+                        <p class="ub-f1 sc f13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务技师</p>
+                        <p class="bc f13">{{name1}}</p><i class="arrow-down"></i>
                     </div>
                     <div class="item ub ub-pj ub-ac">
-                        <p class="ub-f1 sc f13">是否指定服务技师</p>
+                        <p class="ub-f1 sc f13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否指定服务技师</p>
                         <div class="switch-btn">
                           <div class="icon-on" v-if="isSwitch1" @click="switchBoolen1"></div>
                           <div class="icon-off" v-else @click="switchBoolen1"></div>
                         </div>
                     </div>
                     <div class="item ub ub-pj ub-ac" @click="openPicker2">
-                        <p class="ub-f1 sc f13">服务小工</p>
-                        <p class="bc f13">{{name2}}</p><i class="arrow-right"></i>
+                        <p class="ub-f1 sc f13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务小工</p>
+                        <p class="bc f13">{{name2}}</p><i class="arrow-down"></i>
                     </div>
                 </div>
                 <div class="item plr20 bbc ub ub-ac ub-pj" @click="openPicker3">
-                    <p class="ub-f1 sc f13">折扣</p>
+                    <p class="ub-f1 sc f13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;折扣</p>
                     <p class="f13">{{name3}}</p>
-                    <i class="arrow-right"></i>
+                    <i class="arrow-down"></i>
                 </div>
-                <div class="item plr20 ub ub-pj"><p>实付</p><p class="rc">￥190</p></div>
+                <div class="item plr20 ub ub-pj"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实付</p><p class="finallNum">￥190</p></div>
             </div>
         </div>
         <div class="foot">
@@ -211,22 +211,24 @@ export default {
 .orderInfo{margin-top:0.20rem;border-radius: 0.20rem;background-color: #ffffff;}
 .orderInfo .item{height: 1.0rem;line-height: 1.0rem;}
 .h50{height: 0.5rem}
-.foot{height: 2rem;position: fixed;bottom: 0;left: 0;width: 100%;z-index: 999;background-color: #fff;border-radius: 0.20rem 0.20rem 0 0;-webkit-box-shadow: 0 -5px 10px #dbdcdd; box-shadow: 0 -5px 10px #dbdcdd;} 
+.foot{height: 2rem;position: fixed;bottom: 0;left: 0;width: 100%;z-index: 999;background-color: #fff;border-radius: 0.20rem 0.20rem 0 0;box-shadow: 0 -1px 7px 0 rgba(194,194,194,0.50);-webkit-box-shadow: 0 -1px 7px 0 rgba(194,194,194,0.50);} 
 .foot .total{background-color: rgba(0,0,0,.9);line-height: 1rem;text-align: left;color: #fff;font-size: 0.40rem;padding-left: 0.30rem;font-weight: bold}
-.foot button{background-color: #ff6600;font-size: 0.28rem;line-height: 1rem;width: 2.0rem;text-align: center;color: #fff;}
+.foot button{background-image: linear-gradient(to right,#FF5000,#FF8000);font-size: 0.28rem;line-height: 1rem;width: 2.0rem;text-align: center;color: #fff;}
 .foot button:disabled{background-color: #808080}
 .icon_goodbus{width: 1.05rem;height: 1.05rem;background: #666666 url(../assets/icon_goodbus.png) no-repeat center center;position: absolute;top: -0.5rem;left: 0.4rem;border-radius: 50%;background-size: 50% 50%;}
-.addGood{width: 1.64rem;height: 0.46rem;border-radius: 0.25rem;border:1px #333 solid;font-size: 0.24rem}
+.addGood{width: 1.64rem;height: 0.46rem;border-radius: 0.25rem;border:1px #999 solid;font-size: 0.24rem;color: #999}
 .arrow-right{display: inline-block;width: 0.14rem;height: 0.30rem;background: url(../assets/arrow-right.png) no-repeat center center;background-size:100% 100%;margin-left: 0.20rem}
 .switchDiv{height: 1rem;}
-.icon-on{width:0.82rem;height:0.4rem;background: url(../assets/icon_switch_open.png);background-size: 100% 100%;}
-.icon-off{width:0.82rem;height:0.4rem;background: url(../assets/icon_switch_close.png);background-size: 100% 100%;}
+.icon-on{width:0.80rem;height:0.42rem;background: url(../assets/icon_switch_open.png);background-size: 100% 100%;}
+.icon-off{width:0.80rem;height:0.42rem;background: url(../assets/icon_switch_close.png);background-size: 100% 100%;}
 
 .userInfo{background-color: #fff;padding:0.16rem 0.24rem; border-radius: 0.20rem}
 .userInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.30rem;}
-.userbtn{background-color: #ff6600;color: #fff;width:1.6rem;height: 0.60rem;border-radius: 0.30rem;font-size: 0.24rem;}
-
+.userbtn{background-color: #ff6600;color: #fff;width:1.6rem;height: 0.50rem;border-radius: 0.30rem;font-size: 0.24rem;}
+.finallNum{font-weight: bold;color: #ff6000}
 .numBox .ctlbtn{width: 0.56rem;height:0.48rem;line-height: 0.48rem;background-color: #eee;text-align: center;}
 .numBox .number{width: 0.60rem;height:0.48rem;line-height: 0.48rem;background-color: #fff;text-align: center;}
-.icon_drop{width: 0.32rem;height: 0.28rem;background: url(../assets/icon_drop.png);background-size: 100% 100%;margin-right: 0.08rem}
+.icon_drop{width: 0.32rem;height: 0.28rem;background: url(../assets/icon_drop.png);background-size: 100% 100%;margin-right: 0.20rem}
+.icon_down{width: 0.32rem;height: 0.28rem;background: url(../assets/icon_down.png);background-size: 100% 100%;margin-right: 0.20rem}
+.icon_add1{font-size: 0.24rem!important;margin-right: 0.08rem}
 </style>

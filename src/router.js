@@ -20,10 +20,10 @@ const routes = [{
             component: (resolve) => require(['./views/my'], resolve)
         }]
     },{
-        path: '/selectSell',
+        path: '/selectSell',//选择商家
         component: (resolve) => require(['./views/selectSell'], resolve)
     },{
-        path: '/errorAlert',
+        path: '/errorAlert',//未绑定提示页
         component: (resolve) => require(['./views/errorAlert'], resolve)
     },{
         path: '/order',//订单
@@ -61,6 +61,9 @@ const routes = [{
     },{
         path: '/bindAccountbycode',//通过验证码绑定代码
         component: (resolve) => require(['./views/login/bindAccountbycode'], resolve)
+    },{
+        path: '/forgetPsw',//改密码
+        component: (resolve) => require(['./views/login/forgetPsw'], resolve)
     },{
         path: '/bindCourse',//绑定教程
         component: (resolve) => require(['./views/login/bindCourse'], resolve)

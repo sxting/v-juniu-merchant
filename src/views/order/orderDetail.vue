@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <div class="memberInfo">
-            <div class="ub ub-ac bbc pb10">
+            <div class="ub ub-ac bbc pb10 mb20">
                 <img src="../../assets/user.png" class="udb">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
@@ -28,7 +28,7 @@
             </div>
             <div class="item1 ub ub-ac ub-pj">
                 <p class="bc">实付</p>
-                <p class="rc">￥190</p>
+                <p class="curreny">￥190</p>
             </div>
         </div>
         <div class="orderInfo mt10">
@@ -38,7 +38,7 @@
             </div>
             <div class="item1 ub ub-ac ub-pj">
                 <p class="bc">合计</p>
-                <p class="rc">￥190</p>
+                <p class="curreny">￥190</p>
             </div>
         </div>
     </div>
@@ -69,10 +69,11 @@
 .memberInfo{padding:0.30rem 0.24rem;background: #fff;position: relative;z-index: 1;border-radius: .20rem}
 .memberInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.30rem;}
 .memberInfo .compilebtn{color: #ff6000;width:0.9rem;height: 0.42rem;font-size: 0.24rem;text-align: center;line-height: 0.40rem;}
-
+.mb20{margin-bottom: 0.20rem}
 .tit{padding-left: 0.30rem;font-size: 0.26rem;color: #999;line-height: 0.88rem;}
-.memberInfo > p{margin-top: 0.24rem}
+.memberInfo > p{margin-top: 0.10rem;color: #999}
 .orderInfo{background-color: #fff;border-radius: 0.20rem;}
 .orderInfo .item{height: .82rem;padding-left: 0.30rem;padding-right: 0.30rem}
 .orderInfo .item1{height: .98rem;padding-left: 0.30rem;padding-right: 0.30rem}
+.curreny{color: #ff6000;font-weight: bold;}
 </style>

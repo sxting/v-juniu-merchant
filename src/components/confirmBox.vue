@@ -65,8 +65,8 @@ export default {
 <style scoped>
 .modal{width:100%;height:100%;position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);z-index: 999}
 .alertbox{width:80%;margin:auto;border-radius:0.10rem;background:#fff;overflow: hidden;}
-.title{font-size:0.36rem;color:#666;font-weight:normal;height: 0.96rem;line-height: 0.96rem;background-color: #f2f2f2}
-.content{font-size:0.26rem;color:#333;line-height: 0.60rem;width: 100%;padding: 0.50rem;text-align: justify;}
+.title{font-size:0.28rem;color:#999;font-weight:normal;height: 0.88rem;line-height: 0.96rem;background-color: #f2f2f2}
+.content{font-size:0.26rem;color:#333;line-height: 0.60rem;width: 100%;padding: 0.50rem;text-align: justify;color: #666}
 .btn_concel{height: 0.88rem;line-height: 0.88rem;color: #999;text-align: center;}
 .btn_confirm{height: 0.88rem;line-height: 0.88rem;color: #ff6000;text-align: center;border-left:1px #eee solid;}
 </style>

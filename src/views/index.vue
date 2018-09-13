@@ -4,7 +4,9 @@
             <!-- <transition name="fade"> -->
             <router-view></router-view>
             <!-- </transition> -->
+
         </div>
+        <div class="logo_bg"></div>
         <div class="index_footer ub ub-ac">
             <li class="ub-f1 ub-pc ub-ac ub-ver" @click="toHome(1,'home')">
                 <span class="icon icon_index1" :class="{'active':curActiveIndex==1}"></span>
@@ -44,12 +46,14 @@ export default {
 <style scoped>
 #index {width: 100%;height: 100%;display: flex;flex-direction: column;background: #f5f5f5;}
 .index_main {position: absolute;top: 0;left: 0;bottom: 1.04rem;width: 100%;}
-.index_footer {width: 100%;position: fixed;left: 0;bottom: 0;height: 1.02rem;background: #fff;z-index: 999;-webkit-box-shadow: 0 -5px 10px #dbdcdd; box-shadow: 0 -5px 10px #dbdcdd;}
-.index_footer p{color: #333;font-size: 0.24rem;}
+.index_footer {width: 100%;position: fixed;left: 0;bottom: 0;height: 1.02rem;background: #fff;z-index: 999;}
+.index_footer p{color: #999;font-size: 0.24rem;line-height: 0.40rem;margin-top: 0.04rem}
 .index_footer .active + p{color: #ff6000}
 .icon{width: 0.40rem;height: 0.40rem;background: #666;display: block;margin: 0 auto;}
 .icon_index1{background: url(../assets/icon_index1.png) no-repeat center center;background-size: contain;}
+.icon_index1.active{background: url(../assets/icon_index1_on.png) no-repeat center center;background-size: contain;}
 .icon_index2{background: url(../assets/icon_index2.png) no-repeat center center;background-size: contain;}
 .icon_index3{background: url(../assets/icon_index3.png) no-repeat center center;background-size: contain;}
 .icon_index3.active{background: url(../assets/icon_index3_on.png) no-repeat center center;background-size: contain;}
+.logo_bg{background:url(../assets/logo_bg.png) no-repeat center center;height: 0.48rem;width: 100%;position: fixed;z-index: 9;left: 0;bottom: 1.40rem;background-size: contain;}
 </style>

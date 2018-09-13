@@ -1,8 +1,10 @@
 <template>
     <div class="main">
         <div class="content bgb">
-            <div class="clearfix tabList ub">
-                <li v-for="(item,index) in tabList" class="ub-f1" :class="{'on':curTabIndex==index}" @click="swtichTab(index)">{{item}}</li>
+            <div class="plr15">
+                <div class="tabList ub ub-pj">
+                    <div v-for="(item,index) in tabList" :class="{'on':curTabIndex==index}" @click="swtichTab(index)">{{item}}</div>
+                </div>
             </div>
             <div v-show="curTabIndex==0" class="voucher bgb">
                 <div class="item">
@@ -137,17 +139,16 @@
 <style scoped>
 .main{background-color: #f9f9f9;padding-left: 0.30rem;padding-right: 0.30rem;position: relative;padding-top: 0.30rem;}
 .content{border-radius: 0.20rem;overflow: hidden;}
-.tabList{border-top: #eee 1px solid;}
-.tabList li{line-height: 0.8rem;line-height: 0.8rem;text-align: center;font-size: 0.28rem;border-bottom: #eee 1px solid;color: #666;}
-li.on{color: #ff6000!important;border-bottom: #ff6000 1px solid!important;}
+.tabList{border-bottom: #eee 1px solid;}
+.tabList div{width:1rem;line-height: 0.8rem;text-align: center;font-size: 0.28rem;color: #666;}
+.tabList div.on{color: #ff6000!important;border-bottom: #ff6000 1px solid!important;}
 
 .voucher{padding:0.01rem 0.24rem 0.30rem;}
 .voucher .item{width: 100%;padding: 0.30rem;margin-top: 0.30rem;background: linear-gradient(left,#FF6C6C,#ffb444);color: #fff;border-radius: 0.10rem;position: relative;box-shadow: 0 8px 13px rgba(255,96,0,0.2);overflow: hidden}
-.voucher .item .remark{width: 1.2rem;height: 0.6rem;padding-top: 0.23rem;font-size: 0.22rem;color: #fff;background-color: #ff8000;transform: rotate(45deg);position: absolute;top: -0.06rem;right: -0.37rem;text-align: center;}
+.voucher .item .remark{width: 1.2rem;height: 0.6rem;padding-top: 0.23rem;font-size: 0.18rem;color: #fff;background-color: #ff8000;transform: rotate(45deg);position: absolute;top: -0.08rem;right: -0.37rem;text-align: center;}
 .voucher .item .remark.yi{color: #fff;background-color: #ff8000;}
 .voucher .item .remark.wei{color: #999;background-color: #dedede;}
 .voucher .item .amount{margin-top: 0.25rem;margin-bottom: 0.28rem;}
 .voucher .item .date{padding-top: 0.26rem;padding-bottom: .05rem;}
 .voucher button{width: 1.1rem;line-height:0.42rem;height: 0.42rem;text-align: center;color: #ff6000;background-color: #fff;border-radius: 0.08rem;font-size: 0.28rem}
-
 </style>

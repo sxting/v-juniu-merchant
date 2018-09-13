@@ -31,10 +31,9 @@ export default {
         }
     },
     created() {
-        document.title = '桔牛商户';
+        document.title = '提示';
     }
 };
-
 </script>
 
 <style scoped>

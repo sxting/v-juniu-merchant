@@ -36,7 +36,7 @@
 <script>
 import {delBlank} from '@/static/js/function.js';
 export default {
-  name: 'bindAccount',
+  name: 'bindCourse',
   data() {
     return {
       mobile:'',
@@ -78,7 +78,7 @@ export default {
 }
 </script>
 <style scoped>
-.main{height: 100%;background-color: #fff;padding-top: 0.40rem}
+.main{height: 100%;background-color: #fff;padding-top: 0.40rem;position: relative;}
 .pageTit{font-size: 0.40rem;color: #000;}
 .content{margin-top: 0.30rem}
 .content .left{width: 0.40rem;margin-right: 0.15rem;}
@@ -86,7 +86,7 @@ export default {
 .content .left .line{display:block;width: 2px;height: 0.70rem;background-color: #ff6000;margin-top: 0.10rem;margin-bottom: 0.10rem;transform:scaleX(0.5);}
 .content .right .item{height: 1.0rem;width: 100%;background: url(../../assets/bg_con.png) no-repeat; background-size: 100% 100%; display: -webkit-flex; display: flex; position: relative;-webkit-align-items: center; align-items: center;padding:0 0.20rem 0 0.30rem;font-size: 0.24rem;color: #666;}
 
-.elseDiv{position: fixed;position: fixed;width: 100%;bottom: 0;left: 0;}
+.elseDiv{position: absolute;width: 100%;bottom: 0;left: 0;}
 .elseWay{position: relative; width: 100%;height: 0.60rem;}
 .elseWay .line{border-bottom: 1px solid #dedede; width: 100%;}
 .elseWay > div.tit{position: absolute;width: 100%;height: 100%;left: 0;top: -50%;text-align: center;}

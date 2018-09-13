@@ -21,7 +21,7 @@ ResetRem.install = function (Vue, options) {
 			doc.addEventListener('DOMContentLoaded', recalc, false);
 			/*DOMContentLoaded文档加载完成不包含图片资源 onload包含图片资源*/
 		})(document, window);
-		console.log('已经转变了默认字体大小1rem为100px');
+		// console.log('已经转变了默认字体大小1rem为100px');
     };
 };
 module.exports = ResetRem;

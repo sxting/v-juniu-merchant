@@ -1,11 +1,13 @@
 <template>
     <div>
-        <div class="item bbc ub ub-pj ub-ac">
-            <p class="f14 bc">头像</p>
-            <img src="../../assets/user.png" class="user" />
+        <div class="plr15 bgb">
+            <div class="item1 ub ub-pj ub-ac">
+                <p class="f14 bc">头像</p>
+                <img src="../../assets/user.png" class="user" />
+            </div>
         </div>
         <p class="tit">基本信息</p>
-        <div class="btc">
+        <div class="plr15 bgb">
             <div class="item bbc ub ub-pj ub-ac">
                 <p class="f14 bc">姓名</p>
                 <p class="sc">ddddddd</p>
@@ -18,7 +20,7 @@
                 <p class="f14 bc">职务</p>
                 <p class="sc">ddddddd</p>
             </div>
-            <div class="item bbc ub ub-pj ub-ac">
+            <div class="item ub ub-pj ub-ac">
                 <p class="f14 bc">所属门店</p>
                 <p class="sc">ddddddd</p>
             </div>
@@ -26,27 +28,28 @@
     </div>
 </template>
 <script>
-    export default {
-        name: "my",
-        data() {
-            return {
-                userInfo: {},
-            };
-        },
-        methods: {
+export default {
+    name: "myInfo",
+    data() {
+        return {
+            userInfo: {},
+        };
+    },
+    methods: {
 
-        },
-        computed: {
+    },
+    mounted(){
 
-        },
-        created() {
-
-        }
-    };
+    },
+    created() {
+        document.title = '个人信息';
+    }
+};
 </script>
 
 <style scoped>
-.item{height: 0.96rem;padding-right: 0.30rem;padding-left: 0.30rem;background-color: #fff}
+.item{height: 1rem;}
+.item1{height: 1.2rem;}
 .user{display: block;width: 0.60rem;height: 0.60rem;border-radius: 50%;}
 .tit{padding-left: 0.30rem;line-height: 0.72rem;font-size: 0.24rem;color: #666;}
 </style>

@@ -4,10 +4,10 @@
             <img src="../../assets/icon_fail.png" class="udb mato" width="60" height="60">
             <p class="bc f16 tx-c mt15">核销失败</p>
             <p class="sc f12 tx-c mt05">该门店暂无核销该券的功能</p>
-        </div>
-        <div class="mt30 plr15 ub">
-            <div class="btn_back ub-f1 ub ub-ac ub-pc mr20">返回首页</div>
-            <div class="btn_print ub-f1 ub ub-ac ub-pc">点击重新输码</div>
+            <div class="mt20 ub plr15">
+                <div class="btn_back ub-f1 ub ub-ac ub-pc mr20">返回首页</div>
+                <div class="btn_print ub-f1 ub ub-ac ub-pc">点击重新输码</div>
+            </div>
         </div>
     </div>
 </template>
@@ -40,6 +40,6 @@
 .userInfo img{width: 0.60rem; height: 0.60rem;border-radius: 0.30rem;margin-right: 0.08rem;}
 .mr20{margin-right: 0.40rem;}
 .h50{height: 1.0rem;}
-.btn_back{background:#fff;height: 0.88rem;color: #ff6000;font-size: 0.32rem;border-radius: 0.10rem;border:1px #ff6000 solid;}
-.btn_print{background:#FF6000;height: 0.88rem;color: #fff;font-size: 0.32rem;border-radius: 0.10rem;}
+.btn_back{background:#fff;height: 0.88rem;color: #999;font-size: 0.30rem;border-radius: 0.10rem;border:1px #eee solid;}
+.btn_print{background:#FF6000;height: 0.88rem;color: #fff;font-size: 0.30rem;border-radius: 0.10rem;}
 </style>

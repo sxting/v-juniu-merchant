@@ -17,7 +17,7 @@ export default {
 
     },
     created() {
-
+        document.title = '业绩';
     }
 };
 </script>
