@@ -6,7 +6,7 @@
         </div>
         <div class="plr15 mt05">
             <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
-                <img src="../assets/user.png" class="udb bac" @click="toMemberInfo">
+                <img src="../assets/my.png" class="udb bac" @click="toMemberInfo">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="f12 mt05 bc1">15000000000</p>
@@ -93,7 +93,7 @@ export default {
 .searchBox{margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem;padding-left: 0.20rem;color: #999;font-size: 0.28rem;}
 .content{background: #fff;padding-left: 1.7rem;position: relative;overflow: auto;}
 .userInfo{padding:0.16rem 0.24rem; border-radius: 0.20rem;background-color: #fff}
-.userInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.30rem;}
+.userInfo img{width: 0.72rem; height: 0.72rem;border-radius: 50%;}
 .userbtn{background-color: #ff6000;color: #fff;width:1.6rem;height: 0.50rem;border-radius: 0.30rem;font-size: 0.24rem;}
 .orderInfo{background-color: #fff; border-radius: 0.10rem}
 .item input{height: 0.60rem;font-size: 0.28rem;margin-left: 0.10rem;color: #ff6000}

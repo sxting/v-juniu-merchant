@@ -9,7 +9,7 @@
                 <img src="../assets/my.png" class="udb" @click="toMemberInfo">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
-                    <p class="f12 mt05">10000000000</p>
+                    <p class="f12 mt05 bc1">10000000000</p>
                 </div>
                 <div class="userbtn btn_vc" @click="toMemberCard">售卡/充值</div>
             </div>
@@ -205,7 +205,7 @@ export default {
 
 <style scoped>
 .main{background: #f2f2f2;padding-top:1.12rem;height: 100%;padding-bottom: 1rem;}
-.toper{height: 1.12rem;background: #f6f6f6;position: fixed;top: 0;left: 0;width: 100%;z-index: 999;}
+.toper{height: 1.12rem;background: #f2f2f2;position: fixed;top: 0;left: 0;width: 100%;z-index: 999;}
 .searchBox{margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem;padding-left: 0.20rem;color: #999;font-size: 0.28rem;}
 .content{position: relative;height: 100%;overflow: auto;}
 .orderInfo{margin-top:0.20rem;border-radius: 0.20rem;background-color: #ffffff;}

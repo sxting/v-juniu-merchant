@@ -2,7 +2,7 @@
     <div class="main">
         <div class="memberInfo">
             <div class="ub ub-ac bbc pb10 mb20">
-                <img src="../../assets/user.png" class="udb">
+                <img src="../../assets/my.png" class="udb">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="mt05"><a href="" class="f12 bc1">15011101110</a></p>
@@ -16,7 +16,7 @@
         <div class="orderInfo">
             <div class="item1 bbc ub ub-ac ub-pj">
                 <p class="bc">黄金储值卡</p>
-                <p class="rc">￥200</p>
+                <p class="currency">￥200</p>
             </div>
             <div class="item ub ub-pj ub-ac bbc">
                 <p class="sc f13">服务技师</p>
@@ -28,7 +28,7 @@
             </div>
             <div class="item1 ub ub-ac ub-pj">
                 <p class="bc">实付</p>
-                <p class="curreny">￥190</p>
+                <p class="currency">￥190</p>
             </div>
         </div>
         <div class="orderInfo mt10">
@@ -38,7 +38,7 @@
             </div>
             <div class="item1 ub ub-ac ub-pj">
                 <p class="bc">合计</p>
-                <p class="curreny">￥190</p>
+                <p class="currency">￥190</p>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
 .main{background-color: #f9f9f9;padding: 0.30rem;position: relative;height: 100%;}
 .pb10{padding-bottom: 0.20rem}
 .memberInfo{padding:0.30rem 0.24rem;background: #fff;position: relative;z-index: 1;border-radius: .20rem}
-.memberInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.30rem;}
+.memberInfo img{width: 0.72rem; height: 0.72rem;border-radius: 0.36rem;}
 .memberInfo .compilebtn{color: #ff6000;width:0.9rem;height: 0.42rem;font-size: 0.24rem;text-align: center;line-height: 0.40rem;}
 .mb20{margin-bottom: 0.20rem}
 .tit{padding-left: 0.30rem;font-size: 0.26rem;color: #999;line-height: 0.88rem;}
@@ -75,5 +75,4 @@
 .orderInfo{background-color: #fff;border-radius: 0.20rem;}
 .orderInfo .item{height: .82rem;padding-left: 0.30rem;padding-right: 0.30rem}
 .orderInfo .item1{height: .98rem;padding-left: 0.30rem;padding-right: 0.30rem}
-.curreny{color: #ff6000;font-weight: bold;}
 </style>

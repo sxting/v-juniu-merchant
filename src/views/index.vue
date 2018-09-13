@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-#index {width: 100%;height: 100%;display: flex;flex-direction: column;background: #f5f5f5;}
+#index {width: 100%;height: 100%;display: flex;flex-direction: column;background: #f2f2f2;}
 .index_main {position: absolute;top: 0;left: 0;bottom: 1.04rem;width: 100%;}
 .index_footer {width: 100%;position: fixed;left: 0;bottom: 0;height: 1.02rem;background: #fff;z-index: 999;}
 .index_footer p{color: #999;font-size: 0.24rem;line-height: 0.40rem;margin-top: 0.04rem}

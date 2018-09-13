@@ -3,7 +3,7 @@
         <div class="toper ub ub-ac">
             <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac"><i class="icon_search mr05"></i>会员查询</div>
             <div class="openMember tx-c" @click="toPath('/addMember')"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
-            <div class="openMore tx-c" @click="showMenu"><i class="icon_more"></i><p class="tx-c f12">更多</p></div>
+            <div class="openMore tx-c mr05" @click="showMenu"><i class="icon_more"></i><p class="tx-c f12">更多</p></div>
         </div>
         <div class="modal1" v-show="isShowMenu">
             <div class="mask1" @click="closeModal1()"></div>
@@ -242,7 +242,7 @@ export default {
 
 <style scoped>
 .main{height: 100%;}
-.toper{height: 1.10rem;background: #f6f6f6;;width: 100%;}
+.toper{height: 1.10rem;background: #f2f2f2;;width: 100%;}
 .searchBox{margin-left: 0.25rem;position: relative;background: #e1e1e1;height: 0.64rem;border-radius: 0.32rem;padding-left: 0.20rem;color: #999;font-size: 0.28rem;}
 
 .arrow-up{width:0;height:0;border-left:0.2rem solid transparent;border-right:0.2rem solid transparent;border-bottom:0.2rem solid #fff;position:absolute;top:1.06rem;right:0.3rem;z-index: 9999999}

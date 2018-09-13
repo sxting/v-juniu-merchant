@@ -59,7 +59,7 @@ const routes = [{
         path: '/bindAccount',//绑定账号
         component: (resolve) => require(['./views/login/bindAccount'], resolve)
     },{
-        path: '/bindAccountbycode',//通过验证码绑定代码
+        path: '/bindAccountbycode',//通过验证码绑定账号
         component: (resolve) => require(['./views/login/bindAccountbycode'], resolve)
     },{
         path: '/forgetPsw',//改密码

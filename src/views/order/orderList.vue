@@ -77,7 +77,6 @@ export default {
 .pt10{padding-top: 0.20rem}
 
 .icon_member{display: inline-block;width: 0.34rem;height: 0.28rem;background: url(../../assets/icon_member.png) no-repeat center;background-size: 100% 100%;margin-right: 0.10rem}
-.curreny{color: #ff6000; font-weight: bold;}
 .btn_concel{width: 1.4rem;height: 0.44rem;background:#fff;border-radius:0.04rem;border: 1px #dedede solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #999}
 .btn_read{width: 1.4rem;height: 0.44rem;background:#fff;border-radius:0.04rem;border: 1px #ff6000 solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #ff6000;margin-left: 0.30rem}
 .pb30{padding-bottom: 0.30rem}
