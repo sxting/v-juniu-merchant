@@ -2,14 +2,14 @@
     <div class="main">
         <div class="item1 ub ub-ac plr15">
             <p class="ub-f1">用户名</p>
-            <img src="../../assets/user.png" class="user"/>
+            <img src="../../assets/my.png" class="user"/>
             <p class="ml05">帝格(15201375235)</p>
         </div>
         <p class="tit">本次核销信息</p>
         <div class="plr15 bgb">
             <div class="item bbc ub ub-ac ub-pj">
                 <p class="bc">商品名称</p>
-                <p class="bc1">商品名称</p>
+                <p class="bc">商品名称</p>
             </div>
             <div class="item bbc ub ub-ac ub-pj">
                 <p class="bc">商品价格</p>
@@ -17,7 +17,7 @@
             </div>
             <div class="item bbc ub ub-ac ub-pj">
                 <p class="bc">截至有效期</p>
-                <p class="bc1">2018-09-08</p>
+                <p class="bc">2018-09-08</p>
             </div>
             <div class="item ub ub-ac ub-pj">
                 <p class="bc">选择本次核销份数</p>
@@ -32,12 +32,12 @@
         <div class="plr15 bgb">
             <div class="item bbc ub ub-ac ub-pj" @click="openPicker1">
                 <p class="bc ub-f1">添加技师</p>
-                <p class="bc1">{{name1}}</p>
+                <p class="bc">{{name1}}</p>
                 <span class="arrow-down"></span>
             </div>
             <div class="item ub ub-ac ub-pj" @click="openPicker2">
                 <p class="bc ub-f1">添加小工</p>
-                <p class="bc1">{{name2}}</p>
+                <p class="bc">{{name2}}</p>
                 <span class="arrow-down"></span>
             </div>
         </div>
@@ -75,8 +75,8 @@ export default {
             actions2:[{
               values: ['技师1', '技师2', '技师3', '技师4', '技师5', '技师6']
             }],
-            name1:'',
-            name2:'',
+            name1:'请添加技师',
+            name2:'请添加小工',
             bookNum:1,
             isShowMember:false
         };
@@ -96,10 +96,10 @@ export default {
             this.pickerVisible2 = false;
         },
         onPickerChange1(picker,values){
-            this.name1 = values[0];
+            // this.name1 = values[0];
         },
         onPickerChange2(picker,values){
-            this.name2 = values[0];
+            // this.name2 = values[0];
         },
         addOne(){
             this.bookNum++;

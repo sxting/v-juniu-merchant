@@ -24,12 +24,10 @@
                 <p>预约管理</p>
             </div>
         </div>
-        <!-- <div class="logo_bg"></div> -->
     </div>
 </template>
 
 <script>
-import {popup,picker } from 'mint-ui';
 export default {
     name: "home",
     data() {
@@ -37,33 +35,35 @@ export default {
             pickerVisible:false,
             sellName:'店铺名称',
             width: '',
-            actions:[{
-              values: ['店铺1', '店铺2', '店铺3', '店铺4', '店铺5', '店铺6']
-            }],
             height: ''
         };
     },
     methods: {
         slideImgChange(index) {
-            this.curIndex = index
+            this.curIndex = index;
+        },
+        initBtnSize(){
+            var sw = document.body.clientWidth;
+            this.width = (sw-50)/2+'px';
+            this.height = (sw-50)/2*28/33+'px';
         },
         toPath(str){
             this.$router.push(str);
         }
     },
-    created() {
+    mounted() {
         document.title = '工作';
-        var width = document.body.clientWidth;
-        this.width = (width-60)/2+'px';
-        this.height = (width-60)/2*28/33+'px';
+        this.initBtnSize();
+        window.onresize = ()=>{
+            this.initBtnSize();
+        }
     }
 };
 
 </script>
 
 <style scoped>
-.main {height: 100%;padding-left: 0.30rem;padding-right: 0.30rem;position: relative;}
-.logo_bg{background:url(../assets/logo_bg.png) no-repeat center center;height: 0.48rem;width: 100%;position: absolute;z-index: 9;left: 0;bottom: 0.60rem;background-size: contain;}
+.main {height: 100%;padding-left: 15px;padding-right: 15px;position: relative;}
 .sy_btn{position: relative;z-index: 10}
 .icon-arrow::before{transform: rotate(180deg);-webkit-transform: rotate(180deg);}
 .bar{height: 1rem;background-color: #fff;text-align: center;line-height: 1rem;margin-left: -0.30rem;margin-right: -0.30rem;}

@@ -4,9 +4,9 @@
             <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac"><i class="icon_search mr05"></i>查询会员</div>
             <div class="openMember tx-c" @click="toAddMember"><i class="icon_member"></i><p class="tx-c f12">开通会员</p></div>
         </div>
-        <div class="content plr15">
+        <div class="content plr15 mt05">
             <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
-                <img src="../assets/user.png" class="udb" @click="toMemberInfo">
+                <img src="../assets/my.png" class="udb" @click="toMemberInfo">
                 <div class="ub-f1 ml10">
                     <p class="f12 bc1 ub ub-ac">王某某<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="f12 mt05">10000000000</p>
@@ -28,27 +28,27 @@
                 </div>
                 <div class="bbc plr20" v-show="isShowMoreItem">
                     <div class="item ub ub-pj ub-ac" @click="openPicker1">
-                        <p class="ub-f1 sc f13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务技师</p>
+                        <p class="ub-f1 sc f13 pl48">服务技师</p>
                         <p class="bc f13">{{name1}}</p><i class="arrow-down"></i>
                     </div>
                     <div class="item ub ub-pj ub-ac">
-                        <p class="ub-f1 sc f13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否指定服务技师</p>
+                        <p class="ub-f1 sc f13 pl48">是否指定服务技师</p>
                         <div class="switch-btn">
                           <div class="icon-on" v-if="isSwitch1" @click="switchBoolen1"></div>
                           <div class="icon-off" v-else @click="switchBoolen1"></div>
                         </div>
                     </div>
                     <div class="item ub ub-pj ub-ac" @click="openPicker2">
-                        <p class="ub-f1 sc f13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务小工</p>
+                        <p class="ub-f1 sc f13 pl48">服务小工</p>
                         <p class="bc f13">{{name2}}</p><i class="arrow-down"></i>
                     </div>
                 </div>
                 <div class="item plr20 bbc ub ub-ac ub-pj" @click="openPicker3">
-                    <p class="ub-f1 sc f13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;折扣</p>
+                    <p class="ub-f1 sc f13 pl48">折扣</p>
                     <p class="f13">{{name3}}</p>
                     <i class="arrow-down"></i>
                 </div>
-                <div class="item plr20 ub ub-pj"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实付</p><p class="finallNum">￥190</p></div>
+                <div class="item plr20 ub ub-pj"><p class="pl48">实付</p><p class="finallNum">￥190</p></div>
             </div>
         </div>
         <div class="foot">
@@ -231,4 +231,5 @@ export default {
 .icon_drop{width: 0.32rem;height: 0.28rem;background: url(../assets/icon_drop.png);background-size: 100% 100%;margin-right: 0.20rem}
 .icon_down{width: 0.32rem;height: 0.28rem;background: url(../assets/icon_down.png);background-size: 100% 100%;margin-right: 0.20rem}
 .icon_add1{font-size: 0.24rem!important;margin-right: 0.08rem}
+.pl48{padding-left: 0.48rem;}
 </style>

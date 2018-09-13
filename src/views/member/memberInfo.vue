@@ -3,7 +3,7 @@
         <div class="blackbar"></div>
         <div class="memberInfo">
             <div class="ub ub-ac bbc pb15">
-                <img src="../../assets/user.png" class="udb">
+                <img src="../../assets/my.png" class="udb">
                 <div class="ub-f1 ml10">
                     <p class="f14 bc1 ub ub-ac">王云鹏<i class="icon_male ml05"></i><i class="icon_card ml10"></i></p>
                     <p class="mt05"><i class="icon_tel"></i><a href="" class="f12 bc1">15011101110</a></p>
