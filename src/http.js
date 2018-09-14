@@ -1,6 +1,5 @@
-import axios from 'axios'
-import router from './router'
-
+import axios from "axios";
+import router from "./router";
 
 // axios 配置
 axios.defaults.timeout = 60000;
@@ -9,29 +8,30 @@ axios.defaults.baseURL = process.env.BASE_API_ADDR;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        let token = '';
-        let staffInfo = sessionStorage.getItem('staffInfo');
+        let token = "";
+        let staffInfo = sessionStorage.getItem("staffInfo");
         if (staffInfo) {
             let si = JSON.parse(staffInfo);
             token = si.token;
         }
         if (token) {
-            config.headers['token'] = token;
+            config.headers["token"] = token;
         }
         return config;
     },
     err => {
         return Promise.reject(err);
-    });
+    }
+);
 
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
         console.log(response);
         let result = response.data;
-        if (result.errorCode == '999000') {
+        if (result.errorCode == "999000") {
             router.replace({
-                path: 'login',
+                path: "login",
                 query: {
                     redirect: router.currentRoute.fullPath
                 }
@@ -42,16 +42,17 @@ axios.interceptors.response.use(
     },
     error => {
         console.log(error);
-        console.log(error.response)
+        console.log(error.response);
         if (error.response) {
             switch (error.response.status) {
                 case 401:
-                    console.log('response.status: 401');
+                    console.log("response.status: 401");
             }
         }
         //判断超时原因 路由跳转页面
         console.log(JSON.stringify(error)); //console : Error: Request failed with status code 402
         return Promise.reject(error.data);
-    });
+    }
+);
 
 export default axios;

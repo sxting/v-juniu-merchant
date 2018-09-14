@@ -1,62 +1,63 @@
 <template>
-    <div class="main ub ub-ver">
-        <div class="toper ub ub-ac">
-            <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac">
-                <i class="icon_search mr05"></i>会员查询</div>
-            <div class="openMember tx-c" @click="toPath('/addMember')">
-                <i class="icon_member"></i>
-                <p class="tx-c f12">开通会员</p>
-            </div>
-            <div class="openMore tx-c mr05" @click="showMenu">
-                <i class="icon_more"></i>
-                <p class="tx-c f12">更多</p>
-            </div>
-        </div>
-        <div class="modal1" v-show="isShowMenu">
-            <div class="mask1" @click="closeModal1()"></div>
-            <div class="arrow-up"></div>
-            <ul class="menu">
-                <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
-                    <span class="icon_orderlist"></span>历史订单</li>
-                <li class="ub ub-ac ub-pc" @click="toPath('/dirCharge')">
-                    <span class="icon_sk"></span>直接收款</li>
-            </ul>
-        </div>
-        <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
-            <img src="../assets/user.png" class="udb bac" @click="toMemberInfo">
-            <div class="ub-f1 ml10" @click="toMemberInfo">
-                <p class="f12 bc1 ub ub-ac">王云鹏
-                    <i class="icon_male ml05"></i>
-                    <i class="icon_card ml10"></i>
-                </p>
-                <p class="f12 mt05 bc1">15011111111</p>
-            </div>
-            <div class="userbtn btn_vc" @click="toMemberCard">售卡/充值</div>
-        </div>
-        <div class="content ub-f1 ub">
-            <ul class="sidebar">
-                <li v-for="(item,index) in tabList" :key="index" :class="{'on':curTabindex==index}" @click="moveTop(index)">{{item}}</li>
-            </ul>
-            <div class="ub-f1 h100" ref="productDiv" @scroll="handleScroll">
-                <productItem class="d_jump" v-for="(item,index) in productList" :productInfo="item" :key="index" @updateCount="updateCount"></productItem>
-            </div>
-        </div>
-        <div class="modal2" v-show="isShowBus&&productCount>0">
-            <div class="mask2" @click="closeModal2()"></div>
-            <div class="goodBusList plr10">
-                <productBusItem v-for="(item,index) in productList" :productInfo="item" :key="index" :id="setId(item.id)" v-if="item.count>0" @updateCount="updateCount"></productBusItem>
-            </div>
-        </div>
-        <div class="foot ub">
-            <div class="icon_goodbus" :class="{'on':productCount>0}" @click="openBookList">
-                <div class="icon_num" v-show="productCount>0">{{productCount}}</div>
-            </div>
-            <div class="ub-f1 selected ub ub-ac ub-pc" @click="openBookList">已选择{{productCount}}款产品
-                <i :class="{'ion_down':isShowBus,'ion_up':!isShowBus}" v-show="productCount>0"></i>
-            </div>
-            <button :disabled="isDisabled" type="button" @click="toOrder">下一步</button>
-        </div>
+  <div class="main ub ub-ver">
+    <div class="toper ub ub-ac">
+      <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac">
+        <i class="icon_search mr05"></i>会员查询</div>
+      <div class="openMember tx-c" @click="toPath('/addMember')">
+        <i class="icon_member"></i>
+        <p class="tx-c f12">开通会员</p>
+      </div>
+      <div class="openMore tx-c mr05" @click="showMenu">
+        <i class="icon_more"></i>
+        <p class="tx-c f12">更多</p>
+      </div>
     </div>
+    <div class="modal1" v-show="isShowMenu">
+      <div class="mask1" @click="closeModal1()"></div>
+      <div class="arrow-up"></div>
+      <ul class="menu">
+        <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
+          <span class="icon_orderlist"></span>历史订单</li>
+        <li class="ub ub-ac ub-pc" @click="toPath('/dirCharge')">
+          <span class="icon_sk"></span>直接收款</li>
+      </ul>
+    </div>
+    <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
+      <img src="../assets/user.png" class="udb bac" @click="toMemberInfo">
+      <div class="ub-f1 ml10" @click="toMemberInfo">
+        <p class="f12 bc1 ub ub-ac">王云鹏
+          <i class="icon_male ml05"></i>
+          <i class="icon_card ml10"></i>
+        </p>
+        <p class="f12 mt05 bc1">15011111111</p>
+      </div>
+      <div class="userbtn btn_vc" @click="toMemberCard">售卡/充值</div>
+    </div>
+    <div class="content ub-f1 ub">
+      <ul class="sidebar">
+        <li v-for="(item,index) in tabList" :key="index" :class="{'on':curTabindex==index}" @click="moveTop(index)">{{item}}</li>
+      </ul>
+      <div class="ub-f1 h100" ref="productDiv" @scroll="handleScroll">
+        <productItem class="d_jump" v-for="(item,index) in productList" :productInfo="item" :key="index" @updateCount="updateCount"></productItem>
+      </div>
+    </div>
+    <div class="modal2" v-show="isShowBus&&productCount>0">
+      <div class="mask2" @click="closeModal2()"></div>
+      <div class="goodBusList plr10">
+        <productBusItem v-for="(item,index) in productList" :productInfo="item" :key="index" :id="setId(item.id)" v-if="item.count>0" @updateCount="updateCount"></productBusItem>
+      </div>
+    </div>
+    <div class="foot ub">
+      <div class="icon_goodbus" :class="{'on':productCount>0}" @click="openBookList">
+        <div class="icon_num" v-show="productCount>0">{{productCount}}</div>
+      </div>
+      <div class="ub-f1 selected ub ub-ac ub-pc" @click="openBookList">已选择{{productCount}}款产品
+        <i :class="{'ion_down':isShowBus,'ion_up':!isShowBus}" v-show="productCount>0"></i>
+      </div>
+      <button :disabled="isDisabled" type="button" @click="toOrder">下一步</button>
+    </div>
+    <alertBox ref="alertBox"></alertBox>
+  </div>
 </template>
 
 <script>
@@ -236,37 +237,38 @@ export default {
       this.curTabindex = parseInt(this.productList[curIndex].type);
     },
     moveTop(index) {
-      this.curTabindex = index;
-      let jump = document.querySelectorAll(".d_jump");
-      let total = jump[index].offsetTop;
-      let distance = this.$refs.productDiv.scrollTop;
-      // 平滑滚动，时长500ms，每10ms一跳，共50跳
-      let step = total / 50;
-      if (total > distance) {
-        smoothDown();
-      } else {
-        let newTotal = distance - total;
-        step = newTotal / 50;
-        smoothUp();
-      }
-      function smoothDown() {
-        if (distance < total) {
-          distance += step;
-          this.$refs.productDiv.scrollTop = distance;
-          setTimeout(smoothDown, 10);
-        } else {
-          this.$refs.productDiv.scrollTop = total;
-        }
-      }
-      function smoothUp() {
-        if (distance > total) {
-          distance -= step;
-          this.$refs.productDiv.scrollTop = distance;
-          setTimeout(smoothUp, 10);
-        } else {
-          this.$refs.productDiv.scrollTop = total;
-        }
-      }
+      this.$refs.alertBox.alert("测试提示框");
+      // this.curTabindex = index;
+      // let jump = document.querySelectorAll(".d_jump");
+      // let total = jump[index].offsetTop;
+      // let distance = this.$refs.productDiv.scrollTop;
+      // // 平滑滚动，时长500ms，每10ms一跳，共50跳
+      // let step = total / 50;
+      // if (total > distance) {
+      //   smoothDown();
+      // } else {
+      //   let newTotal = distance - total;
+      //   step = newTotal / 50;
+      //   smoothUp();
+      // }
+      // function smoothDown() {
+      //   if (distance < total) {
+      //     distance += step;
+      //     this.$refs.productDiv.scrollTop = distance;
+      //     setTimeout(smoothDown, 10);
+      //   } else {
+      //     this.$refs.productDiv.scrollTop = total;
+      //   }
+      // }
+      // function smoothUp() {
+      //   if (distance > total) {
+      //     distance -= step;
+      //     this.$refs.productDiv.scrollTop = distance;
+      //     setTimeout(smoothUp, 10);
+      //   } else {
+      //     this.$refs.productDiv.scrollTop = total;
+      //   }
+      // }
     },
     openBookList() {
       if (this.productCount == 0) {
