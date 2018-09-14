@@ -17,9 +17,13 @@
             <div class="arrow-up"></div>
             <ul class="menu">
                 <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
-                    <span class="icon_orderlist"></span>历史订单</li>
+                    <span class="icon_orderlist"></span>
+                    历史订单
+                </li>
                 <li class="ub ub-ac ub-pc" @click="toPath('/dirCharge')">
-                    <span class="icon_sk"></span>直接收款</li>
+                    <span class="icon_sk"></span>
+                    直接收款
+                </li>
             </ul>
         </div>
         <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
@@ -35,10 +39,12 @@
         </div>
         <div class="content ub-f1 ub">
             <ul class="sidebar">
-                <li v-for="(item,index) in tabList" :key="index" :class="{'on':curTabindex==index}" @click="moveTop(index)">{{item}}</li>
+                <li v-for="(item,index) in productList" :key="index" :class="{'on':curTabindex==index}" @click="moveTop(index)">{{item.title}}</li>
             </ul>
             <div class="ub-f1 h100" ref="productDiv" @scroll="handleScroll">
-                <productItem class="d_jump" v-for="(item,index) in productList" :productInfo="item" :key="index" @updateCount="updateCount"></productItem>
+                <li v-for="(item,index) in productList" :key="index" @updateCount="updateCount">
+                  <productItem v-for="(it,i) in item.arr"  :productInfo="it" :key="i"></productItem>
+                </li>
             </div>
         </div>
         <div class="modal2" v-show="isShowBus&&productCount>0">
@@ -74,7 +80,6 @@ export default {
       bookNum: [0, 0, 0],
       productCount: 0,
       isShowMenu: false,
-      tabList: ["项目1", "项目2", "项目3", "项目4"],
       curTabindex: 0,
       productList: [
         {
