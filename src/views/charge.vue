@@ -49,7 +49,7 @@
             </div>
         </div> -->
 
-    <div class="good">
+    <div class="good ub-f1">
       <div class="menu-wrapper" ref="menuWrapper">
         <ul>
           <li v-for="(item, index) in goods" :key="index" class="menu-item border-1px" :class="{'current':currentIndex === index}" @click="selectMenu(index, $event)">
@@ -62,22 +62,22 @@
           <li v-for="(item, index)  in goods" :key="index" class="food-list food-list-hook">
             <h1 class="title">{{item.name}}</h1>
             <ul>
-              <li v-for="(food, index2)  in item.foods" :key="index2" class="food-item" @click="selectFood(food, $event)">
+              <li v-for="(food, index2)  in item.foods" :key="index2" class="food-item ub ub-ac" @click="selectFood(food, $event)">
                 <div class="icon">
-                  <img :src="food.icon" alt="" width="57">
+                  <img :src="food.icon" alt="" width="80" height="80">
                 </div>
-                <div class="content">
+                <div class="content ub-f1">
                   <h2 class="name">{{food.name}}</h2>
                   <div class="extra">
-                    <span class="count">月售{{food.sellCount}}</span>
+                    <p class="count">月售{{food.sellCount}}</p>
                   </div>
                   <div class="price">
                     <span class="now">￥{{food.price}}</span>
                     <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
-                  <div class="cartControl-wrapper">
-                    <cartControl :food="food" @increment="incrementTotal"></cartControl>
-                  </div>
+                </div>
+                <div class="cartControl-wrapper">
+                  <cartControl :food="food" @increment="incrementTotal"></cartControl>
                 </div>
               </li>
             </ul>
