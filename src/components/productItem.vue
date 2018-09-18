@@ -1,21 +1,17 @@
 <template>
-    <li class="ub item bbc ub-ac ub-pj">
-        <p>{{productInfo.title}}</p>
-        <div v-for="(item,index) in productInfo.arr" :key="index">
-            <img src="../assets/default.png" class="udb">
-            <div class="ub-f1 msg">
-                <p class="tit">{{item.name}}</p>
-                <p class="desc">{{item.desc}}</p>
-                <p class="price">￥{{item.price}}</p>
-            </div>
-            <div class="ctrl ub">
-                <i v-if="isShow" class="icon_del" @click="delOne"></i>
-                <i v-if="isShow" class="book_num">{{item.count}}</i>
-                <i class="icon_add" @click="addOne"></i>
-            </div>
-        </div>
-
-    </li>
+  <div class="ub item bbc ub-ac ub-pj">
+    <img src="../assets/default.png" class="udb">
+    <div class="ub-f1 msg">
+      <p class="tit">{{productInfo.name}}</p>
+      <p class="desc">{{productInfo.desc}}</p>
+      <p class="price">￥{{productInfo.price}}</p>
+    </div>
+    <div class="ctrl ub">
+      <i v-if="isShow" class="icon_del" @click="delOne"></i>
+      <i v-if="isShow" class="book_num">{{productInfo.count}}</i>
+      <i class="icon_add" @click="addOne"></i>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -27,13 +23,14 @@ export default {
     };
   },
   watch: {
-    "productInfo.count": function toggle() {
-      if (this.productInfo.count == 0) {
-        this.isShow = false;
-      }
-    }
+    // "productInfo.count": function toggle() {
+    //   if (this.productInfo.count == 0) {
+    //     this.isShow = false;
+    //   }
+    // }
   },
   methods: {
+    
     initShow() {
       if (this.productInfo.count == 0) {
         this.isShow = false;

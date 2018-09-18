@@ -17,9 +17,13 @@
       <div class="arrow-up"></div>
       <ul class="menu">
         <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
-          <span class="icon_orderlist"></span>历史订单</li>
+          <span class="icon_orderlist"></span>
+          历史订单
+        </li>
         <li class="ub ub-ac ub-pc" @click="toPath('/dirCharge')">
-          <span class="icon_sk"></span>直接收款</li>
+          <span class="icon_sk"></span>
+          直接收款
+        </li>
       </ul>
     </div>
     <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
@@ -33,19 +37,57 @@
       </div>
       <div class="userbtn btn_vc" @click="toMemberCard">售卡/充值</div>
     </div>
-    <div class="content ub-f1 ub">
-      <ul class="sidebar">
-        <li v-for="(item,index) in tabList" :key="index" :class="{'on':curTabindex==index}" @click="moveTop(index)">{{item}}</li>
-      </ul>
-      <div class="ub-f1 h100" ref="productDiv" @scroll="handleScroll">
-        <productItem class="d_jump" v-for="(item,index) in productList" :productInfo="item" :key="index" @updateCount="updateCount"></productItem>
+    <!-- <div class="content ub-f1 ub" ref="menuWrapper" style="padding-bottom: 50px;">
+            <ul class="sidebar">
+                <li v-for="(item,index) in productList" :key="index" :class="{'current':currentIndex === index}" @click="selectMenu(index, $event)">{{item.title}}</li>
+            </ul>
+            <div class="ub-f1 h100 cate-list" id="app-root " ref="foodWrapper">
+                <li v-for="(item,index) in productList" class="cate-item section food-list-hook" :id="item.if" :key="index" @updateCount="updateCount">
+                    <p>{{item.title}}</p>
+                    <productItem v-for="(it,i) in item.arr" :productInfo="it" :key="i"></productItem>
+                </li>
+            </div>
+        </div> -->
+
+    <div class="good">
+      <div class="menu-wrapper" ref="menuWrapper">
+        <ul>
+          <li v-for="(item, index) in goods" :key="index" class="menu-item border-1px" :class="{'current':currentIndex === index}" @click="selectMenu(index, $event)">
+            {{item.name}}
+          </li>
+        </ul>
       </div>
-    </div>
-    <div class="modal2" v-show="isShowBus&&productCount>0">
-      <div class="mask2" @click="closeModal2()"></div>
-      <div class="goodBusList plr10">
-        <productBusItem v-for="(item,index) in productList" :productInfo="item" :key="index" :id="setId(item.id)" v-if="item.count>0" @updateCount="updateCount"></productBusItem>
+      <div class="foods-wrapper" ref="foodWrapper" style="background:#fff;">
+        <ul>
+          <li v-for="(item, index)  in goods" :key="index" class="food-list food-list-hook">
+            <h1 class="title">{{item.name}}</h1>
+            <ul>
+              <li v-for="(food, index2)  in item.foods" :key="index2" class="food-item" @click="selectFood(food, $event)">
+                <div class="icon">
+                  <img :src="food.icon" alt="" width="57">
+                </div>
+                <div class="content">
+                  <h2 class="name">{{food.name}}</h2>
+                  <div class="extra">
+                    <span class="count">月售{{food.sellCount}}</span>
+                  </div>
+                  <div class="price">
+                    <span class="now">￥{{food.price}}</span>
+                    <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  </div>
+                  <div class="cartControl-wrapper">
+                    <cartControl :food="food" @increment="incrementTotal"></cartControl>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
+      <!-- <div>
+                <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ref="shopCart"></shopCart>
+                <food :food="selectedFood" ref="food"></food>
+            </div> -->
     </div>
     <div class="foot ub">
       <div class="icon_goodbus" :class="{'on':productCount>0}" @click="openBookList">
@@ -56,13 +98,15 @@
       </div>
       <button :disabled="isDisabled" type="button" @click="toOrder">下一步</button>
     </div>
-    <alertBox ref="alertBox"></alertBox>
   </div>
 </template>
 
 <script>
 import productItem from "@/components/productItem.vue";
 import productBusItem from "@/components/productBusItem.vue";
+import BScroll from "better-scroll";
+import data from "../json/data.json";
+import cartControl from "./cartControl.vue";
 export default {
   name: "charge",
   data() {
@@ -70,16 +114,18 @@ export default {
       isDisabled: true,
       isShowMember: true,
       bookNum: 0,
+      scrolly: 0,
       box: null,
       isShowBus: false,
       bookNum: [0, 0, 0],
       productCount: 0,
       isShowMenu: false,
-      tabList: ["项目1", "项目2", "项目3", "项目4"],
       curTabindex: 0,
+      goods: [],
       productList: [
         {
           title: "项目1",
+          if: "aaa1",
           arr: [
             {
               id: "1111",
@@ -109,6 +155,7 @@ export default {
         },
         {
           title: "项目2",
+          if: "aaa2",
           arr: [
             {
               id: "1111",
@@ -138,6 +185,7 @@ export default {
         },
         {
           title: "项目3",
+          if: "aaa3",
           arr: [
             {
               id: "1111",
@@ -167,6 +215,7 @@ export default {
         },
         {
           title: "项目4",
+          if: "aaa4",
           arr: [
             {
               id: "1111",
@@ -195,11 +244,75 @@ export default {
           ]
         }
       ],
-      goodBusList: []
+      listHeight: [],
+      goodBusList: [],
+      selectedFood: {}
     };
   },
-  components: { productItem, productBusItem },
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  components: {
+    productItem,
+    productBusItem,
+    cartControl
+  },
   methods: {
+    _initScroll() {
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+        click: true
+      });
+      this.foodScroll = new BScroll(this.$refs.foodWrapper, {
+        probeType: 3,
+        click: true
+      });
+      this.foodScroll.on("scroll", pos => {
+        this.scrolly = Math.abs(Math.round(pos.y));
+      });
+    },
+    incrementTotal(target) {
+      this.$refs.shopCart.drop(target);
+    },
+    _calculateHeight() {
+      let foodList = this.$refs.foodWrapper.getElementsByClassName(
+        "food-list-hook"
+      );
+      let height = 0;
+      this.listHeight.push(height);
+      for (let i = 0; i < foodList.length; i++) {
+        let item = foodList[i];
+        height += item.clientHeight;
+        this.listHeight.push(height);
+      }
+    },
+    selectMenu(index, event) {
+      if (!event._constructed) {
+        // 去掉自带click事件的点击
+        return;
+      }
+      let foodList = this.$refs.foodWrapper.getElementsByClassName(
+        "food-list-hook"
+      );
+      let el = foodList[index];
+      this.foodScroll.scrollToElement(el, 300);
+    },
+    loadSroll: function() {
+      var self = this;
+      var $navs = this.$JQ(".nav1");
+      var sections = document.getElementsByClassName("section");
+      for (var i = sections.length - 1; i >= 0; i--) {
+        if (self.scroll >= sections[i].offsetTop - 100) {
+          $navs
+            .eq(i)
+            .addClass("current")
+            .siblings()
+            .removeClass("current");
+          break;
+        }
+      }
+    },
     updateCount() {
       var productList = this.productList;
       this.productCount = 0;
@@ -228,48 +341,6 @@ export default {
     toMemberSearch() {
       this.$router.push("/memberSearch");
     },
-    handleScroll() {
-      var list = this.$refs.productDiv;
-      var listHeight = list.scrollHeight;
-      var len = this.productList.length;
-      var roundHeight = parseInt(listHeight / len);
-      var curIndex = Math.floor(list.scrollTop / roundHeight);
-      this.curTabindex = parseInt(this.productList[curIndex].type);
-    },
-    moveTop(index) {
-      this.$refs.alertBox.alert("测试提示框");
-      // this.curTabindex = index;
-      // let jump = document.querySelectorAll(".d_jump");
-      // let total = jump[index].offsetTop;
-      // let distance = this.$refs.productDiv.scrollTop;
-      // // 平滑滚动，时长500ms，每10ms一跳，共50跳
-      // let step = total / 50;
-      // if (total > distance) {
-      //   smoothDown();
-      // } else {
-      //   let newTotal = distance - total;
-      //   step = newTotal / 50;
-      //   smoothUp();
-      // }
-      // function smoothDown() {
-      //   if (distance < total) {
-      //     distance += step;
-      //     this.$refs.productDiv.scrollTop = distance;
-      //     setTimeout(smoothDown, 10);
-      //   } else {
-      //     this.$refs.productDiv.scrollTop = total;
-      //   }
-      // }
-      // function smoothUp() {
-      //   if (distance > total) {
-      //     distance -= step;
-      //     this.$refs.productDiv.scrollTop = distance;
-      //     setTimeout(smoothUp, 10);
-      //   } else {
-      //     this.$refs.productDiv.scrollTop = total;
-      //   }
-      // }
-    },
     openBookList() {
       if (this.productCount == 0) {
         return;
@@ -284,244 +355,45 @@ export default {
     },
     toPath(str) {
       this.$router.push(str);
-    }
+    },
+      incrementTotal(target) {
+        this.$refs.shopCart.drop(target);
+      }
   },
   created() {
     document.title = "收银";
+    this.goods = data.goods;
+    this.$nextTick(() => {
+      this._initScroll();
+      this._calculateHeight();
+    });
+    this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
   },
-  mounted() {}
+  computed: {
+    currentIndex() {
+      for (let i = 0; i < this.listHeight.length; i++) {
+        let height = this.listHeight[i];
+        let height2 = this.listHeight[i + 1];
+        if (!height2 || (this.scrolly >= height && this.scrolly < height2)) {
+          return i;
+        }
+      }
+      return 0;
+    },
+    selectFoods() {
+      let foods = [];
+      this.goods.forEach(good => {
+        good.foods.forEach(food => {
+          if (food.count) {
+            foods.push(food);
+          }
+        });
+      });
+      return foods;
+    }
+  }
 };
 </script>
-
-<style scoped>
-.main {
-  height: 100%;
-}
-.toper {
-  height: 1.1rem;
-  background: #f2f2f2;
-  width: 100%;
-}
-.searchBox {
-  margin-left: 0.25rem;
-  position: relative;
-  background: #e1e1e1;
-  height: 0.64rem;
-  border-radius: 0.32rem;
-  padding-left: 0.2rem;
-  color: #999;
-  font-size: 0.28rem;
-}
-
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 0.2rem solid transparent;
-  border-right: 0.2rem solid transparent;
-  border-bottom: 0.2rem solid #fff;
-  position: absolute;
-  top: 1.06rem;
-  right: 0.3rem;
-  z-index: 9999999;
-}
-.menu {
-  width: 2.2rem;
-  background-color: #fff;
-  border-radius: 0.1rem;
-  position: absolute;
-  top: 1.2rem;
-  right: 0.1rem;
-  z-index: 9999999;
-}
-.menu li {
-  text-align: center;
-  line-height: 1.07rem;
-}
-.icon_sk {
-  display: inline-block;
-  width: 0.3rem;
-  height: 0.34rem;
-  background: url(../assets/icon_sk.png) no-repeat center center;
-  background-size: contain;
-  margin-right: 0.2rem;
-}
-.icon_orderlist {
-  display: inline-block;
-  width: 0.24rem;
-  height: 0.34rem;
-  background: url(../assets/icon_orderlist.png) no-repeat center center;
-  background-size: contain;
-  margin-right: 0.2rem;
-}
-
-.content {
-  background: #fff;
-  position: relative;
-  overflow: auto;
-}
-.sidebar {
-  width: 1.5rem;
-  margin-right: 0.2rem;
-}
-.sidebar li {
-  height: 1rem;
-  padding-left: 0.3rem;
-  font-size: 0.28rem;
-  background: #f2f2f2;
-  line-height: 1rem;
-  font-size: 0.26rem;
-  color: #666;
-}
-.sidebar li.on {
-  background-color: #fff;
-  height: 1.2rem;
-  line-height: 1.2rem;
-  color: #333;
-}
-.foot {
-  height: 1rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10000;
-}
-.foot .selected {
-  background-color: rgba(0, 0, 0, 0.8);
-  line-height: 1rem;
-  text-align: center;
-  color: #fff;
-  font-size: 0.28rem;
-}
-.foot button {
-  background: linear-gradient(to right, #ff5000, #ff8000);
-  font-size: 0.28rem;
-  line-height: 1rem;
-  width: 2rem;
-  text-align: center;
-  color: #fff;
-}
-.foot button:disabled {
-  background: #808080;
-}
-.icon_goodbus {
-  width: 1.05rem;
-  height: 1.05rem;
-  background: #666666 url(../assets/icon_goodbus.png) no-repeat center center;
-  position: absolute;
-  top: -0.4rem;
-  left: 0.4rem;
-  border-radius: 50%;
-  background-size: 50% 50%;
-  z-index: 9999;
-}
-.icon_goodbus.on {
-  background-color: #ff8000;
-}
-.icon_num {
-  width: 0.4rem;
-  height: 0.4rem;
-  text-align: center;
-  line-height: 0.4rem;
-  position: absolute;
-  top: -0.05rem;
-  right: -0.05rem;
-  background-color: #fd4f00;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 0.24rem;
-}
-.modal1 {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 10002;
-}
-.modal1 .mask1 {
-  background-color: rgba(51, 51, 51, 0.5);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  z-index: 10001;
-}
-.modal2 {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 9999;
-}
-.modal2 .mask2 {
-  background-color: rgba(51, 51, 51, 0.5);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
-.goodBusList {
-  background-color: #fff;
-  position: fixed;
-  bottom: 1rem;
-  left: 0;
-  width: 100%;
-  border-radius: 0.2rem 0.2rem 0 0;
-  padding-bottom: 0.6rem;
-}
-.noGood {
-  height: 1.8rem;
-  line-height: 1.8rem;
-  text-align: center;
-  background-color: #fff;
-  position: fixed;
-  bottom: 1rem;
-  left: 0;
-  width: 100%;
-  border-radius: 0.2rem 0.2rem 0 0;
-  padding-bottom: 0.6rem;
-}
-.ion_up {
-  display: inline-block;
-  width: 0.26rem;
-  height: 0.12rem;
-  background: url(../assets/ion_up.png) no-repeat center center;
-  background-size: 100% 100%;
-  margin-left: 0.1rem;
-}
-.ion_down {
-  display: inline-block;
-  width: 0.26rem;
-  height: 0.12rem;
-  background: url(../assets/ion_down.png) no-repeat center center;
-  background-size: 100% 100%;
-  margin-left: 0.1rem;
-}
-
-.userInfo {
-  padding: 0 0.24rem 0.16rem;
-  border-radius: 0.2rem;
-  margin-top: 0.1rem;
-}
-.userInfo img {
-  width: 0.72rem;
-  height: 0.72rem;
-  border-radius: 0.3rem;
-}
-.userbtn {
-  background-color: #ff6000;
-  color: #fff;
-  width: 1.6rem;
-  height: 0.5rem;
-  border-radius: 0.3rem;
-  font-size: 0.24rem;
-}
-.h100 {
-  height: 100%;
-  overflow: scroll;
-}
+<style>
+@import url("./style/charge.css");
 </style>
