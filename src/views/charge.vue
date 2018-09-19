@@ -298,21 +298,7 @@ export default {
       let el = foodList[index];
       this.foodScroll.scrollToElement(el, 300);
     },
-    loadSroll: function() {
-      var self = this;
-      var $navs = this.$JQ(".nav1");
-      var sections = document.getElementsByClassName("section");
-      for (var i = sections.length - 1; i >= 0; i--) {
-        if (self.scroll >= sections[i].offsetTop - 100) {
-          $navs
-            .eq(i)
-            .addClass("current")
-            .siblings()
-            .removeClass("current");
-          break;
-        }
-      }
-    },
+
     updateCount() {
       var productList = this.productList;
       this.productCount = 0;
