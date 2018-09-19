@@ -1,7 +1,7 @@
 <template>
 	<li class="ub ub-ac bbc">
-	    <p class="ub-f1">{{productInfo.name}}</p>
-	    <p class="price rc">￥{{productInfo.price}}</p>
+	    <p class="ub-f1">{{productInfo.productName}}</p>
+	    <p class="price rc">￥{{productInfo.currentPrice/100}}</p>
 	    <div class="ctrl ub">
           <i class="icon_del" @click="delOne"></i><i class="book_num">{{productInfo.count}}</i><i class="icon_add" @click="addOne"></i>
 	    </div>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ['productInfo','updateCount'],
+  props: ['productInfo','increment'],
   data () {
     return {
         bookNum: 0,
@@ -21,11 +21,11 @@ export default {
         if(this.productInfo.count>0){
             this.productInfo.count--;
         }
-        this.$emit('updateCount','');
+        this.$emit('increment', this.food);
     },
     addOne(){
         this.productInfo.count++;
-        this.$emit('updateCount','');
+        this.$emit('increment', this.food);
     }
   }
 }

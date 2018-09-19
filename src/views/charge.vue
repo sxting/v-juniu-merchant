@@ -29,11 +29,13 @@
     <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
       <img src="../assets/user.png" class="udb bac" @click="toMemberInfo">
       <div class="ub-f1 ml10" @click="toMemberInfo">
-        <p class="f12 bc1 ub ub-ac">王云鹏
-          <i class="icon_male ml05"></i>
-          <i class="icon_card ml10"></i>
+        <p class="f12 bc1 ub ub-ac" v-if="isShowMember">{{chargeInfo.memberInfo.customer.customerName}}
+          <i class="icon_male ml05" v-if="chargeInfo.memberInfo.customer.gender==1"></i>
+          <i class="icon_women ml05" v-if="chargeInfo.memberInfo.customer.gender==0"></i>
+          <i class="icon_weizhi ml05" v-if="chargeInfo.memberInfo.customer.gender==2"></i>
+          <i class="icon_card ml10" v-if="chargeInfo.memberInfo.cardApplies.length>0"></i>
         </p>
-        <p class="f12 mt05 bc1">15011111111</p>
+        <p class="f12 mt05 bc1">{{chargeInfo.memberInfo.customer.phone}}</p>
       </div>
       <div class="userbtn btn_vc" @click="toMemberCard">售卡/充值</div>
     </div>
@@ -53,27 +55,27 @@
       <div class="menu-wrapper" ref="menuWrapper">
         <ul>
           <li v-for="(item, index) in goods" :key="index" class="menu-item border-1px" :class="{'current':currentIndex === index}" @click="selectMenu(index, $event)">
-            {{item.name}}
+            {{item.categoryName}}
           </li>
         </ul>
       </div>
       <div class="foods-wrapper" ref="foodWrapper" style="background:#fff;">
         <ul>
           <li v-for="(item, index)  in goods" :key="index" class="food-list food-list-hook">
-            <h1 class="title">{{item.name}}</h1>
+            <h1 class="title">{{item.categoryName}}</h1>
             <ul>
-              <li v-for="(food, index2)  in item.foods" :key="index2" class="food-item ub ub-ac" @click="selectFood(food, $event)">
+              <li v-for="(food, index2)  in item.productList" :key="index2" class="food-item ub ub-ac" @click="selectFood(food, $event)">
                 <div class="icon">
-                  <img :src="food.icon" alt="" width="80" height="80">
+                  <img :src="food.picUrl || 'src/assets/default.png'" alt="" width="80" height="80">
                 </div>
                 <div class="content ub-f1">
-                  <h2 class="name">{{food.name}}</h2>
+                  <h2 class="name">{{food.productName}}</h2>
                   <div class="extra">
-                    <p class="count">月售{{food.sellCount}}</p>
+                    <p class="count">{{food.productNo}}</p>
                   </div>
                   <div class="price">
-                    <span class="now">￥{{food.price}}</span>
-                    <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                    <span class="now">￥{{food.currentPrice/100}}</span>
+                    <!-- <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span> -->
                   </div>
                 </div>
                 <div class="cartControl-wrapper">
@@ -89,6 +91,13 @@
                 <food :food="selectedFood" ref="food"></food>
             </div> -->
     </div>
+
+    <div class="modal2" v-show="isShowBus&&productCount>0">
+      <div class="mask2" @click="closeModal2()"></div>
+      <div class="goodBusList plr10">
+        <productBusItem v-for="(item,index) in productList" :productInfo="item" :key="index" v-if="item.count>0" @increment="incrementTotal"></productBusItem>
+      </div>
+    </div>
     <div class="foot ub">
       <div class="icon_goodbus" :class="{'on':productCount>0}" @click="openBookList">
         <div class="icon_num" v-show="productCount>0">{{productCount}}</div>
@@ -98,6 +107,7 @@
       </div>
       <button :disabled="isDisabled" type="button" @click="toOrder">下一步</button>
     </div>
+    <alertBox ref="alertBox"></alertBox>
   </div>
 </template>
 
@@ -112,7 +122,7 @@ export default {
   data() {
     return {
       isDisabled: true,
-      isShowMember: true,
+      isShowMember: false,
       bookNum: 0,
       scrolly: 0,
       box: null,
@@ -122,131 +132,12 @@ export default {
       isShowMenu: false,
       curTabindex: 0,
       goods: [],
-      productList: [
-        {
-          title: "项目1",
-          if: "aaa1",
-          arr: [
-            {
-              id: "1111",
-              type: "0",
-              name: "名字1",
-              price: "100",
-              desc: "编号1",
-              count: 0
-            },
-            {
-              id: "2222",
-              type: "0",
-              name: "名字2",
-              price: "100",
-              desc: "编号2",
-              count: 0
-            },
-            {
-              id: "3333",
-              type: "0",
-              name: "名字3",
-              price: "100",
-              desc: "编号3",
-              count: 0
-            }
-          ]
-        },
-        {
-          title: "项目2",
-          if: "aaa2",
-          arr: [
-            {
-              id: "1111",
-              type: "0",
-              name: "名字1",
-              price: "100",
-              desc: "编号1",
-              count: 0
-            },
-            {
-              id: "2222",
-              type: "0",
-              name: "名字2",
-              price: "100",
-              desc: "编号2",
-              count: 0
-            },
-            {
-              id: "3333",
-              type: "0",
-              name: "名字3",
-              price: "100",
-              desc: "编号3",
-              count: 0
-            }
-          ]
-        },
-        {
-          title: "项目3",
-          if: "aaa3",
-          arr: [
-            {
-              id: "1111",
-              type: "0",
-              name: "名字1",
-              price: "100",
-              desc: "编号1",
-              count: 0
-            },
-            {
-              id: "2222",
-              type: "0",
-              name: "名字2",
-              price: "100",
-              desc: "编号2",
-              count: 0
-            },
-            {
-              id: "3333",
-              type: "0",
-              name: "名字3",
-              price: "100",
-              desc: "编号3",
-              count: 0
-            }
-          ]
-        },
-        {
-          title: "项目4",
-          if: "aaa4",
-          arr: [
-            {
-              id: "1111",
-              type: "0",
-              name: "名字1",
-              price: "100",
-              desc: "编号1",
-              count: 0
-            },
-            {
-              id: "2222",
-              type: "0",
-              name: "名字2",
-              price: "100",
-              desc: "编号2",
-              count: 0
-            },
-            {
-              id: "3333",
-              type: "0",
-              name: "名字3",
-              price: "100",
-              desc: "编号3",
-              count: 0
-            }
-          ]
-        }
-      ],
       listHeight: [],
       goodBusList: [],
-      selectedFood: {}
+      productList: [],
+      selectedFood: {},
+      chargeInfo: {},
+      storeId: sessionStorage.getItem("storeId")
     };
   },
   props: {
@@ -273,7 +164,24 @@ export default {
       });
     },
     incrementTotal(target) {
-      this.$refs.shopCart.drop(target);
+      let that = this;
+      that.productCount = 0;
+      that.productList = [];
+      for (let i = 0; i < that.goods.length; i++) {
+        for (let n = 0; n < that.goods[i].productList.length; n++) {
+          if (that.goods[i].productList[n].count) {
+            that.productCount += that.goods[i].productList[n].count;
+          }
+        }
+      }
+      for (let i = 0; i < that.goods.length; i++) {
+        for (let n = 0; n < that.goods[i].productList.length; n++) {
+          if (that.goods[i].productList[n].count > 0) {
+            that.productList.push(that.goods[i].productList[n]);
+          }
+        }
+      }
+      this.isDisabled = !Boolean(that.productCount);
     },
     _calculateHeight() {
       let foodList = this.$refs.foodWrapper.getElementsByClassName(
@@ -297,20 +205,6 @@ export default {
       );
       let el = foodList[index];
       this.foodScroll.scrollToElement(el, 300);
-    },
-
-    updateCount() {
-      var productList = this.productList;
-      this.productCount = 0;
-      for (var i = 0; i < productList.length; i++) {
-        if (productList[i].count > 0) {
-          this.productCount++;
-        }
-      }
-      if (this.productCount == 0) {
-        this.isShowBus = false;
-      }
-      this.isDisabled = !Boolean(this.productCount);
     },
     showMenu() {
       this.isShowMenu = !Boolean(this.isShowMenu);
@@ -342,18 +236,45 @@ export default {
     toPath(str) {
       this.$router.push(str);
     },
-      incrementTotal(target) {
-        this.$refs.shopCart.drop(target);
-      }
+
+    //全部商品
+    getAllproduct() {
+      let that = this;
+      let data = {
+        storeId: that.storeId
+      };
+      this.$ajax
+        .get(this.HttpUrl + "merchant/product/product/buySearch.json", {
+          params: data
+        })
+        .then(function(res) {
+          if (res.success) {
+            that.goods = res.data;
+            that.$nextTick(() => {
+              that._initScroll();
+              that._calculateHeight();
+            });
+            that.classMap = [
+              "decrease",
+              "discount",
+              "special",
+              "invoice",
+              "guarantee"
+            ];
+          } else {
+            that.$refs.alertBox.alert(res.errorInfo);
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
   },
   created() {
     document.title = "收银";
-    this.goods = data.goods;
-    this.$nextTick(() => {
-      this._initScroll();
-      this._calculateHeight();
-    });
-    this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
+    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"));
+    if (this.chargeInfo.memberInfo) this.isShowMember = true;
+    this.getAllproduct();
   },
   computed: {
     currentIndex() {
