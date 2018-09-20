@@ -77,11 +77,11 @@ export default {
                       sessionStorage.setItem('alipayShops', JSON.stringify(res.data.alipayShopList));//存储门店
                       self.$router.push('/home');
                   } else {
-                      self.$refs.alertBox(res.errorInfo);
+                      self.$toast(res.errorInfo);
                   }
               })
               .catch(function(err) {
-                  self.$refs.alertBox(err);
+                  self.$toast(err);
               });
         }
     },

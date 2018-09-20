@@ -66,7 +66,7 @@ export default {
       status:false
     };
     sessionStorage.setItem("chargeInfo", JSON.stringify(data));
-    sessionStorage.setItem("storeId", '1509727485937142590380');
+    sessionStorage.setItem("storeId", '1514190715796746866603');
   },
   mounted() {
     document.title = "工作";

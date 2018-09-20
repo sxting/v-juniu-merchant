@@ -57,7 +57,7 @@ export default {
         search: that.inpValue
       };
       this.$ajax
-        .get(this.HttpUrl + "merchant/member/card/searchs.json", {
+        .get("merchant/member/card/searchs.json", {
           params: data
         })
         .then(function(res) {

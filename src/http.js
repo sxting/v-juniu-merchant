@@ -8,12 +8,12 @@ axios.defaults.baseURL = process.env.BASE_API_ADDR;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        let token = "355db1aaef8655041cf6d44ffbcc5bd7";
-        let staffInfo = sessionStorage.getItem("staffInfo");
-        if (staffInfo) {
-            let si = JSON.parse(staffInfo);
-            token = si.token;
-        }
+        // let staffInfo = sessionStorage.getItem("staffInfo");
+        let token = sessionStorage.getItem("App-Token");
+        // if (staffInfo) {
+        //     let si = JSON.parse(staffInfo);
+        //     token = si.token;
+        // }
         if (token) {
             config.headers["token"] = token;
         }
