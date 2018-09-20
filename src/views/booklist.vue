@@ -21,7 +21,7 @@
             <div class="tx-r clearfix mt05">
                 <span class="f12 ufl sc">预约技师：小仙女</span>
                 <div class="ufr uds">
-                    <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
+                    <button class="btn_concel" @click="cancelOrder('id')">取消</button>
                     <button class="btn_read" @click="okOrder('id')">接受</button>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="tx-r clearfix mt15">
                 <div class="ufr uds">
-                    <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
+                    <button class="btn_concel" @click="cancelOrder('id')">取消</button>
                     <button class="btn_read" @click="okOrder('id')">接受</button>
                 </div>
             </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="tx-r clearfix mt05">
                 <span class="f12 ufl sc">预约技师：小仙女</span>
-                <button class="btn_disabled ufr" @click="okOrder('id')">已过期</button>
+                <button class="btn_disabled ufr" @click="okOrder('id')">已取消</button>
             </div>
         </div>
     </div>
@@ -87,11 +87,14 @@
 </template>
 
 <script>
+    // import axios from "https";
+import  axios  from "../http.js";
+    // import data from "../json/data.json";
 export default {
     name: "boopkList",
     data() {
         return {
-            tablist:['未接受','已接受','已过期'],
+            tablist:['未接受','已接受','已取消'],
             orderList:[],
             curTabIndex:0,
         };
@@ -100,11 +103,31 @@ export default {
 
     },
     methods: {
+        getData(index) {
+            let data = {
+                status: 'INIT',
+                storeId: '1529474856673612355868',
+                pageNo: 1,
+                pageSize: 10
+            };
+            if(index === 0) {
+                data.status = 'INIT';
+            } else if(index === 1) {
+                data.status = 'SUCCESS';
+            } else {
+                data.status = 'CANCEL';
+            }
+            let url = `/reserve/reservations/records.json?status=${data.status}&storeId=${data.storeId}&pageNo=${data.pageNo}&pageSize=${data.pageSize}`;
+            axios.get(url).then(function (res) {
+                console.log(res);
+            })
+        },
         okOrder(id){
             console.log("订单已接受");
         },
         switchTab(index){
             this.curTabIndex = index;
+            this.getData(index);
         },
         showConfirm(option){
             this.$refs.comfirmBox.show(option);
@@ -126,6 +149,7 @@ export default {
     },
     created() {
         document.title = "预约管理";
+        this.getData();
     }
 };
 </script>
