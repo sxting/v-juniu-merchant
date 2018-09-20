@@ -3,82 +3,148 @@
     <div class="orderTab ub ub-pj plr15">
         <li v-for="(item,index) in tablist" :class="{'on':curTabIndex==index}" @click="switchTab(index)">{{item}}</li>
     </div>
-    <div v-show="curTabIndex==0">
-        <div class="orderInfo">
-            <p class="time">预约时间：2010-10-10 10:10:10</p>
-            <div class="ub ub-ac ub-pj top">
-                <p class="bc ub ub-ac bc1">王某某<i class="icon_card"></i></p>
-                <p class="bc1"><i class="icon_tel"></i>15011150022</p>
-            </div>
-            <div class="ub ub-ac orderCon">
-                <img src="../assets/default.png" class="goodImg">
-                <div class="ub-f1 ml10">
-                    <p class="f14">项目名称</p>
-                    <p class="f13 sc">服务技师：王某某</p>
-                    <p class="f13 currency mt10">￥200.00</p>
+    <div v-show="">
+        <div v-show="curTabIndex==0">
+            <div class="orderInfo">
+                <p class="time">预约时间：</p>
+                <div class="ub ub-ac ub-pj top">
+                    <p class="bc ub ub-ac bc1">王某某<i class="icon_card"></i></p>
+                    <p class="bc1"><i class="icon_tel"></i>15011150022</p>
+                </div>
+                <div class="ub ub-ac orderCon">
+                    <img src="../assets/default.png" class="goodImg">
+                    <div class="ub-f1 ml10">
+                        <p class="f14">项目名称</p>
+                        <p class="f13 sc">服务技师：王某某</p>
+                        <p class="f13 currency mt10">￥200.00</p>
+                    </div>
+                </div>
+                <div class="tx-r clearfix mt05">
+                    <span class="f12 ufl sc">预约技师：小仙女</span>
+                    <div class="ufr uds">
+                        <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
+                        <button class="btn_read" @click="okOrder('id')">接受</button>
+                    </div>
                 </div>
             </div>
-            <div class="tx-r clearfix mt05">
-                <span class="f12 ufl sc">预约技师：小仙女</span>
-                <div class="ufr uds">
-                    <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
-                    <button class="btn_read" @click="okOrder('id')">接受</button>
+            <div class="orderInfo mt10">
+                <p class="time">预约时间：2010-10-10 10:10:10</p>
+                <div class="ub ub-ac ub-pj top">
+                    <p class="bc ub ub-ac bc1">王某某<i class="icon_card"></i></p>
+                    <p class="bc1"><i class="icon_tel"></i>15011150022</p>
+                </div>
+                <div class="tx-r clearfix mt15">
+                    <div class="ufr uds">
+                        <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
+                        <button class="btn_read" @click="okOrder('id')">接受</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="orderInfo mt10">
-            <p class="time">预约时间：2010-10-10 10:10:10</p>
-            <div class="ub ub-ac ub-pj top">
-                <p class="bc ub ub-ac bc1">王某某<i class="icon_card"></i></p>
-                <p class="bc1"><i class="icon_tel"></i>15011150022</p>
+        <div v-show="curTabIndex==1">
+            <div class="orderInfo" v-show="curTabIndex==1">
+                <p class="time">预约时间：2020-10-10 10:10:10</p>
+                <div class="ub ub-ac ub-pj top">
+                    <p class="bc ub ub-ac bc1">王某某<i class="icon_card"></i></p>
+                    <p class="bc1"><i class="icon_tel"></i>15011150022</p>
+                </div>
+                <div class="ub ub-ac orderCon">
+                    <img src="../assets/default.png" class="goodImg">
+                    <div class="ub-f1 ml10">
+                        <p class="f14">项目名称</p>
+                        <p class="f13 sc">服务技师：王某某</p>
+                        <p class="f13 currency mt10">￥200.00</p>
+                    </div>
+                </div>
+                <div class="tx-r clearfix mt05">
+                    <span class="f12 ufl sc">预约技师：小仙女</span>
+                    <button class="btn_disabled ufr" @click="okOrder('id')">取消预约</button>
+                </div>
             </div>
-            <div class="tx-r clearfix mt15">
-                <div class="ufr uds">
-                    <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
-                    <button class="btn_read" @click="okOrder('id')">接受</button>
+        </div>
+        <div v-show="curTabIndex==2">
+            <div class="orderInfo" v-show="curTabIndex==2">
+                <p class="time">预约时间：2030-10-10 10:10:10</p>
+                <div class="ub ub-ac ub-pj top">
+                    <p class="bc ub ub-ac bc1">王某某<i class="icon_card"></i></p>
+                    <p class="bc1"><i class="icon_tel"></i>15011150022</p>
+                </div>
+                <div class="ub ub-ac orderCon">
+                    <img src="../assets/default.png" class="goodImg">
+                    <div class="ub-f1 ml10">
+                        <p class="f14">项目名称</p>
+                        <p class="f13 sc">服务技师：王某某</p>
+                        <p class="f13 currency mt10">￥200.00</p>
+                    </div>
+                </div>
+                <div class="tx-r clearfix mt05">
+                    <span class="f12 ufl sc">预约技师：小仙女</span>
+                    <!--<button class="btn_disabled ufr" @click="okOrder('id')">已取消</button>-->
                 </div>
             </div>
         </div>
     </div>
-    <div v-show="curTabIndex==1">
-        <div class="orderInfo" v-show="curTabIndex==1">
-            <p class="time">预约时间：2020-10-10 10:10:10</p>
-            <div class="ub ub-ac ub-pj top">
-                <p class="bc ub ub-ac bc1">王某某<i class="icon_card"></i></p>
-                <p class="bc1"><i class="icon_tel"></i>15011150022</p>
-            </div>
-            <div class="ub ub-ac orderCon">
-                <img src="../assets/default.png" class="goodImg">
-                <div class="ub-f1 ml10">
-                    <p class="f14">项目名称</p>
-                    <p class="f13 sc">服务技师：王某某</p>
-                    <p class="f13 currency mt10">￥200.00</p>
+    <div>
+        <div v-show="curTabIndex==0">
+            <div class="orderInfo" v-for="data in orderList">
+                <p class="time top">预约时间：{{data.date}} {{data.time}}</p>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
+                    <p class="bc ub ub-ac bc1">预约会员</p>
+                    <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
                 </div>
-            </div>
-            <div class="tx-r clearfix mt05">
-                <span class="f12 ufl sc">预约技师：小仙女</span>
-                <button class="btn_disabled ufr" @click="okOrder('id')">已接受</button>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
+                    <p class="bc ub ub-ac bc1">预约项目</p>
+                    <p class="bc1">{{data.productName}}</p>
+                </div>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
+                    <p class="bc ub ub-ac bc1">预约技师</p>
+                    <p class="bc1">{{data.staffName}}</p>
+                </div>
+                <div class="tx-r clearfix mt10">
+                    <div class="ufr uds">
+                        <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
+                        <button class="btn_read" @click="okOrder('id')">接受</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div v-show="curTabIndex==2">
-        <div class="orderInfo" v-show="curTabIndex==2">
-            <p class="time">预约时间：2030-10-10 10:10:10</p>
-            <div class="ub ub-ac ub-pj top">
-                <p class="bc ub ub-ac bc1">王某某<i class="icon_card"></i></p>
-                <p class="bc1"><i class="icon_tel"></i>15011150022</p>
-            </div>
-            <div class="ub ub-ac orderCon">
-                <img src="../assets/default.png" class="goodImg">
-                <div class="ub-f1 ml10">
-                    <p class="f14">项目名称</p>
-                    <p class="f13 sc">服务技师：王某某</p>
-                    <p class="f13 currency mt10">￥200.00</p>
+        <div v-show="curTabIndex==1">
+            <div class="orderInfo" v-for="data in orderList">
+                <p class="time top">预约时间：{{data.date}} {{data.time}}</p>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
+                    <p class="bc ub ub-ac bc1">预约会员</p>
+                    <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
+                </div>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
+                    <p class="bc ub ub-ac bc1">预约项目</p>
+                    <p class="bc1">{{data.productName}}</p>
+                </div>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
+                    <p class="bc ub ub-ac bc1">预约技师</p>
+                    <p class="bc1">{{data.staffName}}</p>
+                </div>
+                <div class="tx-r clearfix mt10">
+                    <div class="ufr uds">
+                        <button class="btn_concel" @click="cancelOrder('id')">取消预约</button>
+                    </div>
                 </div>
             </div>
-            <div class="tx-r clearfix mt05">
-                <span class="f12 ufl sc">预约技师：小仙女</span>
-                <button class="btn_disabled ufr" @click="okOrder('id')">已过期</button>
+        </div>
+        <div v-show="curTabIndex==2">
+            <div class="orderInfo" v-for="data in orderList">
+                <p class="time top">预约时间：{{data.date}} {{data.time}}</p>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
+                    <p class="bc ub ub-ac bc1">预约会员</p>
+                    <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
+                </div>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
+                    <p class="bc ub ub-ac bc1">预约项目</p>
+                    <p class="bc1">{{data.productName}}</p>
+                </div>
+                <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
+                    <p class="bc ub ub-ac bc1">预约技师</p>
+                    <p class="bc1">{{data.staffName}}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -87,11 +153,12 @@
 </template>
 
 <script>
+import  axios  from "../http.js";
 export default {
     name: "boopkList",
     data() {
         return {
-            tablist:['未接受','已接受','已过期'],
+            tablist:['未接受','已接受','已取消'],
             orderList:[],
             curTabIndex:0,
         };
@@ -100,11 +167,34 @@ export default {
 
     },
     methods: {
+        //查询订单列表
+        getData(index) {
+            let data = {
+                status: 'INIT',
+                storeId: '1529474856673612355868',
+                pageNo: 1,
+                pageSize: 10
+            };
+            if(index === 0) {
+                data.status = 'INIT';
+            } else if(index === 1) {
+                data.status = 'SUCCESS';
+            } else {
+                data.status = 'CANCEL';
+            }
+            let url = `/merchant/reserve/reservations/records.json`;
+            let self = this;
+            axios.get(url, data).then(function (res) {
+                self.orderList = res.data.content;
+                console.log(self.orderList);
+            })
+        },
         okOrder(id){
             console.log("订单已接受");
         },
         switchTab(index){
             this.curTabIndex = index;
+            this.getData(index);
         },
         showConfirm(option){
             this.$refs.comfirmBox.show(option);
@@ -126,13 +216,14 @@ export default {
     },
     created() {
         document.title = "预约管理";
+        this.getData();
     }
 };
 </script>
 
 <style scoped>
-.main{background-color: #f9f9f9;padding-left: 0.30rem;padding-right: 0.30rem;position: relative;height: 100%;padding-top: 0.30rem}
-.time{font-size: 0.24rem;color: #999;line-height: 0.56rem;}
+.main{padding-bottom: 0.30rem;background-color: #f9f9f9;padding-left: 0.30rem;padding-right: 0.30rem;position: relative;min-height: 100%;padding-top: 0.30rem}
+.time{font-size: 0.24rem;color: #999; /*line-height: 0.56rem;*/}
 .goodImg{display: block;width: 1.4rem;height: 1.4rem;}
 .h88{height: .88rem;}
 .pt10{padding-top: 0.20rem}
@@ -148,4 +239,8 @@ export default {
 .btn_read{width: 1.4rem;height: 0.44rem;background:#ff6000;border-radius:0.04rem;border: 1px #ff6000 solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #fff;margin-left: 0.30rem}
 .btn_disabled{width: 1.4rem;height: 0.44rem;background:#fff;border-radius:0.04rem;border: 1px #eee solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #fff;margin-left: 0.30rem;color:#999;}
 .pb30{padding-bottom: 0.30rem}
+
+    .lh06 {
+        line-height: 0.6rem;
+    }
 </style>
