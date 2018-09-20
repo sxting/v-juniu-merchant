@@ -50,19 +50,40 @@ export default {
       this.showTime = true;
     },
     submit(){
-      this.$router.push('/home');
-      var reg = /^1[23456789]\d{9}$/;
-      var mobile = delBlank(this.mobile);
-      var password = delBlank(this.password);
-      // if (mobile == ""){
-      //   this.$toast("请输入手机号码！");return;
-      // }
-      // if (!reg.test(mobile)){
-      //   this.$toast("手机格式不正确！");return;
-      // }
-      // if(password==""){
-      //   this.$toast("密码不能为空！");return;
-      // }
+        let self = this;
+        var reg = /^1[23456789]\d{9}$/;
+        var mobile = delBlank(this.mobile);
+        var password = delBlank(this.password);
+        if (mobile == ""){
+            this.$toast("请输入手机号码！");return;
+        }else if (!reg.test(mobile)){
+            this.$toast("手机格式不正确！");return;
+        }else if(password==""){
+            this.$toast("密码不能为空！");return;
+        }else {
+          let data = {
+              loginName:mobile,
+              password:password
+          };
+          this.$ajax
+              .get("account/login/login/name.json", {
+                  params: data
+              })
+              .then(function(res) {
+                  if (res.success) {
+                      self.$toast("登录成功");
+                      sessionStorage.setItem('App-Token', res.data.token);//存储token
+                      sessionStorage.setItem('User-Info', JSON.stringify(res.data));//存储用户信息
+                      sessionStorage.setItem('alipayShops', JSON.stringify(res.data.alipayShopList));//存储门店
+                      self.$router.push('/home');
+                  } else {
+                      self.$refs.alertBox(res.errorInfo);
+                  }
+              })
+              .catch(function(err) {
+                  self.$refs.alertBox(err);
+              });
+        }
     },
     toElseBind(){
       this.$router.push('/bindAccountbycode')
