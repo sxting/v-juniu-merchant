@@ -75,7 +75,7 @@ export default {
                       sessionStorage.setItem('App-Token', res.data.token);//存储token
                       sessionStorage.setItem('User-Info', JSON.stringify(res.data));//存储用户信息
                       sessionStorage.setItem('alipayShops', JSON.stringify(res.data.alipayShopList));//存储门店
-                      this.$router.push('/home');
+                      self.$router.push('/home');
                   } else {
                       self.$refs.alertBox(res.errorInfo);
                   }
