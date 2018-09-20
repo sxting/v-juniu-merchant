@@ -8,7 +8,7 @@ const routes = [{
         component: (resolve) => require(['./views/index'], resolve),
         children: [{
             path: '/',
-            redirect: '/home'
+            redirect: '/bindAccount'
         },{
             path: '/home',//工作
             component: (resolve) => require(['./views/home'], resolve)
