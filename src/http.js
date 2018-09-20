@@ -9,10 +9,11 @@ axios.defaults.baseURL = process.env.BASE_API_ADDR;
 axios.interceptors.request.use(
     config => {
         let staffInfo = sessionStorage.getItem("staffInfo");
-        if (staffInfo) {
-            let si = JSON.parse(staffInfo);
-            token = si.token;
-        }
+        let token = sessionStorage.getItem("App-Token");
+        // if (staffInfo) {
+        //     let si = JSON.parse(staffInfo);
+        //     token = si.token;
+        // }
         if (token) {
             config.headers["token"] = token;
         }
