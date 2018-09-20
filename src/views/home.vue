@@ -1,27 +1,27 @@
 <!-- 主页view -->
 <template>
     <div class="main">
-        <div class="bar" @click="toPath('/selectSell')">{{sellName}}
+        <div class="bar" @click="toPath('SelectSell', '')">{{sellName}}
             <i class="iconfont icon-arrow"></i>
         </div>
-        <div @click="toPath('/charge')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
+        <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
             <span class="icon icon_sy"></span>
             <p>收银</p>
         </div>
         <div class="content clearfix">
-            <div @click="toPath('/checkOrder')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+            <div @click="toPath('CheckOrder', 'koubei')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
                 <span class="icon icon_kb"></span>
                 <p>口碑核销</p>
             </div>
-            <div @click="toPath('/checkOrder')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+            <div @click="toPath('CheckOrder', 'wechat')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
                 <span class="icon icon_wx"></span>
                 <p>微信核销</p>
             </div>
-            <div @click="toPath('/checkOrder')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+            <div @click="toPath('CheckOrder', 'meituan')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
                 <span class="icon icon_mt"></span>
                 <p>美团核销</p>
             </div>
-            <div @click="toPath('/booklist')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+            <div @click="toPath('Booklist', '')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
                 <span class="icon icon_yy"></span>
                 <p>预约管理</p>
             </div>
@@ -49,8 +49,13 @@ export default {
       this.width = (sw - 50) / 2 + "px";
       this.height = (sw - 50) / 2 * 28 / 33 + "px";
     },
-    toPath(str) {
-      this.$router.push(str);
+    toPath(str, id) {
+        this.$router.push({
+          name: str,
+          params: {
+              type: id
+          }
+      });
     }
   },
   created() {
