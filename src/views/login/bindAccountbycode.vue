@@ -26,10 +26,10 @@
             </div>
             <p>密码绑定</p>
           </div>
-          <div class="ml50">
+          <div class="ml50" @click="toCourse()">
             <div class="circle ub ub-ac ub-pc">
               <span class="icon_sao"></span>
-              <i @click="toCourse()" class="icon_course"></i>
+              <i class="icon_course"></i>
             </div>
             <p>扫码绑定</p>
           </div>
@@ -88,6 +88,9 @@ export default {
           }
         }, 1000);
       }
+    },
+    toCourse(){
+        this.$router.push('/bindCourse');
     },
     submit(){
       this.$router.push('/home');
