@@ -47,43 +47,77 @@ export default {
   },
   methods: {
     submit(){
-      var reg = /^1[23456789]\d{9}$/;
-      var mobile = delBlank(this.mobile);
-      var msgCode = delBlank(this.msgCode);
-      var password = delBlank(this.password);
-      var repassword = delBlank(this.repassword);
+      let self = this;
+      let reg = /^1[23456789]\d{9}$/;
+      let mobile = delBlank(this.mobile);
+      let msgCode = delBlank(this.msgCode);
+      let password = delBlank(this.password);
+      let repassword = delBlank(this.repassword);
       if (mobile == "") {
         this.$toast("请输入手机号码！");return;
-      }
-      if (!reg.test(mobile)) {
+      }else if (!reg.test(mobile)) {
         this.$toast("手机格式不正确！");return;
-      }
-      if(msgCode==""){
+      }else if(msgCode==""){
         this.$toast("手机验证码不能为空！");return;
-      }
-      if (password == "") {
+      }else if (password == "") {
         this.$toast("请输入登录密码！");return;
-      }
-      if (password.length < 6) {
+      }else if (password.length < 6) {
         this.$toast("密码格式不正确");return;
-      }
-      if(password!=repassword){
+      }else if(password!=repassword){
         this.$toast("两次密码输入不一致");return;
+      }else {
+          let data = {
+              phone: mobile,
+              password: password,
+              confirmPassword: repassword,
+              validCode: msgCode
+          };
+          this.$ajax
+              .get("account/registry/reset/password.json", {
+                  params: data
+              })
+              .then(function (res) {
+                  if (res.success) {
+                      self.$toast('密码修改成功');
+                      self.$router.push('/bindAccount');
+                  } else {
+                      self.$refs.alertBox(res.errorInfo);
+                  }
+              })
+              .catch(function (err) {
+                  self.$refs.alertBox(err);
+              });
       }
     },
     getCode(){
+      let self = this;
       var reg = /^1[23456789]\d{9}$/;
       var mobile = delBlank(this.mobile);
       if (mobile == "") {
         this.$toast("请输入手机号码！");return;
-      }
-      if (!reg.test(mobile)) {
+      }else if (!reg.test(mobile)) {
         this.$toast("手机格式不正确！");return;
+      }else {
+          let data = {
+              phone: mobile,
+              bizType: 'VALID'
+          };
+          this.showRestTime();
+          this.$ajax
+              .get("common/validCode/getValidCode.json", {
+                  params: data
+              })
+              .then(function(res) {
+                  if (res.success) {
+                      self.$toast('发送验证码成功');
+                  } else {
+                      self.$refs.alertBox(res.errorInfo);
+                  }
+              })
+              .catch(function(err) {
+                  self.$refs.alertBox(err);
+              });
       }
-
-
-      this.$toast('发送验证码成功');
-      this.showRestTime();
     },
     showRestTime(){
       var restTime = 60;
