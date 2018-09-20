@@ -81,11 +81,11 @@ export default {
                       self.$toast('密码修改成功');
                       self.$router.push('/bindAccount');
                   } else {
-                      self.$refs.alertBox(res.errorInfo);
+                      self.$toast(res.errorInfo);
                   }
               })
               .catch(function (err) {
-                  self.$refs.alertBox(err);
+                  self.$toast(err);
               });
       }
     },
@@ -111,11 +111,11 @@ export default {
                   if (res.success) {
                       self.$toast('发送验证码成功');
                   } else {
-                      self.$refs.alertBox(res.errorInfo);
+                      self.$toast(res.errorInfo);
                   }
               })
               .catch(function(err) {
-                  self.$refs.alertBox(err);
+                  self.$toast(err);
               });
       }
     },
