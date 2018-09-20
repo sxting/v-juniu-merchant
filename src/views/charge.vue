@@ -244,7 +244,7 @@ export default {
         storeId: that.storeId
       };
       this.$ajax
-        .get(this.HttpUrl + "merchant/product/product/buySearch.json", {
+        .get("merchant/product/product/buySearch.json", {
           params: data
         })
         .then(function(res) {
