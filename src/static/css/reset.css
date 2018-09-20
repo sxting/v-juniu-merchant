@@ -75,6 +75,9 @@ h1, h2, h3, h4, h5 { font-weight: normal; }
 .arrow-right{display: inline-block;width: 0.14rem;height: 0.30rem;background: url(../../assets/arrow-right.png) no-repeat center center;background-size:100% 100%;margin-left: 0.10rem}
 .icon_card{display: inline-block;width: 0.80rem;height: 0.28rem;background: url(../../assets/icon_vip.png) no-repeat center center;background-size: 100% 100%;}
 .icon_male{display: inline-block;width: 0.24rem;height: 0.24rem;background: url(../../assets/icon_male.png) no-repeat center center;background-size: 100% 100%;}
+.icon_weizhi{display: inline-block;width: 0.24rem;height: 0.24rem;background: url(../../assets/icon_weizhi.png) no-repeat center center;background-size: 100% 100%;}
+.icon_women{display: inline-block;width: 0.24rem;height: 0.24rem;background: url(../../assets/icon_women.png) no-repeat center center;background-size: 100% 100%;}
+
 .icon_tel{display: inline-block;width: 0.22rem;height: 0.22rem;background: url(../../assets/icon_tel.png) no-repeat center center;background-size: 100% 100%;margin-left: 0.06rem;margin-right: 0.06rem;}
 .icon_compile{display: inline-block;width: 0.24rem;height: 0.24rem;background: url(../../assets/icon_compile.png) no-repeat center center;background-size: 100% 100%;margin-right: 0.08rem;}
 .icon_calener{display: inline-block;width: 0.30rem;height: 0.30rem;background: url(../../assets/icon_calener.png) no-repeat center center;background-size: 100% 100%;margin-left: 0.08rem;}

@@ -3,8 +3,7 @@ import router from "./router";
 
 // axios 配置
 axios.defaults.timeout = 60000;
-// axios.defaults.baseURL = process.env.BASE_API_ADDR;
-axios.defaults.baseURL = 'https://biz.juniuo.com/merchant';
+axios.defaults.baseURL = 'https://biz.juniuo.com/';
 
 // http request 拦截器
 axios.interceptors.request.use(
@@ -28,9 +27,8 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
-        console.log(response);
-        let result = response.data;
-        if (result.errorCode == "999000") {
+        let result = response.data.data;
+        if (response.status !== 200) {
             router.replace({
                 path: "login",
                 query: {
@@ -38,7 +36,7 @@ axios.interceptors.response.use(
                 }
             });
         } else {
-            return result;
+            return response.data;
         }
     },
     error => {
