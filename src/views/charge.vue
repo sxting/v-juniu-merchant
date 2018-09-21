@@ -213,6 +213,12 @@ export default {
       this.$router.push("/memberInfo");
     },
     toOrder() {
+      // console.log(this.productList);
+      // console.log(this.goods);
+      this.chargeInfo.products = this.goods;
+      this.chargeInfo.orderInfo = this.productList;
+
+      sessionStorage.setItem("chargeInfo", JSON.stringify(this.chargeInfo));
       this.$router.push("/order");
     },
     toMemberCard() {
@@ -238,7 +244,7 @@ export default {
     },
 
     //全部商品
-    getAllproduct() {
+    getAllproduct(element) {
       let that = this;
       let data = {
         storeId: that.storeId
@@ -249,7 +255,9 @@ export default {
         })
         .then(function(res) {
           if (res.success) {
-            that.goods = res.data;
+            that.goods = element ? element : res.data;
+            console.log(that.goods);
+            if (element) that.incrementTotal();
             that.$nextTick(() => {
               that._initScroll();
               that._calculateHeight();
@@ -274,7 +282,7 @@ export default {
     document.title = "收银";
     this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"));
     if (this.chargeInfo.memberInfo) this.isShowMember = true;
-    this.getAllproduct();
+    this.getAllproduct(this.chargeInfo.products);
   },
   computed: {
     currentIndex() {

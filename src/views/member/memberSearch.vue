@@ -1,24 +1,24 @@
 <template>
-    <div class="main">
-        <div class="toper ub ub-ac">
-            <div class="searchBox ub ub-f1 ub-ac">
-                <i class="icon_search"></i>
-                <input type="text" v-model="inpValue" v-on:input="showList()" placeholder="会员查询">
-            </div>
-            <div class="plr15 rc" @click="showList()">搜索</div>
-            <ul class="result plr15" v-show="isShowList">
-                <li class="ub ub-ac bbc" v-for="(item,index) in userList" :key="index" @click="slectedItem(item)">
-                    <p class="ub ub-ac w100">
-                        <i v-if="item.cardApplies.length>0" class="icon_card"></i>
-                    </p>
-                    <p>{{item.customer.customerName}}</p>
-                    <p class="ml20">{{item.customer.customerName}}</p>
-                </li>
-            </ul>
-        </div>
-        <div class="bodyBg" @click="hideList"></div>
-        <alertBox ref="alertBox"></alertBox>
+  <div class="main">
+    <div class="toper ub ub-ac">
+      <div class="searchBox ub ub-f1 ub-ac">
+        <i class="icon_search"></i>
+        <input type="text" v-model="inpValue" v-on:input="showList()" placeholder="会员查询">
+      </div>
+      <div class="plr15 rc" @click="showList()">搜索</div>
+      <ul class="result plr15" v-show="isShowList">
+        <li class="ub ub-ac bbc" v-for="(item,index) in userList" :key="index" @click="slectedItem(item)">
+          <p class="ub ub-ac w100">
+            <i v-if="item.cardApplies.length>0" class="icon_card"></i>
+          </p>
+          <p>{{item.customer.customerName}}</p>
+          <p class="ml20">{{item.customer.customerName}}</p>
+        </li>
+      </ul>
     </div>
+    <div class="bodyBg" @click="hideList"></div>
+    <alertBox ref="alertBox"></alertBox>
+  </div>
 </template>
 
 <script>
@@ -36,6 +36,14 @@ export default {
   components: {},
   methods: {
     slectedItem(item) {
+      let data = {
+        memberInfo: false,
+        products: false,
+        orderInfo: false,
+        status: false
+      };
+      sessionStorage.setItem("chargeInfo", JSON.stringify(data));
+      this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"));
       this.chargeInfo.memberInfo = item;
       sessionStorage.setItem("chargeInfo", JSON.stringify(this.chargeInfo));
       this.isShowList = false;
