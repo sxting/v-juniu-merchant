@@ -1,57 +1,69 @@
 <template>
     <div class="main">
         <div class="toper ub ub-ver ub-pc ub-ac">
-            <h1>¥99.5</h1>
+            <h1 v-if="type === 'wechat'">¥{{data.price/100}}</h1>
+            <h1 v-else>¥{{data.amount/100}}</h1>
             <p class="f14">商家实收（元）</p>
         </div>
         <p class="tit">商品信息</p>
         <div class="bgb plr15">
             <div class="item ub ub-ac ub-pj">
                 <p class="bc">商品名称</p>
-                <p class="rc">￥200</p>
+                <p class="rc" v-if="type === 'wechat'">{{data.productName}}</p>
+                <p class="rc" v-if="type === 'koubei'">{{data.content}}</p>
+                <p class="rc" v-if="type === 'meituan'">{{data.itemName}}</p>
             </div>
             <div class="item ub ub-ac ub-pj">
                 <p class="bc">核销份数</p>
                 <p class="sc">1份</p>
             </div>
         </div>
-        <p class="tit">付款明细</p>
-        <div class="bgb plr15">
-            <div class="item ub ub-ac ub-pj">
-                <p class="bc">商品价格</p>
-                <p class="rc">￥20</p>
-            </div>
-            <div class="item ub ub-ac ub-pj">
-                <p class="bc">顾客实付</p>
-                <p class="rc">￥18</p>
+        <div v-show="">
+            <p class="tit">付款明细</p>
+            <div class="bgb plr15">
+                <div class="item ub ub-ac ub-pj">
+                    <p class="bc">商品价格</p>
+                    <p class="rc">￥20</p>
+                </div>
+                <div class="item ub ub-ac ub-pj">
+                    <p class="bc">顾客实付</p>
+                    <p class="rc">￥18</p>
+                </div>
             </div>
         </div>
         <p class="tit">其它信息</p>
         <div class="bgb plr15">
-            <div class="item ub ub-ac ub-pj">
-                <p class="bc">技师信息</p>
-                <p class="sc">name1</p>
-            </div>
-            <div class="item ub ub-ac ub-pj">
-                <p class="bc">小工信息</p>
-                <p class="sc">name2</p>
-            </div>
+            <!--<div v-show="">-->
+                <!--<div class="item ub ub-ac ub-pj">-->
+                    <!--<p class="bc">技师信息</p>-->
+                    <!--<p class="sc">name1</p>-->
+                <!--</div>-->
+                <!--<div class="item ub ub-ac ub-pj">-->
+                    <!--<p class="bc">小工信息</p>-->
+                    <!--<p class="sc">name2</p>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="item ub ub-ac ub-pj">
                 <p class="bc">核销门店</p>
-                <p class="sc">某某某</p>
+                <p class="sc" v-if="type === 'wechat'">{{data.usedStoreName}}</p>
+                <p class="sc" v-if="type === 'koubei'">{{data.settleStoreName}}</p>
+                <p class="sc" v-if="type === 'meituan'">{{data.storeName}}</p>
             </div>
             <div class="item ub ub-ac ub-pj">
                 <p class="bc">核销时间</p>
-                <p class="sc">某某某</p>
+                <p class="sc" v-if="type === 'wechat'">{{data.usedDate}}</p>
+                <p class="sc" v-if="type === 'koubei'">{{data.settleTime}}</p>
+                <p class="sc" v-if="type === 'meituan'">{{data.verifyTime}}</p>
             </div>
-            <div class="item ub ub-ac ub-pj">
-                <p class="bc">核销码</p>
-                <p class="sc">888888888888</p>
-            </div>
-            <div class="item ub ub-ac ub-pj">
-                <p class="sbc">订单编号</p>
-                <p class="sc">888888888888</p>
-            </div>
+            <!--<div class="item ub ub-ac ub-pj">-->
+                <!--<p class="bc">核销码</p>  settleNo-->
+                <!--<p class="sc" v-if="type === 'wechat'">{{data.voucherCode}}</p>-->
+                <!--<p class="sc">{{data.voucherCode}}</p>-->
+            <!--</div>-->
+            <!--<div class="item ub ub-ac ub-pj">-->
+                <!--<p class="sbc">订单编号</p>-->
+                <!--<p class="sc">888888888888</p>-->
+            <!--</div>-->
         </div>
     </div>
 </template>
@@ -61,20 +73,23 @@
         name: "checkDetail",
         data() {
             return {
-                isShowMember:false
+                data: {},
+                type: ''
             };
         },
         components: {},
         methods: {
-            toDetail(){
-                this.$router.push('/memberInfo');
-            }
+            // toDetail(){
+            //     this.$router.push('/memberInfo');
+            // }
         },
         computed: {
 
         },
         created() {
             document.title="核销详情";
+            this.data = this.$route.params.data;
+            this.type = this.$route.params.type
         }
     };
 </script>
@@ -94,5 +109,6 @@
 .btn_print{background:#FF6000;height: 0.88rem;color: #fff;font-size: 0.32rem;border-radius: 0.10rem;}
 
 .item{height: 1rem;border-top:1px #eee solid;}
+.item:first-child{border-top: none}
 div .item:first-child{border-top:none; }
 </style>

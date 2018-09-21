@@ -8,9 +8,12 @@ const routes = [{
         component: (resolve) => require(['./views/index'], resolve),
         children: [{
             path: '/',
-            redirect: '/bindAccount'
+            redirect: '/home'
         },{
             path: '/home',//工作
+            meta: {
+                requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
             component: (resolve) => require(['./views/home'], resolve)
         },{
             path: '/records',//业绩
@@ -21,6 +24,7 @@ const routes = [{
         }]
     },{
         path: '/selectSell',//选择商家
+        name: 'SelectSell',
         component: (resolve) => require(['./views/selectSell'], resolve)
     },{
         path: '/errorAlert',//未绑定提示页
@@ -39,6 +43,7 @@ const routes = [{
         component: (resolve) => require(['./views/pay/payFail'], resolve)
     },{
         path: '/charge',//收银
+        name: 'Charge',
         component: (resolve) => require(['./views/charge'], resolve)
     },{
         path: '/memberInfo',//会员信息
@@ -78,21 +83,25 @@ const routes = [{
         component: (resolve) => require(['./views/my/myInfo'], resolve)
     },{
         path: '/booklist',//预约管理
+        name: 'Booklist',
         component: (resolve) => require(['./views/booklist'], resolve)
     },{
         path: '/dirCharge',//直接收款
         component: (resolve) => require(['./views/dirCharge'], resolve)
     },{
-        path: '/checkOrder',//核销
+        path: '/checkOrder/:type',//核销
+        name: 'CheckOrder',
         component: (resolve) => require(['./views/checkOrder'], resolve)
     },{
-        path: '/checkConfirm',//核销
+        path: '/checkConfirm/:type',//核销
+        name: 'checkConfirm',
         component: (resolve) => require(['./views/checkOrder/checkConfirm'], resolve)
     },{
         path: '/checkSuccess',//核销成功
         component: (resolve) => require(['./views/checkOrder/checkSuccess'], resolve)
     },{
-        path: '/checkDetail',//核销详情
+        path: '/checkDetail/:type/:data',//核销详情
+        name: 'checkDetail',
         component: (resolve) => require(['./views/checkOrder/checkDetail'], resolve)
     },{
         path: '/checkFail',//核销失败
@@ -113,16 +122,21 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     console.log(to);
     if (to.matched.some(r => r.meta.requireAuth)) {
-        if (false) {
+        if (sessionStorage.getItem("App-Token")) { //如果token存在
+            console.log('token 存在');
+            //...判断token的合法性
+            next();
+        } else {
+            console.log('token 不存在');
             next({ //如果token不存在 跳转到登录
-                path: '/login',
+                path: '/bindAccount',
                 replace: true,
                 query: {
                     redirect: to.fullPath
                 }
             });
         }
-    } else {
+    }else {
         console.log(to.path);
         next();
     }

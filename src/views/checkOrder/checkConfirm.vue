@@ -1,44 +1,48 @@
 <template>
     <div class="main">
-        <div class="item1 ub ub-ac plr15">
-            <p class="ub-f1">用户名</p>
-            <img src="../../assets/user.png" class="user"/>
-            <p class="ml05">帝格(15201375235)</p>
+        <!--<div class="item1 ub ub-ac plr15">-->
+            <!--<p class="ub-f1">用户名</p>-->
+            <!--<img src="../../assets/user.png" class="user"/>-->
+            <!--<p class="ml05">帝格(15201375235)</p>-->
+        <!--</div>-->
+        <div v-if="type === 'koubei' || type === 'meituan'">
+            <p class="tit">本次核销信息</p>
+            <div class="plr15 bgb">
+                <div class="item bbc ub ub-ac ub-pj">
+                    <p class="bc">商品名称</p>
+                    <p class="bc">商品名称</p>
+                </div>
+                <div class="item bbc ub ub-ac ub-pj">
+                    <p class="bc">商品价格</p>
+                    <p class="rc">￥20</p>
+                </div>
+                <div class="item bbc ub ub-ac ub-pj">
+                    <p class="bc">截至有效期</p>
+                    <p class="bc">2018-09-08</p>
+                </div>
+                <div class="item ub ub-ac ub-pj" v-if="">
+                    <p class="bc">选择本次核销份数</p>
+                    <p class="ub ub-ac numBox">
+                        <span @click="delOne" class="ctlbtn"><i class="icon-del sc iconfont"></i></span>
+                        <i class="number btbc">{{bookNum}}</i>
+                        <span @click="addOne" class="ctlbtn"><i class="icon-add sc iconfont"></i></span>
+                    </p>
+                </div>
+            </div>
         </div>
-        <p class="tit">本次核销信息</p>
-        <div class="plr15 bgb">
-            <div class="item bbc ub ub-ac ub-pj">
-                <p class="bc">商品名称</p>
-                <p class="bc">商品名称</p>
-            </div>
-            <div class="item bbc ub ub-ac ub-pj">
-                <p class="bc">商品价格</p>
-                <p class="rc">￥20</p>
-            </div>
-            <div class="item bbc ub ub-ac ub-pj">
-                <p class="bc">截至有效期</p>
-                <p class="bc">2018-09-08</p>
-            </div>
-            <div class="item ub ub-ac ub-pj">
-                <p class="bc">选择本次核销份数</p>
-                <p class="ub ub-ac numBox">
-                    <span @click="delOne" class="ctlbtn"><i class="icon-del sc iconfont"></i></span>
-                    <i class="number btbc">{{bookNum}}</i>
-                    <span @click="addOne" class="ctlbtn"><i class="icon-add sc iconfont"></i></span>
-                </p>
-            </div>
-        </div>
-        <p class="tit">添加服务技师</p>
-        <div class="plr15 bgb">
-            <div class="item bbc ub ub-ac ub-pj" @click="openPicker1">
-                <p class="bc ub-f1">添加技师</p>
-                <p class="bc">{{name1}}</p>
-                <span class="arrow-down"></span>
-            </div>
-            <div class="item ub ub-ac ub-pj" @click="openPicker2">
-                <p class="bc ub-f1">添加小工</p>
-                <p class="bc">{{name2}}</p>
-                <span class="arrow-down"></span>
+        <div v-else>
+            <p class="tit">添加服务技师</p>
+            <div class="plr15 bgb">
+                <div class="item bbc ub ub-ac ub-pj" @click="openPicker1">
+                    <p class="bc ub-f1">添加技师</p>
+                    <p class="bc">{{name1}}</p>
+                    <span class="arrow-down"></span>
+                </div>
+                <div class="item ub ub-ac ub-pj" @click="openPicker2">
+                    <p class="bc ub-f1">添加小工</p>
+                    <p class="bc">{{name2}}</p>
+                    <span class="arrow-down"></span>
+                </div>
             </div>
         </div>
         <div class="mt40 plr15">
@@ -78,7 +82,8 @@ export default {
             name1:'请添加技师',
             name2:'请添加小工',
             bookNum:1,
-            isShowMember:false
+            isShowMember:false,
+            type: ''
         };
     },
     components: {},
@@ -117,6 +122,7 @@ export default {
     },
     created() {
         document.title="确认核销";
+        this.type = this.$route.params.type
     }
 };
 </script>
