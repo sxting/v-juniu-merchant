@@ -10,6 +10,7 @@ axios.interceptors.request.use(
     config => {
         // let staffInfo = sessionStorage.getItem("staffInfo");
         let token = sessionStorage.getItem("App-Token");
+        token = '355db1aaef8655041cf6d44ffbcc5bd7';
         // if (staffInfo) {
         //     let si = JSON.parse(staffInfo);
         //     token = si.token;

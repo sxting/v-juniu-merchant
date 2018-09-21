@@ -49,13 +49,13 @@ export default {
       this.width = (sw - 50) / 2 + "px";
       this.height = (sw - 50) / 2 * 28 / 33 + "px";
     },
-    toPath(str, id) {
+    toPath(str, type) {
         this.$router.push({
           name: str,
           params: {
-              type: id
+              type: type
           }
-      });
+        });
     }
   },
   created() {

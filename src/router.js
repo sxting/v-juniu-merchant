@@ -90,13 +90,15 @@ const routes = [{
         name: 'CheckOrder',
         component: (resolve) => require(['./views/checkOrder'], resolve)
     },{
-        path: '/checkConfirm',//核销
+        path: '/checkConfirm/:type',//核销
+        name: 'checkConfirm',
         component: (resolve) => require(['./views/checkOrder/checkConfirm'], resolve)
     },{
         path: '/checkSuccess',//核销成功
         component: (resolve) => require(['./views/checkOrder/checkSuccess'], resolve)
     },{
-        path: '/checkDetail',//核销详情
+        path: '/checkDetail/:type/:data',//核销详情
+        name: 'checkDetail',
         component: (resolve) => require(['./views/checkOrder/checkDetail'], resolve)
     },{
         path: '/checkFail',//核销失败
