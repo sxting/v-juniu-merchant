@@ -8,13 +8,7 @@ axios.defaults.baseURL = process.env.BASE_API_ADDR;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        // let staffInfo = sessionStorage.getItem("staffInfo");
         let token = sessionStorage.getItem("App-Token");
-        token = '355db1aaef8655041cf6d44ffbcc5bd7';
-        // if (staffInfo) {
-        //     let si = JSON.parse(staffInfo);
-        //     token = si.token;
-        // }
         if (token) {
             config.headers["token"] = token;
         }
@@ -28,10 +22,10 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
-        let result = response.data.data;
+        let result = response.data;
         if (response.status !== 200) {
             router.replace({
-                path: "login",
+                path: "/bindAccount",
                 query: {
                     redirect: router.currentRoute.fullPath
                 }
