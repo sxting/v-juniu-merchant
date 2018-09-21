@@ -24,6 +24,7 @@ const routes = [{
         }]
     },{
         path: '/selectSell',//选择商家
+        name: 'SelectSell',
         component: (resolve) => require(['./views/selectSell'], resolve)
     },{
         path: '/errorAlert',//未绑定提示页
@@ -42,6 +43,7 @@ const routes = [{
         component: (resolve) => require(['./views/pay/payFail'], resolve)
     },{
         path: '/charge',//收银
+        name: 'Charge',
         component: (resolve) => require(['./views/charge'], resolve)
     },{
         path: '/memberInfo',//会员信息
@@ -81,12 +83,14 @@ const routes = [{
         component: (resolve) => require(['./views/my/myInfo'], resolve)
     },{
         path: '/booklist',//预约管理
+        name: 'Booklist',
         component: (resolve) => require(['./views/booklist'], resolve)
     },{
         path: '/dirCharge',//直接收款
         component: (resolve) => require(['./views/dirCharge'], resolve)
     },{
-        path: '/checkOrder',//核销
+        path: '/checkOrder/:type',//核销
+        name: 'CheckOrder',
         component: (resolve) => require(['./views/checkOrder'], resolve)
     },{
         path: '/checkConfirm',//核销

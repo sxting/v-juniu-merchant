@@ -84,69 +84,73 @@
             </div>
         </div>
     </div>
-    <div>
-        <div v-show="curTabIndex==0">
-            <div class="orderInfo" v-for="data in orderList">
-                <p class="time top">预约时间：{{data.date}} {{data.time}}</p>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
-                    <p class="bc ub ub-ac bc1">预约会员</p>
-                    <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
+    <div class="wrapper" ref="wrapper">
+        <div class="content">
+            <div v-show="curTabIndex==0">
+                <div class="orderInfo" v-for="data in orderList">
+                    <p class="time top">预约时间：{{data.date}} {{data.time}}</p>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
+                        <p class="bc ub ub-ac bc1">预约会员</p>
+                        <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
+                    </div>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
+                        <p class="bc ub ub-ac bc1">预约项目</p>
+                        <p class="bc1">{{data.productName}}</p>
+                    </div>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
+                        <p class="bc ub ub-ac bc1">预约技师</p>
+                        <p class="bc1">{{data.staffName}}</p>
+                    </div>
+                    <div class="tx-r clearfix mt10">
+                        <div class="ufr uds">
+                            <button class="btn_concel" @click="refuseReservation(data.reservationsId)">拒绝</button>
+                            <button class="btn_read" @click="accpetReservation(data.reservationsId)">接受</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
-                    <p class="bc ub ub-ac bc1">预约项目</p>
-                    <p class="bc1">{{data.productName}}</p>
+            </div>
+            <div v-show="curTabIndex==1">
+                <div class="orderInfo" v-for="data in orderList">
+                    <p class="time top">预约时间：{{data.date}} {{data.time}}</p>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
+                        <p class="bc ub ub-ac bc1">预约会员</p>
+                        <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
+                    </div>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
+                        <p class="bc ub ub-ac bc1">预约项目</p>
+                        <p class="bc1">{{data.productName}}</p>
+                    </div>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
+                        <p class="bc ub ub-ac bc1">预约技师</p>
+                        <p class="bc1">{{data.staffName}}</p>
+                    </div>
+                    <div class="tx-r clearfix mt10">
+                        <div class="ufr uds">
+                            <button class="btn_concel" @click="cancelReservation(data.reservationsId)">取消预约</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
-                    <p class="bc ub ub-ac bc1">预约技师</p>
-                    <p class="bc1">{{data.staffName}}</p>
-                </div>
-                <div class="tx-r clearfix mt10">
-                    <div class="ufr uds">
-                        <button class="btn_concel" @click="cancelOrder('id')">拒绝</button>
-                        <button class="btn_read" @click="okOrder('id')">接受</button>
+            </div>
+            <div v-show="curTabIndex==2">
+                <div class="orderInfo" v-for="data in orderList">
+                    <p class="time" v-bind:class="{top: data.phone || data.productName || data.staffName}">预约时间：{{data.date}} {{data.time}}</p>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
+                        <p class="bc ub ub-ac bc1">预约会员</p>
+                        <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
+                    </div>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
+                        <p class="bc ub ub-ac bc1">预约项目</p>
+                        <p class="bc1">{{data.productName}}</p>
+                    </div>
+                    <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
+                        <p class="bc ub ub-ac bc1">预约技师</p>
+                        <p class="bc1">{{data.staffName}}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-show="curTabIndex==1">
-            <div class="orderInfo" v-for="data in orderList">
-                <p class="time top">预约时间：{{data.date}} {{data.time}}</p>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
-                    <p class="bc ub ub-ac bc1">预约会员</p>
-                    <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
-                </div>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
-                    <p class="bc ub ub-ac bc1">预约项目</p>
-                    <p class="bc1">{{data.productName}}</p>
-                </div>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
-                    <p class="bc ub ub-ac bc1">预约技师</p>
-                    <p class="bc1">{{data.staffName}}</p>
-                </div>
-                <div class="tx-r clearfix mt10">
-                    <div class="ufr uds">
-                        <button class="btn_concel" @click="cancelOrder('id')">取消预约</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-show="curTabIndex==2">
-            <div class="orderInfo" v-for="data in orderList">
-                <p class="time top">预约时间：{{data.date}} {{data.time}}</p>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.phone">
-                    <p class="bc ub ub-ac bc1">预约会员</p>
-                    <p class="bc1"><i class="icon_tel"></i>{{data.phone}}</p>
-                </div>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.productName">
-                    <p class="bc ub ub-ac bc1">预约项目</p>
-                    <p class="bc1">{{data.productName}}</p>
-                </div>
-                <div class="ub ub-ac ub-pj lh06" v-if="data.staffName">
-                    <p class="bc ub ub-ac bc1">预约技师</p>
-                    <p class="bc1">{{data.staffName}}</p>
-                </div>
-            </div>
-        </div>
+        <div class="loading-wrapper"></div>
+        <div class="no-data" v-if="orderList.length === 0">暂无数据</div>
     </div>
     <comfirmBox ref="comfirmBox"></comfirmBox>
 </div>
@@ -154,6 +158,8 @@
 
 <script>
 import  axios  from "../http.js";
+import BScroll from 'better-scroll';
+
 export default {
     name: "boopkList",
     data() {
@@ -161,6 +167,7 @@ export default {
             tablist:['未接受','已接受','已取消'],
             orderList:[],
             curTabIndex:0,
+            pageNo: 1
         };
     },
     computed: {
@@ -172,8 +179,8 @@ export default {
             let data = {
                 status: 'INIT',
                 storeId: '1529474856673612355868',
-                pageNo: 1,
-                pageSize: 10
+                pageNo: this.pageNo,
+                pageSize: 15
             };
             if(index === 0) {
                 data.status = 'INIT';
@@ -184,39 +191,100 @@ export default {
             }
             let url = `/merchant/reserve/reservations/records.json`;
             let self = this;
-            axios.get(url, data).then(function (res) {
+            axios.get(url, {
+                params: data
+            }).then(function (res) {
                 self.orderList = res.data.content;
-                console.log(self.orderList);
-            })
-        },
-        okOrder(id){
-            console.log("订单已接受");
-        },
-        switchTab(index){
-            this.curTabIndex = index;
-            this.getData(index);
+                self.$nextTick(() => {
+                    self.scroll = new BScroll(self.$refs.wrapper, {});
+                    if (!self.scroll) {
+                        self.scroll = new Bscroll(self.$refs.wrapper, {});
+                        self.scroll.on('touchend', (pos) => {
+                            // 下拉动作
+                            if (pos.y > 50) {
+                                self.pageNo = self.pageNo + 1;
+                                self.getData()
+                            }
+                        })
+                    } else {
+                        self.scroll.refresh()
+                    }
+
+                });console.log(self.orderList);
+            }).catch(function(err) {
+                console.log(err);
+            });
         },
         showConfirm(option){
             this.$refs.comfirmBox.show(option);
         },
-        cancelOrder(){
+        refuseReservation(id) {
+            let self = this;
             this.showConfirm({
-              title: '提示',
-              content: '<center>确定执行此操作</center>',
-              leftname: '取消',
-              rightname: '确定',
-              leftListener: () => {
-                console.log('订单已撤销');
-              },
-              rightListener: () => {
-                console.log('继续下一步');
-              }
+                title: '提示',
+                content: '<center>确定执行此操作</center>',
+                leftname: '取消',
+                rightname: '确定',
+                leftListener: () => {},
+                rightListener: () => {
+                    let url = '/merchant/reserve/reservations/refuse.json';
+                    let data = { reservationId: id };
+                    this.$ajax.get(url, {params: data}).then(function (res) {
+                        if(res.success) {
+                            self.getData(this.curTabIndex);
+                        }
+                    }).catch(function(err) {
+                        console.log(err);
+                    });
+                }
             });
-        }
+            this.getData(this.curTabIndex);
+        },
+        accpetReservation(id){
+            let self = this;
+            let url = '/merchant/reserve/reservations/accpet.json';
+            let data = { reservationId: id };
+            this.$ajax.get(url, {params: data}).then(function (res) {
+                if(res.success) {
+                    self.getData(this.curTabIndex);
+                }
+            }).catch(function(err) {
+                console.log(err);
+            });
+        },
+        cancelReservation(id){
+            let self = this;
+            this.showConfirm({
+                title: '提示',
+                content: '<center>确定执行此操作</center>',
+                leftname: '取消',
+                rightname: '确定',
+                leftListener: () => {},
+                rightListener: () => {
+                    let url = '/merchant/reserve/reservations/cancel.json';
+                    let data = { reservationsId: id };
+                    this.$ajax.get(url, {params: data}).then(function (res) {
+                        if(res.success) {
+                            self.getData(this.curTabIndex);
+                        }
+                    }).catch(function(err) {
+                        console.log(err);
+                    });
+                }
+            });
+        },
+        switchTab(index){
+            this.curTabIndex = index;
+            this.pageNo = 1;
+            this.getData(this.curTabIndex);
+        },
     },
     created() {
         document.title = "预约管理";
-        this.getData();
+        this.getData(this.curTabIndex);
+    },
+    mounted() {
+
     }
 };
 </script>
@@ -239,8 +307,9 @@ export default {
 .btn_read{width: 1.4rem;height: 0.44rem;background:#ff6000;border-radius:0.04rem;border: 1px #ff6000 solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #fff;margin-left: 0.30rem}
 .btn_disabled{width: 1.4rem;height: 0.44rem;background:#fff;border-radius:0.04rem;border: 1px #eee solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #fff;margin-left: 0.30rem;color:#999;}
 .pb30{padding-bottom: 0.30rem}
-
-    .lh06 {
-        line-height: 0.6rem;
+.lh06 {line-height: 0.6rem;}
+    .no-data {
+        text-align: center;
+        margin-top: 2rem;
     }
 </style>
