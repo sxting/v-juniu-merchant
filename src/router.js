@@ -8,9 +8,12 @@ const routes = [{
         component: (resolve) => require(['./views/index'], resolve),
         children: [{
             path: '/',
-            redirect: '/bindAccount'
+            redirect: '/home'
         },{
             path: '/home',//工作
+            meta: {
+                requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+            },
             component: (resolve) => require(['./views/home'], resolve)
         },{
             path: '/records',//业绩
@@ -113,16 +116,21 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     console.log(to);
     if (to.matched.some(r => r.meta.requireAuth)) {
-        if (false) {
+        if (sessionStorage.getItem("App-Token")) { //如果token存在
+            console.log('token 存在');
+            //...判断token的合法性
+            next();
+        } else {
+            console.log('token 不存在');
             next({ //如果token不存在 跳转到登录
-                path: '/login',
+                path: '/bindAccount',
                 replace: true,
                 query: {
                     redirect: to.fullPath
                 }
             });
         }
-    } else {
+    }else {
         console.log(to.path);
         next();
     }
