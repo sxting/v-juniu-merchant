@@ -23,7 +23,8 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         let result = response.data;
-        if (response.status !== 200) {
+        console.log(result);
+        if (result.errorCode == 'invalid_token') {
             router.replace({
                 path: "/bindAccount",
                 query: {
