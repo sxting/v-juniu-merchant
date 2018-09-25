@@ -178,7 +178,7 @@ export default {
       ticketList: [],
       changeType: true,
       yjcardList: false, //当前会员所有的会员卡
-      storeId: sessionStorage.getItem("storeId"),
+      storeId: sessionStorage.getItem("storeId")||'',
       inputValue: "",
       cardChangeBoolean: false,
       isVerbMoney: 0,
@@ -1251,19 +1251,28 @@ export default {
   created() {
     document.title = "订单";
     let that = this;
-    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"));
-    this.products = this.chargeInfo.orderInfo;
+    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"))
+      ? JSON.parse(sessionStorage.getItem("chargeInfo"))
+      : "";
     this.vipCardSearchFun();
     that.products.forEach(function(i, m) {
       if (!i.name3) i.name3 = 10;
       if (m === 0) i.isShowMoreItem = true;
       else i.isShowMoreItem = false;
     });
-    if (this.chargeInfo.memberInfo) this.isShowMember = true;
-    this.memberInfo = that.chargeInfo.memberInfo.customer?that.chargeInfo.memberInfo.customer:false;
-    if (this.memberInfo) that.getMemberTicket(this.memberInfo.customerId);
-    this.getAllstaff();
-    this.totolMoneyFun();
+    if (that.chargeInfo) {
+      this.memberInfo = that.chargeInfo.memberInfo.customer
+        ? that.chargeInfo.memberInfo.customer
+        : false;
+      if (this.memberInfo) {
+        if (this.chargeInfo && this.chargeInfo.memberInfo)
+          this.isShowMember = true;
+        that.getMemberTicket(this.memberInfo.customerId);
+      }
+
+      this.getAllstaff();
+      this.totolMoneyFun();
+    }
   },
 
   computed: {}

@@ -132,7 +132,7 @@ export default {
       productList: [],
       selectedFood: {},
       chargeInfo: {},
-      storeId: sessionStorage.getItem("storeId")
+      storeId: sessionStorage.getItem("storeId")||'',
     };
   },
   props: {
@@ -272,7 +272,7 @@ export default {
   },
   created() {
     document.title = "收银";
-    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"));
+    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"))?JSON.parse(sessionStorage.getItem("chargeInfo")):'';
     if (this.chargeInfo.memberInfo) this.isShowMember = true;
     this.getAllproduct(this.chargeInfo.products);
   },
