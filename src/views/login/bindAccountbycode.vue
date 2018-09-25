@@ -61,17 +61,34 @@ export default {
   },
   methods: {
     getCode(){
-      var reg = /^1[23456789]\d{9}$/;
-      var mobile = delBlank(this.mobile);
+      let self = this;
+      let reg = /^1[23456789]\d{9}$/;
+      let mobile = delBlank(this.mobile);
       if (mobile == "") {
         this.$toast("请输入手机号码！");return;
-      }
-      if (!reg.test(mobile)) {
+      }else if (!reg.test(mobile)) {
         this.$toast("手机格式不正确！");return;
+      }else {
+          let data = {
+              phone:mobile,
+              bizType:'VALID'
+          };
+          this.showRestTime();
+          this.$ajax
+              .get("common/validCode/getValidCode.json", {
+                  params: data
+              })
+              .then(function(res) {
+                  if (res.success) {
+                      self.$toast('发送验证码成功');
+                  } else {
+                      self.$toast(res.errorInfo);
+                  }
+              })
+              .catch(function(err) {
+                  self.$toast(err);
+              });
       }
-
-      this.$toast('发送验证码成功');
-      this.showRestTime();
     },
     showRestTime(){
       var restTime = 60;
@@ -93,7 +110,7 @@ export default {
         this.$router.push('/bindCourse');
     },
     submit(){
-      this.$router.push('/home');
+      let self = this;
       var reg = /^1[23456789]\d{9}$/;
       var mobile = delBlank(this.mobile);
       var msgCode = delBlank(this.msgCode);
@@ -102,9 +119,32 @@ export default {
       }
       if (!reg.test(mobile)) {
         this.$toast("手机格式不正确！");return;
-      }
-      if(msgCode==""){
+      } else if(msgCode==""){
         this.$toast("手机验证码不能为空！");return;
+      }else {
+          let data = {
+              loginName:mobile,
+              validCode: msgCode
+          };
+          this.showRestTime();
+          this.$ajax
+              .get("account/login/phone.json", {
+                  params: data
+              })
+              .then(function(res) {
+                  if (res.success) {
+                      self.$toast('登录成功');
+                      sessionStorage.setItem('App-Token', res.data.token);//存储token
+                      sessionStorage.setItem('User-Info', JSON.stringify(res.data));//存储用户信息
+                      sessionStorage.setItem('alipayShops', JSON.stringify(res.data.alipayShopList));//存储门店
+                      self.$router.push('/home');
+                  } else {
+                      self.$toast(res.errorInfo);
+                  }
+              })
+              .catch(function(err) {
+                  self.$toast(err);
+              });
       }
     },
     toElseBind(){
