@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <div class="ub ub-ac inputDiv">
-            <input type="number" class="ub-f1 code" placeholder="请输入券码对应的数字码" v-model="receiptCode" @keyup="formatInput('receiptCode')" />
+            <input type="number" class="ub-f1 code" placeholder="请输入券码对应的数字码" v-model="receiptCode" @keyup="formatInput(receiptCode)" />
             <span class="icon_sao1 mr10"></span>
         </div>
         <div class="btn">
@@ -27,7 +27,7 @@
                 <div class="no-data" v-if="dataList.length === 0">暂无数据</div>
                 <div class="ub ub-ac ub-pj item bbc" v-for="item in dataList" @click="toDetail(item)">
                     <div>
-                        <p class="bc1 f14 tx-l">+{{item.amount/100}}</p>
+                        <p class="bc1 f14 tx-l">+{{item.amount}}</p>
                         <p class="bc1 f14 tx-l">{{item.itemName}}</p>
                     </div>
                     <div>
@@ -73,25 +73,31 @@ export default {
             if(this.type === 'koubei') {
                 url = '/merchant/order/koubei/vouchers.json';
                 this.$ajax.get(url, {params: data}).then(function (res) {
-                    self.dataList = res.data.vouchers;
-                }).catch(function(err) {
-                    alert(err);
+                    if(res.success) {
+                        self.dataList = res.data.vouchers;
+                    } else {
+                        alert(res.errorInfo);
+                    }
                 })
             } else if(this.type === 'meituan') {
                 url = '/xmd/tuangou/receipt/list.json';
                 data.storeId = sessionStorage.getItem('storeId');
                 this.$ajax.get(url, {params: data}).then(function (res) {
-                    self.dataList = res.data.details;
-                }).catch(function(err) {
-                    alert(err);
+                    if(res.success) {
+                        self.dataList = res.data.details;
+                    } else {
+                        alert(res.errorInfo);
+                    }
                 })
             } else if(this.type === 'wechat') {
                 data = {storeId: sessionStorage.getItem('storeId')};
                 url = '/merchant/order/wxorder/voucher/list.json';
                 this.$ajax.get(url, {params: data}).then(function (res) {
-                    self.dataList = res.data;
-                }).catch(function(err) {
-                    alert(err);
+                    if(res.success) {
+                        self.dataList = res.data;
+                    } else {
+                        alert(res.errorInfo);
+                    }
                 })
             }
 
@@ -109,48 +115,17 @@ export default {
             });
         },
         submit(){
+            if(!this.receiptCode) {
+                alert('请输入核销码');
+                return;
+            }
             this.$router.push({
                 name: 'checkConfirm',
                 params: {
-                    type: this.type
+                    type: this.type,
+                    code: this.receiptCode
                 }
             });
-            if(this.type === 'koubei'){
-                //口碑核销查询  /merchant/order/koubei/queryTicketCode.json  shopId   ticketCode  isQuery: T    口碑核销
-                // /merchant/order/koubei/ticket.json     口碑拼团核销
-                //确认核销  /merchant/order/koubei/settle.json   shopId=2016110300077000000019717987&ticketCode=126365494003&quantity=1
-                // console.log(self.receiptCode);
-                // this.$ajax.get("merchant/order/koubei/ticket.json", {
-                //     params: {
-                //         shopId: self.shopId,
-                //         ticketNo: self.receiptCode,
-                //         isQuery: 'T'
-                //     }
-                // }).then(function (result) {
-                //     console.log(result.data);
-                //     if (result.data.errorCode == "10000") {
-                //         alert('核销成功');
-                //         self.$router.push('/home');
-                //     } else {
-                //         alert(result.data.errorInfo);
-                //     }
-                // });
-            }else if(this.type === 'meituan'){
-                // this.$ajax.get("xmd/tuangou/receipt/prepare.json",{
-                //     params: {
-                //         storeId: self.shopId,
-                //         receiptCode: self.receiptCode
-                //     }
-                // }).then(function (result) {
-                //     console.log(result.data);
-                //     if (result.data.errorCode == "10000") {
-                //         alert('核销成功');
-                //         self.$router.push('/home');
-                //     } else {
-                //         alert(result.data.errorInfo);
-                //     }
-                // });
-            }
         }
     },
     created(){

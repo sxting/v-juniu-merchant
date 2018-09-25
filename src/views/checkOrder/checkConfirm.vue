@@ -10,16 +10,19 @@
             <div class="plr15 bgb">
                 <div class="item bbc ub ub-ac ub-pj">
                     <p class="bc">商品名称</p>
-                    <p class="bc">商品名称</p>
+                    <p class="bc" v-if="type === 'koubei'">{{data.itemName}}</p>
+                    <p class="bc" v-if="type === 'meituan'">{{data.deal_title}}</p>
                 </div>
                 <div class="item bbc ub ub-ac ub-pj">
                     <p class="bc">商品价格</p>
-                    <p class="rc">￥20</p>
+                    <p class="rc" v-if="type === 'koubei'">￥{{data.currentPrice/100}}</p>
+                    <p class="rc" v-if="type === 'meituan'">￥{{data.deal_price}}</p>
                 </div>
-                <div class="item bbc ub ub-ac ub-pj">
-                    <p class="bc">截至有效期</p>
-                    <p class="bc">2018-09-08</p>
-                </div>
+                <!--<div class="item bbc ub ub-ac ub-pj">-->
+                    <!--<p class="bc">截至有效期</p>-->
+                    <!--<p class="bc" v-if="type === 'koubei'">2018-09-08</p>-->
+                    <!--<p class="bc" v-if="type === 'meituan'">2018-09-08</p>-->
+                <!--</div>-->
                 <div class="item ub ub-ac ub-pj" v-if="">
                     <p class="bc">选择本次核销份数</p>
                     <p class="ub ub-ac numBox">
@@ -33,12 +36,12 @@
         <div v-else>
             <p class="tit">添加服务技师</p>
             <div class="plr15 bgb">
-                <div class="item bbc ub ub-ac ub-pj" @click="openPicker1">
+                <div class="item bbc ub ub-ac ub-pj" @click="openPicker(0)">
                     <p class="bc ub-f1">添加技师</p>
                     <p class="bc">{{name1}}</p>
                     <span class="arrow-down"></span>
                 </div>
-                <div class="item ub ub-ac ub-pj" @click="openPicker2">
+                <div class="item ub ub-ac ub-pj" @click="openPicker(1)">
                     <p class="bc ub-f1">添加小工</p>
                     <p class="bc">{{name2}}</p>
                     <span class="arrow-down"></span>
@@ -50,17 +53,17 @@
         </div>
         <mt-popup v-model="pickerVisible1" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-                <span class="picker-cancel" @click="closePicker1">取消</span> 
-                <span class="picker-confirm" @click="closePicker1">确定</span>
+                <span class="picker-cancel" @click="closePicker">取消</span>
+                <span class="picker-confirm" @click="closePicker">确定</span>
             </div>
-            <mt-picker :slots="actions1" @change="onPickerChange1" :visible-item-count="5"></mt-picker>
+            <mt-picker :slots="actions1" :value-key="'staffName'" @change="onPickerChange1" :visible-item-count="5"></mt-picker>
         </mt-popup>
         <mt-popup v-model="pickerVisible2" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-                <span class="picker-cancel" @click="closePicker2">取消</span> 
-                <span class="picker-confirm" @click="closePicker2">确定</span>
+                <span class="picker-cancel" @click="closePicker">取消</span>
+                <span class="picker-confirm" @click="closePicker">确定</span>
             </div>
-            <mt-picker :slots="actions2" @change="onPickerChange2" :visible-item-count="5"></mt-picker>
+            <mt-picker :slots="actions2" :value-key="'staffName'" @change="onPickerChange2" :visible-item-count="5"></mt-picker>
         </mt-popup>
     </div>
 </template>
@@ -71,50 +74,161 @@ export default {
     name: "checkConfirm",
     data() {
         return {
+            type: this.$route.params.type,
+            code: this.$route.params.code,
+            storeId: sessionStorage.getItem('storeId'),
             pickerVisible1:false,
             pickerVisible2:false,
-            actions1:[{
-              values: ['技师1', '技师2', '技师3', '技师4', '技师5', '技师6']
-            }],
-            actions2:[{
-              values: ['技师1', '技师2', '技师3', '技师4', '技师5', '技师6']
-            }],
+            actions1:[],
+            actions2:[],
             name1:'请添加技师',
+            staffId1: '',
             name2:'请添加小工',
+            staffId2: '',
             bookNum:1,
-            isShowMember:false,
-            type: ''
+            data: {}
         };
     },
     components: {},
     methods: {
-        openPicker1(){
-            this.pickerVisible1 = true;
+        getData() {
+            let self = this;
+            if(this.type === 'koubei') {
+                let url = '', data = {
+                    shopId: this.storeId,
+                    ticketCode: this.code,
+                    isQuery: 'T'
+                };
+                if(this.code.length === 12 && this.code.substring(0, 2) !== '31') {
+                    url = '/merchant/order/koubei/queryTicketCode.json'; //口碑核销
+                    this.$ajax.get(url, {params: data}).then(function (res) {
+                        if(res.success) {
+                            self.data = res.data;
+                        } else {
+                            alert(res.errorInfo);
+                        }
+                    })
+                } else if(this.code.length === 16 && this.code.substring(0, 2) === '31') {
+                    url = '/merchant/order/koubei/ticket.json'; //口碑拼团核销
+                    this.$ajax.get(url, {params: data}).then(function (res) {
+                        if(res.success) {
+                            self.$router.push('/checkSuccess');
+                        } else {
+                            alert(res.errorInfo);
+                        }
+                    })
+                } else {
+                    return;
+                }
+            } else if(this.type === 'meituan') {
+                let url = '/xmd/tuangou/receipt/prepare.json', data = {
+                    storeId: this.storeId,
+                    receiptCode: this.code
+                };
+                this.$ajax.get(url, {params: data}).then(function (res) {
+                    if(res.success) {
+                        self.data = res.data.data;
+                    } else {
+                        alert(res.errorInfo);
+                    }
+                    console.log(res);
+                })
+            } else {
+                let url = '/account/merchant/staff/select.json', data = {
+                    storeId: this.storeId,
+                    timestamp: new Date().getTime()
+                };
+                this.$ajax.get(url, {params: data}).then(function (res) {
+                    if(res.success) {
+                        self.actions1 = [
+                            {values: [{staffName: '请添加技师', staffId: ''}].concat(res.data.items)},
+                        ];
+                        self.actions2 = [
+                            {values: [{staffName: '请添加小工', staffId: ''}].concat(res.data.items)},
+                        ];
+                    } else {
+                        alert(res.errorInfo);
+                    }
+                })
+            }
         },
-        openPicker2(){
-            this.pickerVisible2 = true;
+        openPicker(index){
+            if(index === 0) {
+                this.pickerVisible1 = true;
+            } else if(index === 1) {
+                this.pickerVisible2 = true;
+            }
         },
-        closePicker1(){
+        closePicker(){
             this.pickerVisible1 = false;
-        },
-        closePicker2(){
             this.pickerVisible2 = false;
         },
-        onPickerChange1(picker,values){
-            // this.name1 = values[0];
+        onPickerChange1(index,values){
+            if(values[0]) {
+                this.name1 = values[0].staffName;
+                this.staffId1 = values[0].staffId;
+            }
         },
         onPickerChange2(picker,values){
-            // this.name2 = values[0];
+            if(values[0]) {
+                this.name2 = values[0].staffName;
+                this.staffId2 = values[0].staffId;
+            }
         },
         addOne(){
             this.bookNum++;
         },
         delOne(){
-            if(this.bookNum>0)
+            if(this.bookNum>1)
             this.bookNum--;
         },
         submit(){
-            this.$router.push('/checkSuccess');
+            let self = this;
+            if(this.type === 'koubei') {
+                let url = '/merchant/order/koubei/settle.json', data = {
+                    shopId: this.storeId,
+                    ticketCode: this.code,
+                    quantity: this.bookNum
+                };
+                this.$ajax.get(url, {params: data}).then(function (res) {
+                    if(res.success) {
+                        self.$router.push('/checkSuccess');
+                    } else {
+                        alert(res.errorInfo);
+                    }
+                })
+            } else if(this.type === 'meituan') {
+                let url = '/xmd/tuangou/receipt/consume.json', data = {
+                    storeId: this.storeId,
+                    receiptCode: this.code,
+                    count: this.bookNum,
+                };
+                this.$ajax.get(url, {params: data}).then(function (res) {
+                    if(res.success) {
+                        self.$router.push('/checkSuccess');
+                    } else {
+                        alert(res.errorInfo);
+                    }
+                })
+            } else if(this.type === 'wechat') {
+                let url = '/merchant/order/wxorder/consumeVoucher.json', data = {
+                    storeId: this.storeId,
+                    voucherCode: this.code,
+                    assign: 0,
+                    coolie: this.staffId2,
+                    merchantId: JSON.parse(sessionStorage.getItem('User-Info')).merchantId,
+                    staffId: this.staffId1,
+                };
+                if(this.code.length >= 16) {
+                    this.$ajax.get(url, {params: data}).then(function (res) {
+                        if(res.success) {
+                            self.$router.push('/checkSuccess');
+                        } else {
+                            alert(res.errorInfo);
+                        }
+                    })
+                }
+            }
         }
     },
     mounted() {
@@ -122,7 +236,8 @@ export default {
     },
     created() {
         document.title="确认核销";
-        this.type = this.$route.params.type
+        this.type = this.$route.params.type;
+        this.getData();
     }
 };
 </script>
