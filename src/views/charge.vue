@@ -64,7 +64,7 @@
           <li v-for="(item, index)  in goods" :key="index" class="food-list food-list-hook">
             <h1 class="title">{{item.categoryName}}</h1>
             <ul>
-              <li v-for="(food, index2)  in item.productList" :key="index2" class="food-item ub ub-ac" @click="selectFood(food, $event)">
+              <li v-for="(food, index2)  in item.productList" :key="index2" class="food-item ub ub-ac">
                 <div class="icon">
                   <img :src="food.picUrl || 'src/assets/default.png'" alt="" width="80" height="80">
                 </div>
@@ -75,7 +75,6 @@
                   </div>
                   <div class="price">
                     <span class="now">￥{{food.currentPrice/100}}</span>
-                    <!-- <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span> -->
                   </div>
                 </div>
                 <div class="cartControl-wrapper">
@@ -86,10 +85,6 @@
           </li>
         </ul>
       </div>
-      <!-- <div>
-                <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" ref="shopCart"></shopCart>
-                <food :food="selectedFood" ref="food"></food>
-            </div> -->
     </div>
 
     <div class="modal2" v-show="isShowBus&&productCount>0">
@@ -213,8 +208,6 @@ export default {
       this.$router.push("/memberInfo");
     },
     toOrder() {
-      // console.log(this.productList);
-      // console.log(this.goods);
       this.chargeInfo.products = this.goods;
       this.chargeInfo.orderInfo = this.productList;
 
@@ -295,17 +288,6 @@ export default {
       }
       return 0;
     },
-    selectFoods() {
-      let foods = [];
-      this.goods.forEach(good => {
-        good.foods.forEach(food => {
-          if (food.count) {
-            foods.push(food);
-          }
-        });
-      });
-      return foods;
-    }
   }
 };
 </script>

@@ -15,6 +15,7 @@
     "fastclick": "^1.0.6",
     "jquery": "^2.2.3",
     "mint-ui": "^2.2.13",
+    "number-precision": "^1.2.0",
     "save": "^2.3.2",
     "stylus": "^0.54.5",
     "vue": "^2.5.2",

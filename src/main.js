@@ -11,7 +11,7 @@ import "./static/css/reset.css";
 import "./static/css/iconfont.css";
 import confirmBox from "./static/js/confirmBox.js";
 import alertBox from "./static/js/alertBox.js";
-
+import NP from 'number-precision'
 // FastClick.attach(document.body);
 Vue.use(ResetRem); //采用rem的相对布局方式，使用resetrem插件
 Vue.use(Mint);
@@ -19,6 +19,7 @@ Vue.use(confirmBox);
 Vue.use(alertBox);
 //绑定到Vue的实例方法上
 Vue.prototype.$ajax = axios;
+Vue.prototype.NP = NP;
 Vue.prototype.HttpUrl = "https://biz.juniuo.com/";
 Vue.config.productionTip = false;
 Vue.resetrem();

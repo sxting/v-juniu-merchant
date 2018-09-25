@@ -8,14 +8,14 @@
             <img src="../assets/ion_sys.png" class="udb">
             <p class="sc f12">扫一扫</p>          
           </div>
-          <div class="item" @click="toerwmCharge('alipay')">
+          <!-- <div class="item" @click="toerwmCharge('alipay')">
             <img src="../assets/ion_alipay.png" class="udb">
             <p class="sc f12">支付宝</p>          
           </div>
           <div class="item" @click="toerwmCharge('wx')">
             <img src="../assets/ion_wx.png" class="udb">
             <p class="sc f12">微信</p>          
-          </div>
+          </div> -->
           <div class="item">
           </div>
         </div>
