@@ -135,7 +135,7 @@
       </div>
     </div>
 
-    <payWay ref="payWay" v-show="isShowPayWay" :isShowPayWay.sync="isShowPayWay"></payWay>
+    <payWay ref="payWay" v-show="isShowPayWay" :isShowPayWay.sync="isShowPayWay" :payWay="payWay" @increment="incrementTotal"></payWay>
     <alertBox ref="alertBox"></alertBox>
   </div>
 </template>
@@ -157,6 +157,7 @@ export default {
       isShowMember: false,
       memberInfo: {},
       xyVip: false,
+      payWay: "",
       //弹框选择
       pickerVisible1: false, //服务技师
       pickerVisible2: false, //服务小工
@@ -201,11 +202,9 @@ export default {
     },
     switchBoolen2() {
       this.isSwitch2 = !this.isSwitch2;
-      console.log(this.isSwitch2);
       this.totolMoneyFun();
     },
     toerwmCharge() {
-      console.log(this.products);
       this.restProductJson();
       this.jiesuan();
       // this.$router.push('/erwmCharge');
@@ -810,11 +809,18 @@ export default {
       let that = this;
       console.log(this.authCode);
       let create = {};
-      create.customerName = this.memberInfo.customerName;
-      create.phone = this.memberInfo.phone;
-      create.authCode = this.authCode;
-      create.birthday = this.memberInfo.birthday;
-      create.gender = this.memberInfo.gender;
+      if (this.memberInfo) {
+        create.customerName = this.memberInfo.customerName;
+        create.phone = this.memberInfo.phone;
+        create.authCode = this.authCode;
+        create.birthday = this.memberInfo.birthday;
+        create.gender = this.memberInfo.gender;
+        if (this.memberInfo.cardNum) {
+          create.cardNum = this.memberInfo.cardNum;
+        }
+        create.birthday = this.memberInfo.birthday;
+        create.customerId = this.memberInfo.customerId;
+      }
 
       const codeTyeNum = this.authCode;
       if (!this.changeType) {
@@ -838,10 +844,7 @@ export default {
       ) {
         create.couponId = this.ticket.couponId;
       }
-      if (this.memberInfo.cardNum) {
-        create.cardNum = this.memberInfo.cardNum;
-      }
-      create.birthday = this.memberInfo.birthday;
+
       let selectProduct = [];
       selectProduct.forEach((item, index) => {
         if (item.productId === "") {
@@ -1002,7 +1005,6 @@ export default {
       create.storeId = this.storeId;
       create.wipeDecimal = that.isSwitch2;
       // create.faceId = this.selectFaceId;
-      create.customerId = this.memberInfo.customerId;
       this.spinBoolean = true;
       console.log(create);
       if (this.xyVip) {
@@ -1055,9 +1057,14 @@ export default {
         .then(function(res) {
           if (res.success) {
             if (res.data === "CLOSE") {
-                that.$router.push("/payFail");
+              that.$router.push("/payFail");
             } else {
-                that.$router.push("/paySuccess");
+              that.$router.push("/paySuccess");
+              let data = {
+                member: that.memberInfo,
+                order: res.data
+              };
+              sessionStorage.setItem("succesInfo", JSON.stringify(data));
             }
           } else {
             that.$refs.alertBox.alert(res.errorInfo);
@@ -1235,6 +1242,10 @@ export default {
       this.productIds = productIds;
       this.ticketListArrFun();
       // that.checkTicketStatus();
+    },
+    incrementTotal(target) {
+      this.payType = target;
+      this.jiesuanFun(target);
     }
   },
   created() {
@@ -1249,8 +1260,8 @@ export default {
       else i.isShowMoreItem = false;
     });
     if (this.chargeInfo.memberInfo) this.isShowMember = true;
-    this.memberInfo = that.chargeInfo.memberInfo.customer;
-    that.getMemberTicket(this.memberInfo.customerId);
+    this.memberInfo = that.chargeInfo.memberInfo.customer?that.chargeInfo.memberInfo.customer:false;
+    if (this.memberInfo) that.getMemberTicket(this.memberInfo.customerId);
     this.getAllstaff();
     this.totolMoneyFun();
   },

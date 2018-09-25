@@ -249,7 +249,6 @@ export default {
         .then(function(res) {
           if (res.success) {
             that.goods = element ? element : res.data;
-            console.log(that.goods);
             if (element) that.incrementTotal();
             that.$nextTick(() => {
               that._initScroll();

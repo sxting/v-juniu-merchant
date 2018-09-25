@@ -23,7 +23,6 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         let result = response.data;
-        console.log(result);
         if (result.errorCode == 'invalid_token') {
             router.replace({
                 path: "/bindAccount",
@@ -36,8 +35,7 @@ axios.interceptors.response.use(
         }
     },
     error => {
-        console.log(error);
-        console.log(error.response);
+
         if (error.response) {
             switch (error.response.status) {
                 case 401:
