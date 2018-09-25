@@ -3,12 +3,12 @@
         <div class="content">
             <div class="voucher">
                 <div class="remark yi">已持有</div>
-                <p>黄金储值卡</p>
+                <p>{{cardInfo.card.cardName}}</p>
                 <div class="ub ub-pj ub-ac amount">
-                    <p class="f20">储值300元</p><p class="f20">￥300元</p>
+                    <p class="f20">余额</p><p class="f20">￥{{cardInfo.card.balance/100}}元</p>
                 </div>
                 <div class="btc1 ub ub-pj date">
-                    <p class="f12">全店通用 <i class="ml10 f12">有效期：永久</i></p>
+                    <p class="f12">{{cardInfo.applyStoreType==='ALL'?'全店通用':'部分店铺可用'}} <i class="ml10 f12">有效期：{{cardInfo.card.validity}}</i></p>
                 </div>
             </div>
             <p class="f14 mt15">充值金额</p>
@@ -38,11 +38,13 @@
         },
         methods: {
             submit(){
-                history.go(-1);
+                
             }
         },
         created() {
             document.title = "充值";
+            this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"));
+            this.cardInfo = this.chargeInfo?this.chargeInfo.cardInfo.cardInfo:false;
         }
     };
 </script>

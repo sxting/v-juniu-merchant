@@ -6,7 +6,7 @@
                     <div v-for="(item,index) in tabList" :key="index" :class="{'on':curTabIndex==index}" @click="swtichTab(index)">{{item}}</div>
                 </div>
             </div>
-            <div v-show="curTabIndex==0" class="voucher bgb" >
+            <div v-show="curTabIndex==0" class="voucher bgb">
                 <div class="item type1" v-for="(item,index) in cardInfo.STOREDList" :key="index" @click="toRecharge(item)">
                     <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
                     <p>{{item.cardConfigName}}</p>
@@ -18,7 +18,7 @@
                         <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
                             <i class="ml10 f12">有效期：{{item.rules[0].validate==='99999999'?'永久有效':item.rules[0].validate}}天</i>
                         </p>
-                        <button >购买</button>
+                        <button>购买</button>
                     </div>
 
                     <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
@@ -31,7 +31,7 @@
                                 <i class=" f12">有效期截止：{{item.cardInfo.card.validity}}</i>
                             </p>
                         </div>
-                        <button >充值</button>
+                        <button>充值</button>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                                 <i class=" f12">有效期截止：{{item.cardInfo.card.validity}}</i>
                             </p>
                         </div>
-                        <button >充值</button>
+                        <button>充值</button>
                     </div>
                 </div>
             </div>
@@ -147,9 +147,14 @@ export default {
       this.curTabIndex = num;
     },
     toRecharge(item) {
-        console.log(item)
-        if(item.yichiyou&&item.type!=='METERING'&&item.type!=='TIMES') this.$router.push("/recharge");
-        else if(!item.yichiyou) console.log('购买');
+      this.chargeInfo.cardInfo = item;
+      this.chargeInfo.changeType = false;
+      if(item.yichiyou) this.chargeInfo.cardInfo.xyVip = true;
+      else this.chargeInfo.cardInfo.xyVip = false;
+      sessionStorage.setItem("chargeInfo", JSON.stringify(this.chargeInfo));
+      if (item.yichiyou && item.type !== "METERING" && item.type !== "TIMES")
+        this.$router.push("/recharge");
+      else if (!item.yichiyou) this.$router.push("/order");
     },
     toBuyCard() {},
     toAddMember() {
