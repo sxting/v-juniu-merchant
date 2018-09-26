@@ -66,7 +66,7 @@
             <p class="f13">{{item.name3}}折</p>
             <i class="arrow-down"></i>
           </div>
-          <div class="item ub ub-pj ub-ac" @click="openPicker(index,'pickerVisible4')">
+          <div class="item ub ub-pj ub-ac" @click="openPicker(index,'pickerVisible4')" v-if="isShowMember">
             <p class="ub-f1 sc f13 pl48">会员卡</p>
             <span class="money f13"></span>
             <p class="f13">
@@ -113,12 +113,12 @@
         </div>
 
       </div>
-      <div class="orderInfo" v-if="!changeType" >
+      <div class="orderInfo" v-if="!changeType">
         <div class="item plr20 bbc ub ub-ac ub-pj">
           <p class="ub ub-ac">
-            <i class="icon_drop" ></i>{{xfCardList.cardConfigName}}</p>
+            <i class="icon_drop"></i>{{xfCardList.cardConfigName}}</p>
         </div>
-        <div class="bbc plr20" >
+        <div class="bbc plr20">
           <div class="item ub ub-pj ub-ac" @click="openPicker('staff1')">
             <p class="ub-f1 sc f13 pl48">服务技师</p>
             <p class="bc f13">{{cardName1}}</p>
@@ -164,10 +164,11 @@
         </div>
       </div>
       <div class="ub ub-ac ub-pj switchDiv plr15" v-if="changeType">
-        <p>优惠券</p>
-        <div class="switch-btn">
-          <div class="icon-on" v-if="isSwitch2" @click="switchBoolen2"></div>
-          <div class="icon-off" v-else @click="switchBoolen2"></div>
+        <p>优惠券<span v-if="ticket" style="display:inline-block;color:#ff6600;">({{ticket.tickType+':'}}{{ticket.couponDefName}})</span></p>
+        <div class="switch-btn" v-if="ticket" style="display: flex;">
+          <span style="display:inline-block;color:#ff6600;margin-right:10px;">-{{ticket.ticketMoney}}元</span>  
+          <div style="display:inline-block;" class="icon-on" v-if="ticketCheck" @click="switchBoolen3"></div>
+          <div style="display:inline-block;" class="icon-off" v-else @click="switchBoolen3"></div>
         </div>
       </div>
       <div class="ub">
@@ -191,6 +192,7 @@ export default {
   data() {
     return {
       isDisabled: false,
+      vipCardListIndex: 0,
       bookNum: 0,
       isShowMoreItem: true,
       isShowBus: false,
@@ -233,7 +235,9 @@ export default {
       cardStaffId2: "",
       cardboolean1: false,
       cardboolean2: false,
-      cardInputValue: 0
+      cardInputValue: 0,
+      STOREDextraMoney: 0,
+      ticketCheck:true
     };
   },
   methods: {
@@ -252,6 +256,10 @@ export default {
     },
     switchBoolen2() {
       this.isSwitch2 = !this.isSwitch2;
+      this.totolMoneyFun();
+    },
+    switchBoolen3() {
+      this.ticketCheck = !this.ticketCheck;
       this.totolMoneyFun();
     },
     toerwmCharge() {
@@ -375,6 +383,7 @@ export default {
       }
     },
     onPickerChange4(picker, values, index) {
+      let that = this;
       if (values.length > 0) {
         this.$forceUpdate();
         let cardName = values[0].card.cardName;
@@ -430,10 +439,16 @@ export default {
           console.log(err);
         });
     },
+    swapArray(arr, index1, index2) {
+      arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+      return arr;
+    },
     //匹配会员卡
     vipCardSearchFun() {
       let that = this;
-      that.yjcardList = that.chargeInfo.memberInfo.cardApplies;
+      that.yjcardList = that.chargeInfo
+        ? that.chargeInfo.memberInfo.cardApplies
+        : false;
       that.xfList = that.products;
       if (that.xfList && that.yjcardList && that.chargeInfo.memberInfo) {
         if (that.xfList.length > 0 && that.yjcardList.length > 0) {
@@ -444,49 +459,50 @@ export default {
               if (n.applyProductIds) {
                 if (n.applyProductIds.indexOf(i.productId) > -1) {
                   vipCardList.push(n);
-                  i.vipCardList = vipCardList;
-                  let arr = [{ name4: "不使用会员卡", cardId: "007" }];
-                  vipCardList.forEach(function(z) {
-                    let ye = "";
-                    if (z.card.type === "STORED")
-                      ye =
-                        "(储)" +
-                        z.card.cardName +
-                        "-" +
-                        ("余额:" + z.card.balance / 100) +
-                        "元";
-                    if (z.card.type === "REBATE")
-                      ye =
-                        "(折)" +
-                        z.card.cardName +
-                        "-" +
-                        ("余额:" + z.card.balance / 100) +
-                        "元";
-                    if (z.card.type === "METERING")
-                      ye =
-                        "(计)" +
-                        z.card.cardName +
-                        "-" +
-                        ("余额:" + z.card.balance) +
-                        "次";
-                    if (z.card.type === "TIMES")
-                      ye = "(期)" + z.card.cardName + "";
-                    z.name4 =
-                      ye + "-" + ("有效期:" + z.card.validity.substring(0, 10));
-                    arr.push(z);
-                  });
-                  let data = [{ values: vipCardList }];
-                  i.actions = data;
                 }
               }
             });
+            i.vipCardList = vipCardList;
+            let arr = [{ name4: "不使用会员卡", cardId: "007" }];
+            vipCardList.forEach(function(z) {
+              let ye = "";
+              if (z.card.type === "STORED")
+                ye =
+                  "(储)" +
+                  z.card.cardName +
+                  "-" +
+                  ("余额:" + z.card.balance / 100) +
+                  "元";
+              if (z.card.type === "REBATE")
+                ye =
+                  "(折)" +
+                  z.card.cardName +
+                  "-" +
+                  ("余额:" + z.card.balance / 100) +
+                  "元";
+              if (z.card.type === "METERING")
+                ye =
+                  "(计)" +
+                  z.card.cardName +
+                  "-" +
+                  ("余额:" + z.card.balance) +
+                  "次";
+              if (z.card.type === "TIMES") ye = "(期)" + z.card.cardName + "";
+              z.name4 =
+                ye + "-" + ("有效期:" + z.card.validity.substring(0, 10));
+              arr.push(z);
+            });
+            let data = [{ values: vipCardList }];
+            i.actions = data;
           });
+
           //筛选会员卡 期限卡>计次卡>折扣卡>储值卡
           var itemList = [];
           that.xfList.forEach(function(i) {
             if (i.vipCardList) {
               for (let n = 0; n < i.vipCardList.length; n++) {
                 if (i.vipCardList[n].card.type === "TIMES") {
+                  that.vipCardListIndex = n;
                   i.vipCard = i.vipCardList[n];
                 }
                 if (
@@ -495,6 +511,7 @@ export default {
                   i.vipCardList[n].card.balance > 0
                 ) {
                   i.vipCard = i.vipCardList[n];
+                  that.vipCardListIndex = n;
                 }
                 if (
                   i.vipCardList[n].card.type === "REBATE" &&
@@ -504,14 +521,16 @@ export default {
                     : true)
                 ) {
                   if (!i.vipCard) i.vipCard = i.vipCardList[n];
-                  if (i.vipCard && i.vipCard.card.type === "STORED") {
+                  if (i.vipCard && i.vipCard.card.type === "REBATE") {
                     i.vipCard = i.vipCardList[n];
+                    that.vipCardListIndex = n;
                   }
                   if (
                     i.vipCard &&
                     i.vipCardList[n].card.balance > i.vipCard.card.balance
                   ) {
                     i.vipCard = i.vipCardList[n];
+                    that.vipCardListIndex = n;
                   }
                 }
                 if (
@@ -528,6 +547,7 @@ export default {
                     i.vipCardList[n].card.balance > i.vipCard.card.balance
                   ) {
                     i.vipCard = i.vipCardList[n];
+                    that.vipCardListIndex = n;
                   }
                 }
                 if (i.vipCard1) {
@@ -553,6 +573,13 @@ export default {
           });
           //最终所有选取的商品所对应的会员卡
           that.vipCardList = itemList;
+          that.xfList.forEach(function(i) {
+            i.actions[0].values.forEach(function(n,m) {
+              if(i.vipCard.card.cardId === n.card.cardId){
+                that.swapArray(i.actions[0].values,0,m)
+              }
+            });
+          });
           that.products = that.xfList;
         }
       }
@@ -661,7 +688,7 @@ export default {
         if (that.vipCardList.length > 0 && that.products.length > 0) {
           that.vipCardList.forEach(function(i) {
             let vipMoney2 = 0;
-            that.xfList.forEach(function(n) {
+            that.products.forEach(function(n) {
               if (
                 n.vipCard &&
                 i.card.cardId === n.vipCard.card.cardId &&
@@ -729,6 +756,12 @@ export default {
       if (ticket1) this.ticket = ticket1;
       else if (ticket2) this.ticket = ticket2;
       else if (ticket3) this.ticket = ticket3;
+    },
+    // 验证重复元素，有重复返回true；否则返回false
+    mm(arr) {
+      return /(\x0f[^\x0f]+)\x0f[\s\S]*\1/.test(
+        "\x0f" + arr.join("\x0f\x0f") + "\x0f"
+      );
     },
     //算账
     totolMoneyFun(checkCard) {
@@ -832,7 +865,6 @@ export default {
           }
         });
         this.tanchuang();
-
         that.productIdsFun(that.products);
         ticketM = that.ticketCheck
           ? that.ticket && that.products.length > 0
@@ -955,9 +987,9 @@ export default {
         let orderItem;
         if (that.xyVip) {
           orderItem = {
-            cardId: that.xfCardList.cardId,
-            staffId: that.selectedValue1,
-            staff2Id: that.selectedValue2,
+            cardId: that.xfCardList.cardInfo.card.cardId,
+            // staffId: that.cardStaffId1,
+            // staff2Id: that.cardStaffId2,
             typeName: "cardOrderItem"
           };
         } else {
@@ -971,8 +1003,8 @@ export default {
             type: that.xfCardList.type,
             price: that.xfCardList.rules[0].price,
             validate: that.xfCardList.rules[0].validate,
-            staffId: that.selectedValue1,
-            staff2Id: that.selectedValue2,
+            staffId: that.cardStaffId1,
+            staff2Id: that.cardStaffId2,
             rebate: that.xfCardList.rules[0].rebate,
             storeId: that.storeId
           };
@@ -992,7 +1024,7 @@ export default {
             rebate: that.NP.times(i.name3, 10), //折扣
             storeId: that.storeId,
             staffId: i.staffId || "",
-            assign: i.assign ? 1 : 0,
+            assign: i.isSwitch ? 1 : 0,
             num: i.count,
             // staffName: "肖光华",
             // staff2Name: '',
@@ -1016,18 +1048,18 @@ export default {
                 data.amount += i.count;
               else if (i.vipCard.card.type === "REBATE")
                 data.amount += that.NP.times(
-                  i.num,
+                  i.count,
                   i.currentPrice / 100,
                   100,
                   that.NP.divide(i.vipCard.card.rebate, 10),
-                  that.NP.divide(i.discount, 100)
+                  that.NP.divide(i.name3, 10)
                 );
               else
                 data.amount += that.NP.times(
-                  i.num,
+                  i.count,
                   i.currentPrice / 100,
                   100,
-                  that.NP.divide(i.discount, 100)
+                  that.NP.divide(i.name3, 10)
                 );
               create.settleCardDTOList.push(data);
             }
@@ -1083,10 +1115,8 @@ export default {
         create.bizType = "MEMBER";
       }
       if (!that.changeType) {
-        create.money = that.isSwitch2
-          ? that.cardInputValue * 100
-          : that.cardInputValue * 100;
-
+        create.money = that.cardInputValue * 100;
+        // create.extraMoney = that.STOREDextraMoney * 100;
         create.originMoney = create.money;
       } else {
         if (this.products && this.products.length > 0) {
@@ -1113,6 +1143,28 @@ export default {
         }
       }
     },
+    /**充值且付款 */
+    rechargeAndOrderPayFun(rechargeObj) {
+      let self = this;
+      this.$ajax
+        .post("merchant/order/recharge.json", rechargeObj)
+        .then(function(res) {
+          if (res.success) {
+            self.$router.push("/paySuccess");
+            let data = {
+              member: self.memberInfo,
+              order: res.data
+            };
+            sessionStorage.setItem("succesInfo", JSON.stringify(data));
+          } else {
+            self.$refs.alertBox.alert(res.errorInfo);
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    },
+
     //结算
     jiesuan() {
       let money = this.changeType
@@ -1174,7 +1226,7 @@ export default {
         maxMoney,
         arr2 = [],
         arr3 = [],
-        money = this.isVerb ? this.isVerbMoney : this.totolMoney;
+        money = that.isSwitch2 ? that.isVerbMoney : that.totolMoney;
       arr.forEach(function(i) {
         i.tickType = type === "MONEY" ? "代金券" : "折扣券";
         if (!i.consumeLimitProductIds) {
@@ -1199,7 +1251,7 @@ export default {
             )
               maxMoney = i;
           });
-          maxMoney.ticketMoney = NP.divide(maxMoney.couponDefAmount, 100);
+          maxMoney.ticketMoney = that.NP.divide(maxMoney.couponDefAmount, 100);
         } else if (that.products.length > 0) {
           let xfListMoney = that.products[0].currentPrice;
           //挑选最贵的商品
@@ -1231,11 +1283,14 @@ export default {
       let products = that.chargeInfo.products;
       products.forEach(function(i, k) {
         i.productList.forEach(function(n, j) {
+          products[k].productList[j].count = 0;
+        });
+      });
+      products.forEach(function(i, k) {
+        i.productList.forEach(function(n, j) {
           that.products.forEach(function(m) {
             if (n.productId === m.productId) {
               products[k].productList[j] = m;
-            } else {
-              products[k].productList[j].count = 0;
             }
           });
         });
@@ -1349,9 +1404,15 @@ export default {
     this.products = this.chargeInfo ? this.chargeInfo.orderInfo : [];
     this.xfCardList = this.chargeInfo ? this.chargeInfo.cardInfo : false;
     this.xyVip = this.xfCardList ? this.xfCardList.xyVip : false;
-    this.cardInputValue = this.xfCardList
-      ? this.xfCardList.rules[0].price / 100
-      : 0;
+    if (this.xfCardList && this.xfCardList.yichiyou) {
+      this.cardInputValue = this.xfCardList.cardInfo.rechargeAmount;
+      this.STOREDextraMoney = this.xfCardList.cardInfo.giveAmount;
+    } else {
+      this.cardInputValue = this.xfCardList
+        ? this.xfCardList.rules[0].price / 100
+        : 0;
+    }
+
     this.vipCardSearchFun();
     if (that.products && that.products.length > 0) {
       that.products.forEach(function(i, m) {
@@ -1370,7 +1431,7 @@ export default {
     if (this.chargeInfo) {
       this.changeType = this.chargeInfo.changeType;
     }
-    console.log(this.changeType)
+    console.log(this.changeType);
     this.getAllstaff();
     this.totolMoneyFun();
   },

@@ -3,7 +3,7 @@
         <div class="toper">
             <img src="../../assets/icon_success.png" class="udb mato" width="60" height="60">
             <p class="bc f16 tx-c mt15">收银成功</p>
-            <p class="sc f12 tx-c mt05">会员卡支付</p>
+            <!-- <p class="sc f12 tx-c mt05">会员卡支付</p> -->
             <div class="ub ub-pj1 mt50 plr15">
                 <div class="btn_common"  @click="toHome">返回首页</div>
                 <!-- <div class="btn">打印小票</div> -->
@@ -60,7 +60,7 @@ export default {
     document.title = "收银成功";
     this.succesInfo = JSON.parse(sessionStorage.getItem("succesInfo"))?JSON.parse(sessionStorage.getItem("succesInfo")):false;
     if(this.succesInfo.order === 'SUCCESS') this.succesInfo.order =[];
-    if(!this.succesInfo.member) this.isShowMember = false;
+    if(JSON.stringify(this.succesInfo.member) === "{}") this.isShowMember = false;
   }
 };
 </script>
@@ -72,6 +72,7 @@ export default {
 .toper {
   padding: 0.8rem 0 0.5rem;
   background-color: #fff;
+  height: 240px;
 }
 .mt50 {
   margin-top: 0.5rem;
