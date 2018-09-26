@@ -48,7 +48,20 @@ export default {
         }
     },
     created() {
+        let self = this;
         document.title = '选择门店';
+        this.$ajax
+            .get("merchant/store/wechatPubStoreList.json")
+            .then(function(res) {
+                if (res.success) {
+                    console.log(res.data);
+                } else {
+                    self.$toast(res.errorInfo);
+                }
+            })
+            .catch(function(err) {
+                self.$toast(err);
+            });
     }
 };
 
