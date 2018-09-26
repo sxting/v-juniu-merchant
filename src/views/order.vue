@@ -27,17 +27,17 @@
         <div class="addGood btn_vc" @click="addGood()" v-if="changeType">
           <i class="icon-add sc iconfont icon_add1"></i>添加产品</div>
       </div>
-      <div class="orderInfo" v-if="changeType" v-for="(item,index) in products" :key="index">
+      <div class="orderInfo"  v-for="(item,index) in products" :key="index" v-if="changeType&&item.count>0">
         <div class="item plr20 bbc ub ub-ac ub-pj">
           <p class="ub ub-ac">
             <i :class="{'icon_drop':!item.isShowMoreItem,'icon_down':item.isShowMoreItem}" @click="dropOrder(index)"></i>{{item.productName}}</p>
           <p class="ub ub-ac numBox">
             <span class="money f14">￥{{item.currentPrice/100}}</span>
-            <span @click="delOne(index)" class="ctlbtn">
+            <span @click="delOne(item)" class="ctlbtn">
               <i class="icon-del sc iconfont"></i>
             </span>
             <i class="number btbc">{{item.count}}</i>
-            <span @click="addOne(index)" class="ctlbtn">
+            <span @click="addOne(item)" class="ctlbtn">
               <i class="icon-add sc iconfont"></i>
             </span>
           </p>
@@ -280,20 +280,19 @@ export default {
     toMemberCard() {
       this.$router.push("/memberCard");
     },
-    addOne(index) {
+    addOne(item) {
       this.$forceUpdate();
-      let count = this.products[index].count;
+      let count = item.count;
       count++;
-      this.$set(this.products[index], "count", count);
+      this.$set(item, "count", count);
       this.restProductJson();
       this.totolMoneyFun();
     },
-    delOne(index) {
+    delOne(item) {
       if (this.bookNum > 0) this.bookNum--;
-      let count = this.products[index].count;
+      let count = item.count;
       if (count > 0) count--;
-      this.$set(this.products[index], "count", count);
-      if (count === 0) this.products.splice(index, 1);
+      this.$set(item, "count", count);
       this.$forceUpdate();
       this.restProductJson();
       this.totolMoneyFun();
@@ -1289,7 +1288,7 @@ export default {
       products.forEach(function(i, k) {
         i.productList.forEach(function(n, j) {
           that.products.forEach(function(m) {
-            if (n.productId === m.productId) {
+            if (n.productId === m.productId&&m.count>0) {
               products[k].productList[j] = m;
             }
           });
@@ -1416,6 +1415,8 @@ export default {
     this.vipCardSearchFun();
     if (that.products && that.products.length > 0) {
       that.products.forEach(function(i, m) {
+        i.name1 ='';
+        i.name2 ='';
         if (!i.name3) i.name3 = 10;
         if (m === 0) i.isShowMoreItem = true;
         else i.isShowMoreItem = false;
@@ -1435,8 +1436,12 @@ export default {
     this.getAllstaff();
     this.totolMoneyFun();
   },
-
-  computed: {}
+  watch(){
+ 
+  },
+  computed: {
+    
+  }
 };
 </script>
 
