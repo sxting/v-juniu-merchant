@@ -63,7 +63,9 @@ export default {
       memberInfo: false,
       products: false,
       orderInfo: false,
-      status:false
+      status:false,
+      cardInfo:false,
+      changeType:true
     };
     sessionStorage.setItem("chargeInfo", JSON.stringify(data));
     sessionStorage.setItem("storeId", '1514190715796746866603');

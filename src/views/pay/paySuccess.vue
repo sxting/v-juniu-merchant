@@ -58,7 +58,8 @@ export default {
   computed: {},
   created() {
     document.title = "收银成功";
-    this.succesInfo = JSON.parse(sessionStorage.getItem("succesInfo"));
+    this.succesInfo = JSON.parse(sessionStorage.getItem("succesInfo"))?JSON.parse(sessionStorage.getItem("succesInfo")):false;
+    if(this.succesInfo.order === 'SUCCESS') this.succesInfo.order =[];
     if(!this.succesInfo.member) this.isShowMember = false;
   }
 };

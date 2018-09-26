@@ -194,26 +194,28 @@ export default {
             axios.get(url, {
                 params: data
             }).then(function (res) {
-                self.orderList = res.data.content;
-                self.$nextTick(() => {
-                    self.scroll = new BScroll(self.$refs.wrapper, {});
-                    if (!self.scroll) {
-                        self.scroll = new Bscroll(self.$refs.wrapper, {});
-                        self.scroll.on('touchend', (pos) => {
-                            // 下拉动作
-                            if (pos.y > 50) {
-                                self.pageNo = self.pageNo + 1;
-                                self.getData()
-                            }
-                        })
-                    } else {
-                        self.scroll.refresh()
-                    }
+                if(res.success) {
+                    self.orderList = res.data.content;
+                    self.$nextTick(() => {
+                        self.scroll = new BScroll(self.$refs.wrapper, {});
+                        if (!self.scroll) {
+                            self.scroll = new Bscroll(self.$refs.wrapper, {});
+                            self.scroll.on('touchend', (pos) => {
+                                // 下拉动作
+                                if (pos.y > 50) {
+                                    self.pageNo = self.pageNo + 1;
+                                    self.getData()
+                                }
+                            })
+                        } else {
+                            self.scroll.refresh()
+                        }
 
-                });console.log(self.orderList);
-            }).catch(function(err) {
-                console.log(err);
-            });
+                    });
+                } else {
+                    alert(res.errorInfo);
+                }
+            })
         },
         showConfirm(option){
             this.$refs.comfirmBox.show(option);
@@ -232,10 +234,10 @@ export default {
                     this.$ajax.get(url, {params: data}).then(function (res) {
                         if(res.success) {
                             self.getData(this.curTabIndex);
+                        } else {
+                            alert(res.errorInfo);
                         }
-                    }).catch(function(err) {
-                        console.log(err);
-                    });
+                    })
                 }
             });
             this.getData(this.curTabIndex);
@@ -247,9 +249,9 @@ export default {
             this.$ajax.get(url, {params: data}).then(function (res) {
                 if(res.success) {
                     self.getData(this.curTabIndex);
+                } else {
+                    alert(res.errorInfo);
                 }
-            }).catch(function(err) {
-                console.log(err);
             });
         },
         cancelReservation(id){
@@ -266,10 +268,10 @@ export default {
                     this.$ajax.get(url, {params: data}).then(function (res) {
                         if(res.success) {
                             self.getData(this.curTabIndex);
+                        } else {
+                            alert(res.errorInfo);
                         }
-                    }).catch(function(err) {
-                        console.log(err);
-                    });
+                    })
                 }
             });
         },

@@ -132,7 +132,7 @@ export default {
       productList: [],
       selectedFood: {},
       chargeInfo: {},
-      storeId: sessionStorage.getItem("storeId")||'',
+      storeId: sessionStorage.getItem("storeId") || ""
     };
   },
   props: {
@@ -210,7 +210,7 @@ export default {
     toOrder() {
       this.chargeInfo.products = this.goods;
       this.chargeInfo.orderInfo = this.productList;
-
+      this.chargeInfo.changeType = true;
       sessionStorage.setItem("chargeInfo", JSON.stringify(this.chargeInfo));
       this.$router.push("/order");
     },
@@ -272,7 +272,9 @@ export default {
   },
   created() {
     document.title = "收银";
-    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"))?JSON.parse(sessionStorage.getItem("chargeInfo")):'';
+    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"))
+      ? JSON.parse(sessionStorage.getItem("chargeInfo"))
+      : "";
     if (this.chargeInfo.memberInfo) this.isShowMember = true;
     this.getAllproduct(this.chargeInfo.products);
   },
@@ -286,7 +288,7 @@ export default {
         }
       }
       return 0;
-    },
+    }
   }
 };
 </script>

@@ -24,10 +24,10 @@
       </div>
       <div class="h50 plr10 mt10 ub ub-ac ub-pj">
         <span class="sc f13">服务信息</span>
-        <div class="addGood btn_vc" @click="addGood()">
+        <div class="addGood btn_vc" @click="addGood()" v-if="changeType">
           <i class="icon-add sc iconfont icon_add1"></i>添加产品</div>
       </div>
-      <div class="orderInfo" v-for="(item,index) in products" :key="index">
+      <div class="orderInfo" v-if="changeType" v-for="(item,index) in products" :key="index">
         <div class="item plr20 bbc ub ub-ac ub-pj">
           <p class="ub ub-ac">
             <i :class="{'icon_drop':!item.isShowMoreItem,'icon_down':item.isShowMoreItem}" @click="dropOrder(index)"></i>{{item.productName}}</p>
@@ -113,16 +113,57 @@
         </div>
 
       </div>
+      <div class="orderInfo" v-if="!changeType" >
+        <div class="item plr20 bbc ub ub-ac ub-pj">
+          <p class="ub ub-ac">
+            <i class="icon_drop" ></i>{{xfCardList.cardConfigName}}</p>
+        </div>
+        <div class="bbc plr20" >
+          <div class="item ub ub-pj ub-ac" @click="openPicker('staff1')">
+            <p class="ub-f1 sc f13 pl48">服务技师</p>
+            <p class="bc f13">{{cardName1}}</p>
+            <i class="arrow-down"></i>
+          </div>
+
+          <div class="item ub ub-pj ub-ac" @click="openPicker('staff2')">
+            <p class="ub-f1 sc f13 pl48">服务小工</p>
+            <p class="bc f13">{{cardName2}}</p>
+            <i class="arrow-down"></i>
+          </div>
+
+          <!-- 服务技师 -->
+          <mt-popup v-model="cardboolean1" position="bottom" class="w_100">
+            <div class="picker-toolbar bbc">
+              <span class="picker-cancel" @click="closePicker2('qx1')">取消</span>
+              <span class="picker-confirm" @click="closePicker2()">完成</span>
+            </div>
+            <mt-picker :slots="actions1" valueKey="staffName" @change="onPickerChange1($event,$event.values)"></mt-picker>
+          </mt-popup>
+          <!-- 服务小工 -->
+          <mt-popup v-model="cardboolean2" position="bottom" class="w_100">
+            <div class="picker-toolbar bbc">
+              <span class="picker-cancel" @click="closePicker2('qx2')">取消</span>
+              <span class="picker-confirm" @click="closePicker2()">完成</span>
+            </div>
+            <mt-picker :slots="actions2" valueKey="staffName" @change="onPickerChange2($event,$event.values)"></mt-picker>
+          </mt-popup>
+          <div class="item ub ub-pj ub-ac">
+            <p class="pl48">售价</p>
+            <p class="finallNum">￥{{cardInputValue}}</p>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="foot">
-      <div class="ub ub-ac ub-pj switchDiv plr15">
+    <div class="foot " :class="changeType?'':'foot2'">
+      <div class="ub ub-ac ub-pj switchDiv plr15" v-if="changeType">
         <p>是否抹零</p>
         <div class="switch-btn">
           <div class="icon-on" v-if="isSwitch2" @click="switchBoolen2"></div>
           <div class="icon-off" v-else @click="switchBoolen2"></div>
         </div>
       </div>
-      <div class="ub ub-ac ub-pj switchDiv plr15">
+      <div class="ub ub-ac ub-pj switchDiv plr15" v-if="changeType">
         <p>优惠券</p>
         <div class="switch-btn">
           <div class="icon-on" v-if="isSwitch2" @click="switchBoolen2"></div>
@@ -130,7 +171,8 @@
         </div>
       </div>
       <div class="ub">
-        <div class="ub-f1 total">￥<input class="shifuInput" style="color:#fff;" :value="inputValue" type="text"></div>
+        <div class="ub-f1 total" v-if="changeType">￥<input class="shifuInput" style="color:#fff;" :value="inputValue" type="text"></div>
+        <div class="ub-f1 total" v-else>￥{{cardInputValue}}</div>
         <button :disabled="isDisabled" type="button" @click="toerwmCharge">去结算</button>
       </div>
     </div>
@@ -174,16 +216,24 @@ export default {
       vipCardList: "", //全部可用会员卡
       isShowPayWay: false,
       products: [],
+      xfCardList: {},
       settleCardDTOList: [],
       ticketList: [],
       changeType: true,
       yjcardList: false, //当前会员所有的会员卡
-      storeId: sessionStorage.getItem("storeId")||'',
+      storeId: sessionStorage.getItem("storeId"),
       inputValue: "",
       cardChangeBoolean: false,
       isVerbMoney: 0,
       ticketList: [],
-      authCode: ""
+      authCode: "",
+      cardName1: "",
+      cardName2: "",
+      cardStaffId1: "",
+      cardStaffId2: "",
+      cardboolean1: false,
+      cardboolean2: false,
+      cardInputValue: 0
     };
   },
   methods: {
@@ -205,7 +255,7 @@ export default {
       this.totolMoneyFun();
     },
     toerwmCharge() {
-      this.restProductJson();
+      // this.restProductJson();
       this.jiesuan();
       // this.$router.push('/erwmCharge');
     },
@@ -241,8 +291,31 @@ export default {
       this.totolMoneyFun();
     },
     openPicker(index, type) {
-      this.$forceUpdate();
-      this.$set(this.products[index], type, true);
+      if (this.changeType) {
+        this.$forceUpdate();
+        this.$set(this.products[index], type, true);
+        this.$set(
+          this.products[index],
+          "name1",
+          this.actions1[0].values[0].staffName
+        );
+        this.$set(
+          this.products[index],
+          "staffId",
+          this.actions1[0].values[0].staffId
+        );
+      } else {
+        this.cardboolean1 = index === "staff1" ? true : false;
+        this.cardboolean2 = index === "staff2" ? true : false;
+        if (index === "staff1") {
+          this.cardName1 = this.actions1[0].values[0].staffName;
+          this.cardStaffId1 = this.actions1[0].values[0].staffId;
+        }
+        if (index === "staff2") {
+          this.cardName2 = this.actions1[0].values[0].staffName;
+          this.cardStaffId2 = this.actions1[0].values[0].staffId;
+        }
+      }
     },
     closePicker(item, type, qx) {
       this.$forceUpdate();
@@ -256,18 +329,42 @@ export default {
         this.$set(item, "staffId2", "");
       }
     },
+    closePicker2(qx) {
+      if (qx === "qx1") {
+        this.cardName1 = "";
+        this.cardStaffId1 = "";
+      }
+      if (qx === "qx2") {
+        this.cardName2 = "";
+        this.cardStaffId2 = "";
+      }
+      this.cardboolean1 = false;
+      this.cardboolean2 = false;
+    },
     onPickerChange1(picker, values, index) {
       if (values.length > 0) {
         this.$forceUpdate();
-        this.$set(this.products[index], "name1", values[0].staffName);
-        this.$set(this.products[index], "staffId", values[0].staffId);
+        if (this.changeType) {
+          this.$set(this.products[index], "name1", values[0].staffName);
+          this.$set(this.products[index], "staffId", values[0].staffId);
+        } else {
+          // this.$set(this.cardName1, values[0].staffName);
+          // this.$set(this.cardStaffId1, values[0].staffId);
+          this.cardName1 = values[0].staffName;
+          this.cardStaffId1 = values[0].staffId;
+        }
       }
     },
     onPickerChange2(picker, values, index) {
       if (values.length > 0) {
         this.$forceUpdate();
-        this.$set(this.products[index], "name2", values[0].staffName);
-        this.$set(this.products[index], "staffId2", values[0].staffId);
+        if (this.changeType) {
+          this.$set(this.products[index], "name2", values[0].staffName);
+          this.$set(this.products[index], "staffId2", values[0].staffId);
+        } else {
+          this.cardName2 = values[0].staffName;
+          this.cardStaffId2 = values[0].staffId;
+        }
       }
     },
     onPickerChange3(picker, values, index) {
@@ -787,21 +884,21 @@ export default {
         that.inputValue = that.inputValue ? that.inputValue.toFixed(2) : 0;
         // this.ticketListArrFun();
       } else {
-        if (that.xfCardList) {
-          if (that.xfCardList.type === "REBATE" && this.xyVip) {
-            this.vipCardmoney = this.REBATEValue;
-            this.isVerbVipCardmoney = Math.floor(this.REBATEValue);
-          } else if (that.xfCardList.type === "STORED" && this.xyVip) {
-            this.vipCardmoney = this.STOREDValue;
-            this.isVerbVipCardmoney = Math.floor(this.STOREDValue);
-          } else {
-            this.vipCardmoney = NP.divide(
-              that.xfCardList.rules[that.xfCardList.ruleIndex].price,
-              100
-            );
-            this.isVerbVipCardmoney = Math.floor(that.vipCardmoney);
-          }
-        }
+        // if (that.xfCardList) {
+        //   if (that.xfCardList.type === "REBATE" && this.xyVip) {
+        //     this.vipCardmoney = this.REBATEValue;
+        //     this.isVerbVipCardmoney = Math.floor(this.REBATEValue);
+        //   } else if (that.xfCardList.type === "STORED" && this.xyVip) {
+        //     this.vipCardmoney = this.STOREDValue;
+        //     this.isVerbVipCardmoney = Math.floor(this.STOREDValue);
+        //   } else {
+        //     this.vipCardmoney =that. NP.divide(
+        //       that.xfCardList.rules[0].price,
+        //       100
+        //     );
+        //     this.isVerbVipCardmoney = Math.floor(that.vipCardmoney);
+        //   }
+        // }
       }
     },
     //结算fun
@@ -869,14 +966,14 @@ export default {
             cardConfigId: that.xfCardList.cardConfigId,
             cardConfigName: that.xfCardList.cardConfigName,
             cardConfigType: that.xfCardList.type,
-            ruleId: that.xfCardList.rules[that.xfCardList.ruleIndex].ruleId,
-            balance: that.xfCardList.rules[that.xfCardList.ruleIndex].balance,
+            ruleId: that.xfCardList.rules[0].ruleId,
+            balance: that.xfCardList.rules[0].balance,
             type: that.xfCardList.type,
-            price: that.xfCardList.rules[that.xfCardList.ruleIndex].price,
-            validate: that.xfCardList.rules[that.xfCardList.ruleIndex].validate,
+            price: that.xfCardList.rules[0].price,
+            validate: that.xfCardList.rules[0].validate,
             staffId: that.selectedValue1,
             staff2Id: that.selectedValue2,
-            rebate: that.xfCardList.rules[that.xfCardList.ruleIndex].rebate,
+            rebate: that.xfCardList.rules[0].rebate,
             storeId: that.storeId
           };
         }
@@ -986,12 +1083,10 @@ export default {
         create.bizType = "MEMBER";
       }
       if (!that.changeType) {
-        create.money = that.isVerb2
-          ? that.isVerbVipCardmoney * 100
-          : that.vipCardmoney * 100;
-        create.extraMoney = that.STOREDextraMoney
-          ? that.STOREDextraMoney * 100
-          : 0;
+        create.money = that.isSwitch2
+          ? that.cardInputValue * 100
+          : that.cardInputValue * 100;
+
         create.originMoney = create.money;
       } else {
         if (this.products && this.products.length > 0) {
@@ -1006,7 +1101,6 @@ export default {
       create.wipeDecimal = that.isSwitch2;
       // create.faceId = this.selectFaceId;
       this.spinBoolean = true;
-      console.log(create);
       if (this.xyVip) {
         that.rechargeAndOrderPayFun(create);
       } else {
@@ -1251,28 +1345,34 @@ export default {
   created() {
     document.title = "订单";
     let that = this;
-    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"))
-      ? JSON.parse(sessionStorage.getItem("chargeInfo"))
-      : "";
+    this.chargeInfo = JSON.parse(sessionStorage.getItem("chargeInfo"));
+    this.products = this.chargeInfo ? this.chargeInfo.orderInfo : [];
+    this.xfCardList = this.chargeInfo ? this.chargeInfo.cardInfo : false;
+    this.xyVip = this.xfCardList ? this.xfCardList.xyVip : false;
+    this.cardInputValue = this.xfCardList
+      ? this.xfCardList.rules[0].price / 100
+      : 0;
     this.vipCardSearchFun();
-    that.products.forEach(function(i, m) {
-      if (!i.name3) i.name3 = 10;
-      if (m === 0) i.isShowMoreItem = true;
-      else i.isShowMoreItem = false;
-    });
-    if (that.chargeInfo) {
+    if (that.products && that.products.length > 0) {
+      that.products.forEach(function(i, m) {
+        if (!i.name3) i.name3 = 10;
+        if (m === 0) i.isShowMoreItem = true;
+        else i.isShowMoreItem = false;
+      });
+    }
+    if (this.chargeInfo && this.chargeInfo.memberInfo) {
+      this.isShowMember = true;
       this.memberInfo = that.chargeInfo.memberInfo.customer
         ? that.chargeInfo.memberInfo.customer
         : false;
-      if (this.memberInfo) {
-        if (this.chargeInfo && this.chargeInfo.memberInfo)
-          this.isShowMember = true;
-        that.getMemberTicket(this.memberInfo.customerId);
-      }
-
-      this.getAllstaff();
-      this.totolMoneyFun();
+      that.getMemberTicket(this.memberInfo.customerId);
     }
+    if (this.chargeInfo) {
+      this.changeType = this.chargeInfo.changeType;
+    }
+    console.log(this.changeType)
+    this.getAllstaff();
+    this.totolMoneyFun();
   },
 
   computed: {}
@@ -1333,6 +1433,10 @@ export default {
   border-radius: 0.2rem 0.2rem 0 0;
   box-shadow: 0 -1px 7px 0 rgba(194, 194, 194, 0.5);
   -webkit-box-shadow: 0 -1px 7px 0 rgba(194, 194, 194, 0.5);
+}
+.foot2 {
+  height: 1rem !important;
+  bottom: 0 !important;
 }
 .foot .total {
   background-color: rgba(0, 0, 0, 0.9);
