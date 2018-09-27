@@ -119,13 +119,13 @@
             <i class="icon_drop"></i>{{xfCardList.cardConfigName}}</p>
         </div>
         <div class="bbc plr20">
-          <div class="item ub ub-pj ub-ac" @click="openPicker('staff1')">
+          <div class="item ub ub-pj ub-ac" @click="openPicker('','staff1')">
             <p class="ub-f1 sc f13 pl48">服务技师</p>
             <p class="bc f13">{{cardName1}}</p>
             <i class="arrow-down"></i>
           </div>
 
-          <div class="item ub ub-pj ub-ac" @click="openPicker('staff2')">
+          <div class="item ub ub-pj ub-ac" @click="openPicker('','staff2')">
             <p class="ub-f1 sc f13 pl48">服务小工</p>
             <p class="bc f13">{{cardName2}}</p>
             <i class="arrow-down"></i>
@@ -316,12 +316,13 @@ export default {
       this.totolMoneyFun(true);
     },
     openPicker(index, type) {
-      if (type === "pickerVisible2" || type === "pickerVisible1")
+      if (type === "pickerVisible2" || type === "pickerVisible1" || type === "staff1" || type === "staff2")
         this.pickerBoolean = true;
       if (type === "pickerVisible4") this.pickerBoolean2 = false;
-      this.$set(this.products[index], type, true);
 
       if (this.changeType && this.pickerBoolean) {
+      this.$set(this.products[index], type, true);
+        
         // this.$forceUpdate();
         // this.$set(
         //   this.products[index],
@@ -334,13 +335,13 @@ export default {
         //   this.actions1[0].values[0].staffId
         // );
       } else {
-        this.cardboolean1 = index === "staff1" ? true : false;
-        this.cardboolean2 = index === "staff2" ? true : false;
-        if (index === "staff1") {
+        this.cardboolean1 = type === "staff1" ? true : false;
+        this.cardboolean2 = type === "staff2" ? true : false;
+        if (type === "staff1") {
           this.cardName1 = this.actions1[0].values[0].staffName;
           this.cardStaffId1 = this.actions1[0].values[0].staffId;
         }
-        if (index === "staff2") {
+        if (type === "staff2") {
           this.cardName2 = this.actions1[0].values[0].staffName;
           this.cardStaffId2 = this.actions1[0].values[0].staffId;
         }
@@ -392,9 +393,9 @@ export default {
       }
     },
     onPickerChange2(picker, values, index) {
-      if (values.length > 0 && this.pickerBoolean) {
+      if (values.length > 0) {
         this.$forceUpdate();
-        if (this.changeType) {
+        if (this.changeType && this.pickerBoolean) {
           this.$set(this.products[index], "name2", values[0].staffName);
           this.$set(this.products[index], "staffId2", values[0].staffId);
         } else if (this.pickerBoolean) {
