@@ -21,10 +21,10 @@
                 <span class="icon icon_mt"></span>
                 <p>美团核销</p>
             </div>
-            <div @click="toPath('Booklist', '')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+            <!-- <div @click="toPath('Booklist', '')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
                 <span class="icon icon_yy"></span>
                 <p>预约管理</p>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
