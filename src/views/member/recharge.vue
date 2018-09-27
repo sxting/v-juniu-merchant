@@ -19,7 +19,7 @@
                 <i class="f15">￥</i>
                 <input type="number" maxlength="1000000" class="ub-f1 bbc" v-model="rechargeAmount" placeholder="请输入充值金额" autofocus/>
             </div>
-            <div class="ub ub-ac ub-pj h50 giveDiv">
+            <div class="ub ub-ac ub-pj h50 giveDiv" v-if="cardInfo.card.type === 'STORED'">
                 <p>赠送金额</p>
                 <p><input type="number" class="tx-r" v-model="giveAmount" placeholder="请输入赠送金额" />元</p>
             </div>

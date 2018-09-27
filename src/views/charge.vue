@@ -205,7 +205,12 @@ export default {
       this.isShowMenu = !Boolean(this.isShowMenu);
     },
     toMemberInfo() {
-      this.$router.push("/memberInfo");
+      this.$router.push({
+          name: 'memberInfo',
+          params: {
+              customerId: this.chargeInfo.memberInfo.customer.customerId
+          }
+        });
     },
     toOrder() {
       this.chargeInfo.products = this.goods;

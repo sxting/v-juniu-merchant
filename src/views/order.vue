@@ -237,7 +237,8 @@ export default {
       cardboolean2: false,
       cardInputValue: 0,
       STOREDextraMoney: 0,
-      ticketCheck:true
+      ticketCheck:true,
+      pickerBoolean:false
     };
   },
   methods: {
@@ -268,7 +269,12 @@ export default {
       // this.$router.push('/erwmCharge');
     },
     toMemberInfo() {
-      this.$router.push("/memberInfo");
+      this.$router.push({
+          name: 'memberInfo',
+          params: {
+              customerId: this.chargeInfo.memberInfo.customer.customerId
+          }
+        });
     },
     addGood() {
       this.restProductJson();
@@ -298,6 +304,7 @@ export default {
       this.totolMoneyFun();
     },
     openPicker(index, type) {
+      this.pickerBoolean = true;
       if (this.changeType) {
         this.$forceUpdate();
         this.$set(this.products[index], type, true);
@@ -351,10 +358,10 @@ export default {
     onPickerChange1(picker, values, index) {
       if (values.length > 0) {
         this.$forceUpdate();
-        if (this.changeType) {
+        if (this.changeType&&this.pickerBoolean) {
           this.$set(this.products[index], "name1", values[0].staffName);
           this.$set(this.products[index], "staffId", values[0].staffId);
-        } else {
+        } else if(this.pickerBoolean){
           // this.$set(this.cardName1, values[0].staffName);
           // this.$set(this.cardStaffId1, values[0].staffId);
           this.cardName1 = values[0].staffName;
@@ -363,12 +370,12 @@ export default {
       }
     },
     onPickerChange2(picker, values, index) {
-      if (values.length > 0) {
+      if (values.length > 0&&this.pickerBoolean) {
         this.$forceUpdate();
         if (this.changeType) {
           this.$set(this.products[index], "name2", values[0].staffName);
           this.$set(this.products[index], "staffId2", values[0].staffId);
-        } else {
+        } else if(this.pickerBoolean) {
           this.cardName2 = values[0].staffName;
           this.cardStaffId2 = values[0].staffId;
         }
@@ -1168,30 +1175,14 @@ export default {
     jiesuan() {
       let money = this.changeType
         ? this.inputValue
-        : this.isVerb2 ? this.isVerbVipCardmoney : this.vipCardmoney;
+        : this.cardInputValue;
       let that = this;
       this.cardChangeBoolean = false;
       if (this.settleCardDTOList && this.settleCardDTOList.length > 0) {
         this.jiesuanFun();
       } else {
-        let mmm = Number(
-          that.isVerb2 ? that.isVerbVipCardmoney : that.vipCardmoney
-        );
-        if (
-          (mmm <= 0 || mmm > 999999 || !/^[1-9]\d*$/.test(mmm + "")) &&
-          !this.changeType &&
-          that.xfCardList &&
-          that.xfCardList.type === "REBATE" &&
-          this.xyVip
-        ) {
-          this.modalSrv.error({
-            nzContent: "请输入折扣卡充值金额（1-999999之前的整数）"
-          });
-          this.loading = false;
-          this.spinBoolean = false;
-        } else {
+ 
           this.isShowPayWay = true;
-        }
       }
     },
     createOrderFun(create) {
