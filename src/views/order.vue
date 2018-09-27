@@ -108,7 +108,7 @@
 
           <div class="item ub ub-pj ub-ac">
             <p class="pl48">实价</p>
-            <p class="finallNum">￥<input class="shifuInput" :value="item.totoleMoney1" type="text"></p>
+            <p class="finallNum">￥<input class="shifuInput" @change="orderProductValue($event.target.value,item)" :value="item.totoleMoney1" type="text"></p>
           </div>
         </div>
 
@@ -260,6 +260,12 @@ export default {
       let isSwitch = !item.isSwitch;
       this.$set(item, "isSwitch", isSwitch);
     },
+    orderProductValue(event,item){
+      this.$forceUpdate();
+      this.$set(item, "totoleMoney", event);
+      this.$set(item, "totoleMoney1", event);
+      this.totolMoneyFun(true);
+    },
     switchBoolen2() {
       this.isSwitch2 = !this.isSwitch2;
       this.totolMoneyFun();
@@ -293,20 +299,22 @@ export default {
     },
     addOne(item) {
       this.$forceUpdate();
+      this.cardChangeBoolean = false;
       let count = item.count;
       count++;
       this.$set(item, "count", count);
       this.restProductJson();
-      this.totolMoneyFun();
+      this.totolMoneyFun(true);
     },
     delOne(item) {
       if (this.bookNum > 0) this.bookNum--;
       let count = item.count;
+      this.cardChangeBoolean = false;
       if (count > 0) count--;
       this.$set(item, "count", count);
       this.$forceUpdate();
       this.restProductJson();
-      this.totolMoneyFun();
+      this.totolMoneyFun(true);
     },
     openPicker(index, type) {
       if (type === "pickerVisible2" || type === "pickerVisible1")
