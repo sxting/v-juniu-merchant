@@ -4,14 +4,14 @@
   overflow: hidden;
 }
 .good .menu-wrapper {
-  flex: 0 0 80px;
-  width: 80px;
+  flex: 0 0 1.6rem;
+  width: 1.6rem;
   background-color: #fff;
 }
 .good .menu-wrapper .menu-item {
-  height: 50px;
+  height: 1rem;
   width: 100%;
-  line-height: 50px;
+  line-height: 1rem;
   padding: 0 12px;
   text-align: center;
   background: #f2f2f2;
@@ -22,8 +22,8 @@
 .good .menu-wrapper .menu-item.current {
   position: relative;
   z-index: 10;
-  line-height: 60px;
-  height: 60px;
+  line-height: 1.2rem;
+  height: 1.2rem;
   background: #fff;  
   color:#000;
 }
@@ -41,7 +41,7 @@
 }
 .good .menu-wrapper .menu-item .icon .text {
   display: table-cell;
-  width: 56px;
+  width: 1.1rem;
   vertical-align: middle;
   border: 1px solid rgba(7, 17, 27, 0.1);
   font-size: 12px;
@@ -69,7 +69,7 @@
   margin-bottom: 0px;
 }
 .good .foods-wrapper .food-list .food-item .icon {
-  flex: 0 0 57px;
+  flex: 0 0 1.1rem;
   margin-right: 10px;
 }
 .good .foods-wrapper .food-list .food-item .content {
@@ -349,10 +349,10 @@
 }
 .nav1 {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 0.8rem;
+  height:0.8rem;
   text-align: center;
-  line-height: 40px;
+  line-height:0.8rem;
   background: #eee;
   margin: 10px 0;
 }
