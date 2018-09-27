@@ -3,14 +3,14 @@
     <div class="toper ub ub-ac">
       <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac">
         <i class="icon_search mr05"></i>会员查询</div>
-      <div class="openMember tx-c" @click="toPath('/addMember')">
+      <!-- <div class="openMember tx-c" @click="toPath('/addMember')">
         <i class="icon_member"></i>
         <p class="tx-c f12">开通会员</p>
-      </div>
-      <div class="openMore tx-c mr05" @click="showMenu">
+      </div> -->
+      <!-- <div class="openMore tx-c mr05" @click="showMenu">
         <i class="icon_more"></i>
         <p class="tx-c f12">更多</p>
-      </div>
+      </div> -->
     </div>
     <div class="modal1" v-show="isShowMenu">
       <div class="mask1" @click="closeModal1()"></div>
@@ -205,7 +205,12 @@ export default {
       this.isShowMenu = !Boolean(this.isShowMenu);
     },
     toMemberInfo() {
-      this.$router.push("/memberInfo");
+      // this.$router.push({
+      //     name: 'memberInfo',
+      //     params: {
+      //         customerId: this.chargeInfo.memberInfo.customer.customerId
+      //     }
+      //   });
     },
     toOrder() {
       this.chargeInfo.products = this.goods;

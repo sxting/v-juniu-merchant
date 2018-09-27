@@ -51,9 +51,9 @@ export default {
     },
     submit(){
         let self = this;
-        var reg = /^1[23456789]\d{9}$/;
-        var mobile = delBlank(this.mobile);
-        var password = delBlank(this.password);
+        let reg = /^1[23456789]\d{9}$/;
+        let mobile = delBlank(this.mobile);
+        let password = delBlank(this.password);
         if (mobile == ""){
             this.$toast("请输入手机号码！");return;
         }else if (!reg.test(mobile)){
@@ -75,7 +75,11 @@ export default {
                       sessionStorage.setItem('App-Token', res.data.token);//存储token
                       sessionStorage.setItem('User-Info', JSON.stringify(res.data));//存储用户信息
                       sessionStorage.setItem('alipayShops', JSON.stringify(res.data.alipayShopList));//存储门店
-                      self.$router.push('/home');
+                      if(res.data.staffType === 'MERCHANT'){
+                          self.$router.push('/selectSell');//商家登陆
+                      }else {
+                          self.$router.push('/home');//门店登陆
+                      }
                   } else {
                       self.$toast(res.errorInfo);
                   }

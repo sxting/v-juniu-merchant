@@ -104,6 +104,7 @@
         },
         created() {
             document.title = "会员信息";
+            console.log(this.$route.params.customerId)
         }
     };
 </script>

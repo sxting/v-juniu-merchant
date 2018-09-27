@@ -31,6 +31,7 @@ const routes = [{
         component: (resolve) => require(['./views/errorAlert'], resolve)
     },{
         path: '/order',//订单
+        name: 'order',
         component: (resolve) => require(['./views/order'], resolve)
     },{
         path: '/erwmCharge',//二维码付款
@@ -47,6 +48,7 @@ const routes = [{
         component: (resolve) => require(['./views/charge'], resolve)
     },{
         path: '/memberInfo',//会员信息
+        name: 'memberInfo',
         component: (resolve) => require(['./views/member/memberInfo'], resolve)
     },{
         path: '/addMember',//开通会员
