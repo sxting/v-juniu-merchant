@@ -29,15 +29,36 @@ export default {
     name: "index",
     data() {
         return {
-            curActiveIndex: sessionStorage.navIndex||1
+            curActiveIndex: sessionStorage.navIndex||1,
+            openId: '',
+            date: '',
+            dateMonthly: '',
         };
     },
     methods: {
         toHome(index,str) {
             this.curActiveIndex = index;
             sessionStorage.navIndex = index;
-            this.$router.push(str);
+            if(str === 'records'){
+                window.location.href = "https://api.juniuo.com/staff/#/order/store/report;date=" + this.date + ";openid=" + this.openId ;
+            }else {
+                this.$router.push(str);
+            }
         },
+    },
+    created() {
+        this.openId = JSON.parse(sessionStorage.getItem('User-Info')).openid;
+        /*
+        *
+        * 获取当前的年月日
+        *
+        **/
+        let year = new Date().getFullYear();        //获取当前年份(2位)
+        let month = new Date().getMonth()+1;       //获取当前月份(0-11,0代表1月)
+        let changemonth = month < 10 ? '0' + month : '' + month;
+        let day = new Date().getDate();           //获取当前日(1-31)
+        this.date = year+'-'+changemonth+'-'+day;     //到日
+        this.dateMonthly = year+'-'+changemonth;      //到月
     }
 };
 

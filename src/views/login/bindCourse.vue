@@ -19,18 +19,20 @@
           <div class="item mt15">设置好推送类型后，员工用自己的手机微信扫描页面二维码，绑定桔牛公众号</div>
         </div>
       </div>
-      <p class="mt10 tx-c"><span class="f12 rc" @click="toForgetPsw">是不是很简单，快去绑定吧！</span></p>
+      <p class="mt10 tx-c"><span class="f12 rc">是不是很简单，快去绑定吧！</span></p>
 
-      <div class="elseDiv plr15">
-        <div class="elseWay">
-            <div class="line"></div>
-            <div class="tit"><span>其他绑定方式</span></div>
-        </div>
-        <div class="ub ub-pc h200">
-          <div @click="toElseBind('/bindAccount')"><div class="circle ub ub-ac ub-pc"><span class="icon_pwd"></span></div><p>密码绑定</p></div>
-          <div @click="toElseBind('/bindAccountbycode')" class="ml50"><div class="circle ub ub-ac ub-pc"><span class="icon_check"></span></div><p>验证码绑定</p></div>
-        </div>
-      </div>
+      <!--<p class="mt10 tx-c"><span class="f12 rc" @click="toForgetPsw">是不是很简单，快去绑定吧！</span></p>-->
+
+      <!--<div class="elseDiv plr15">-->
+        <!--<div class="elseWay">-->
+            <!--<div class="line"></div>-->
+            <!--<div class="tit"><span>其他绑定方式</span></div>-->
+        <!--</div>-->
+        <!--<div class="ub ub-pc h200">-->
+          <!--<div @click="toElseBind('/bindAccount')"><div class="circle ub ub-ac ub-pc"><span class="icon_pwd"></span></div><p>密码绑定</p></div>-->
+          <!--<div @click="toElseBind('/bindAccountbycode')" class="ml50"><div class="circle ub ub-ac ub-pc"><span class="icon_check"></span></div><p>验证码绑定</p></div>-->
+        <!--</div>-->
+      <!--</div>-->
   </div>
 </template>
 <script>

@@ -27,7 +27,7 @@
         <div class="addGood btn_vc" @click="addGood()" v-if="changeType">
           <i class="icon-add sc iconfont icon_add1"></i>添加产品</div>
       </div>
-      <div class="orderInfo"  v-for="(item,index) in products" :key="index" v-if="changeType&&item.count>0">
+      <div class="orderInfo" v-for="(item,index) in products" :key="index" v-if="changeType&&item.count>0">
         <div class="item plr20 bbc ub ub-ac ub-pj">
           <p class="ub ub-ac">
             <i :class="{'icon_drop':!item.isShowMoreItem,'icon_down':item.isShowMoreItem}" @click="dropOrder(index)"></i>{{item.productName}}</p>
@@ -70,13 +70,13 @@
             <p class="ub-f1 sc f13 pl48">会员卡</p>
             <span class="money f13"></span>
             <p class="f13">
-              <span style="margin-right: 20px;display: inline-block;color: #ff6600;">-¥{{item.totoleMoney}}</span> {{item.name4}}</p>
+              <span style="margin-right: 20px;display: inline-block;color: #ff6600;" v-if="item.name4">-¥{{item.totoleMoney.toFixed(2)}}</span> {{item.name4}}</p>
             <i class="arrow-down"></i>
           </div>
           <!-- 服务技师 -->
           <mt-popup v-model="item.pickerVisible1" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-              <span class="picker-cancel" @click="closePicker(item,'pickerVisible1','qx1')">取消</span>
+              <span class="picker-cancel" @click="closePicker(item,'pickerVisible1','qx1')">清除</span>
               <span class="picker-confirm" @click="closePicker(item,'pickerVisible1')">完成</span>
             </div>
             <mt-picker :slots="actions1" valueKey="staffName" @change="onPickerChange1($event,$event.values,index)"></mt-picker>
@@ -84,7 +84,7 @@
           <!-- 服务小工 -->
           <mt-popup v-model="item.pickerVisible2" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-              <span class="picker-cancel" @click="closePicker(item,'pickerVisible2','qx2')">取消</span>
+              <span class="picker-cancel" @click="closePicker(item,'pickerVisible2','qx2')">清除</span>
               <span class="picker-confirm" @click="closePicker(item,'pickerVisible2')">完成</span>
             </div>
             <mt-picker :slots="actions2" valueKey="staffName" @change="onPickerChange2($event,$event.values,index)"></mt-picker>
@@ -108,7 +108,7 @@
 
           <div class="item ub ub-pj ub-ac">
             <p class="pl48">实价</p>
-            <p class="finallNum">￥<input class="shifuInput" :value="item.totoleMoney1" type="text"></p>
+            <p class="finallNum">￥<input class="shifuInput" @change="orderProductValue($event.target.value,item)" :value="item.totoleMoney1" type="text"></p>
           </div>
         </div>
 
@@ -119,13 +119,13 @@
             <i class="icon_drop"></i>{{xfCardList.cardConfigName}}</p>
         </div>
         <div class="bbc plr20">
-          <div class="item ub ub-pj ub-ac" @click="openPicker('staff1')">
+          <div class="item ub ub-pj ub-ac" @click="openPicker('','staff1')">
             <p class="ub-f1 sc f13 pl48">服务技师</p>
             <p class="bc f13">{{cardName1}}</p>
             <i class="arrow-down"></i>
           </div>
 
-          <div class="item ub ub-pj ub-ac" @click="openPicker('staff2')">
+          <div class="item ub ub-pj ub-ac" @click="openPicker('','staff2')">
             <p class="ub-f1 sc f13 pl48">服务小工</p>
             <p class="bc f13">{{cardName2}}</p>
             <i class="arrow-down"></i>
@@ -134,7 +134,7 @@
           <!-- 服务技师 -->
           <mt-popup v-model="cardboolean1" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-              <span class="picker-cancel" @click="closePicker2('qx1')">取消</span>
+              <span class="picker-cancel" @click="closePicker2('qx1')">清除</span>
               <span class="picker-confirm" @click="closePicker2()">完成</span>
             </div>
             <mt-picker :slots="actions1" valueKey="staffName" @change="onPickerChange1($event,$event.values)"></mt-picker>
@@ -142,7 +142,7 @@
           <!-- 服务小工 -->
           <mt-popup v-model="cardboolean2" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-              <span class="picker-cancel" @click="closePicker2('qx2')">取消</span>
+              <span class="picker-cancel" @click="closePicker2('qx2')">清除</span>
               <span class="picker-confirm" @click="closePicker2()">完成</span>
             </div>
             <mt-picker :slots="actions2" valueKey="staffName" @change="onPickerChange2($event,$event.values)"></mt-picker>
@@ -164,9 +164,11 @@
         </div>
       </div>
       <div class="ub ub-ac ub-pj switchDiv plr15" v-if="changeType">
-        <p>优惠券<span v-if="ticket" style="display:inline-block;color:#ff6600;">({{ticket.tickType+':'}}{{ticket.couponDefName}})</span></p>
+        <p>优惠券
+          <span v-if="ticket" style="display:inline-block;color:#ff6600;">({{ticket.tickType+':'}}{{ticket.couponDefName}})</span>
+        </p>
         <div class="switch-btn" v-if="ticket" style="display: flex;">
-          <span style="display:inline-block;color:#ff6600;margin-right:10px;">-{{ticket.ticketMoney}}元</span>  
+          <span style="display:inline-block;color:#ff6600;margin-right:10px;">-{{ticket.ticketMoney}}元</span>
           <div style="display:inline-block;" class="icon-on" v-if="ticketCheck" @click="switchBoolen3"></div>
           <div style="display:inline-block;" class="icon-off" v-else @click="switchBoolen3"></div>
         </div>
@@ -237,8 +239,11 @@ export default {
       cardboolean2: false,
       cardInputValue: 0,
       STOREDextraMoney: 0,
-      ticketCheck:true,
-      pickerBoolean:false
+      ticketCheck: true,
+      pickerBoolean: false,
+      pickerBoolean2: true,
+      vipBoolean :false,
+      shopBoolean : false
     };
   },
   methods: {
@@ -254,6 +259,11 @@ export default {
       this.$forceUpdate();
       let isSwitch = !item.isSwitch;
       this.$set(item, "isSwitch", isSwitch);
+    },
+    orderProductValue(event,item){
+      this.$forceUpdate();
+      this.$set(item, "currentPrice", event*100);
+      this.totolMoneyFun();
     },
     switchBoolen2() {
       this.isSwitch2 = !this.isSwitch2;
@@ -288,44 +298,50 @@ export default {
     },
     addOne(item) {
       this.$forceUpdate();
+      this.cardChangeBoolean = false;
       let count = item.count;
       count++;
       this.$set(item, "count", count);
       this.restProductJson();
-      this.totolMoneyFun();
+      this.totolMoneyFun(true);
     },
     delOne(item) {
       if (this.bookNum > 0) this.bookNum--;
       let count = item.count;
+      this.cardChangeBoolean = false;
       if (count > 0) count--;
       this.$set(item, "count", count);
       this.$forceUpdate();
       this.restProductJson();
-      this.totolMoneyFun();
+      this.totolMoneyFun(true);
     },
     openPicker(index, type) {
-      this.pickerBoolean = true;
-      if (this.changeType) {
-        this.$forceUpdate();
-        this.$set(this.products[index], type, true);
-        this.$set(
-          this.products[index],
-          "name1",
-          this.actions1[0].values[0].staffName
-        );
-        this.$set(
-          this.products[index],
-          "staffId",
-          this.actions1[0].values[0].staffId
-        );
+      if (type === "pickerVisible2" || type === "pickerVisible1" || type === "staff1" || type === "staff2")
+        this.pickerBoolean = true;
+      if (type === "pickerVisible4") this.pickerBoolean2 = false;
+
+      if (this.changeType && this.pickerBoolean) {
+      this.$set(this.products[index], type, true);
+        
+        // this.$forceUpdate();
+        // this.$set(
+        //   this.products[index],
+        //   "name1",
+        //   this.actions1[0].values[0].staffName
+        // );
+        // this.$set(
+        //   this.products[index],
+        //   "staffId",
+        //   this.actions1[0].values[0].staffId
+        // );
       } else {
-        this.cardboolean1 = index === "staff1" ? true : false;
-        this.cardboolean2 = index === "staff2" ? true : false;
-        if (index === "staff1") {
+        this.cardboolean1 = type === "staff1" ? true : false;
+        this.cardboolean2 = type === "staff2" ? true : false;
+        if (type === "staff1") {
           this.cardName1 = this.actions1[0].values[0].staffName;
           this.cardStaffId1 = this.actions1[0].values[0].staffId;
         }
-        if (index === "staff2") {
+        if (type === "staff2") {
           this.cardName2 = this.actions1[0].values[0].staffName;
           this.cardStaffId2 = this.actions1[0].values[0].staffId;
         }
@@ -341,6 +357,13 @@ export default {
       if (qx === "qx2") {
         this.$set(item, "name2", "");
         this.$set(item, "staffId2", "");
+      }
+      if (qx === "qx4") {
+        this.$set(item, 'vipCard1',false);
+        this.$set(item, 'name4','');
+        this.$set(item, "vipCard", false);
+        console.log(item)
+        this.totolMoneyFun(true);
       }
     },
     closePicker2(qx) {
@@ -358,10 +381,10 @@ export default {
     onPickerChange1(picker, values, index) {
       if (values.length > 0) {
         this.$forceUpdate();
-        if (this.changeType&&this.pickerBoolean) {
+        if (this.changeType && this.pickerBoolean) {
           this.$set(this.products[index], "name1", values[0].staffName);
           this.$set(this.products[index], "staffId", values[0].staffId);
-        } else if(this.pickerBoolean){
+        } else if (this.pickerBoolean) {
           // this.$set(this.cardName1, values[0].staffName);
           // this.$set(this.cardStaffId1, values[0].staffId);
           this.cardName1 = values[0].staffName;
@@ -370,12 +393,12 @@ export default {
       }
     },
     onPickerChange2(picker, values, index) {
-      if (values.length > 0&&this.pickerBoolean) {
+      if (values.length > 0) {
         this.$forceUpdate();
-        if (this.changeType) {
+        if (this.changeType && this.pickerBoolean) {
           this.$set(this.products[index], "name2", values[0].staffName);
           this.$set(this.products[index], "staffId2", values[0].staffId);
-        } else if(this.pickerBoolean) {
+        } else if (this.pickerBoolean) {
           this.cardName2 = values[0].staffName;
           this.cardStaffId2 = values[0].staffId;
         }
@@ -579,13 +602,15 @@ export default {
           });
           //最终所有选取的商品所对应的会员卡
           that.vipCardList = itemList;
-          that.xfList.forEach(function(i) {
-            i.actions[0].values.forEach(function(n,m) {
-              if(i.vipCard.card.cardId === n.card.cardId){
-                that.swapArray(i.actions[0].values,0,m)
-              }
+          if (this.pickerBoolean2) {
+            that.xfList.forEach(function(i) {
+              i.actions[0].values.forEach(function(n, m) {
+                if (i.vipCard.card.cardId === n.card.cardId) {
+                  that.swapArray(i.actions[0].values, 0, m);
+                }
+              });
             });
-          });
+          }
           that.products = that.xfList;
         }
       }
@@ -1173,16 +1198,13 @@ export default {
 
     //结算
     jiesuan() {
-      let money = this.changeType
-        ? this.inputValue
-        : this.cardInputValue;
+      let money = this.changeType ? this.inputValue : this.cardInputValue;
       let that = this;
       this.cardChangeBoolean = false;
       if (this.settleCardDTOList && this.settleCardDTOList.length > 0) {
         this.jiesuanFun();
       } else {
- 
-          this.isShowPayWay = true;
+        this.isShowPayWay = true;
       }
     },
     createOrderFun(create) {
@@ -1279,7 +1301,7 @@ export default {
       products.forEach(function(i, k) {
         i.productList.forEach(function(n, j) {
           that.products.forEach(function(m) {
-            if (n.productId === m.productId&&m.count>0) {
+            if (n.productId === m.productId && m.count > 0) {
               products[k].productList[j] = m;
             }
           });
@@ -1406,8 +1428,8 @@ export default {
     this.vipCardSearchFun();
     if (that.products && that.products.length > 0) {
       that.products.forEach(function(i, m) {
-        i.name1 ='';
-        i.name2 ='';
+        i.name1 = "";
+        i.name2 = "";
         if (!i.name3) i.name3 = 10;
         if (m === 0) i.isShowMoreItem = true;
         else i.isShowMoreItem = false;
@@ -1427,12 +1449,8 @@ export default {
     this.getAllstaff();
     this.totolMoneyFun();
   },
-  watch(){
- 
-  },
-  computed: {
-    
-  }
+  watch() {},
+  computed: {}
 };
 </script>
 

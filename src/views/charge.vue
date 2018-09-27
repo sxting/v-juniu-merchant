@@ -7,20 +7,20 @@
         <i class="icon_member"></i>
         <p class="tx-c f12">开通会员</p>
       </div> -->
-      <!-- <div class="openMore tx-c mr05" @click="showMenu">
+      <div class="openMore tx-c mr05" @click="showMenu">
         <i class="icon_more"></i>
         <p class="tx-c f12">更多</p>
-      </div> -->
+      </div>
     </div>
     <div class="modal1" v-show="isShowMenu">
       <div class="mask1" @click="closeModal1()"></div>
       <div class="arrow-up"></div>
       <ul class="menu">
-        <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
+        <!-- <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
           <span class="icon_orderlist"></span>
           历史订单
-        </li>
-        <li class="ub ub-ac ub-pc" @click="toPath('/dirCharge')">
+        </li> -->
+        <li class="ub ub-ac ub-pc" @click="toOrder">
           <span class="icon_sk"></span>
           直接收款
         </li>
@@ -51,7 +51,7 @@
             </div>
         </div> -->
 
-    <div class="good ub-f1">
+    <div class="good ub-f1" :class="isShowMember?'good106':''">
       <div class="menu-wrapper" ref="menuWrapper">
         <ul>
           <li v-for="(item, index) in goods" :key="index" class="menu-item border-1px" :class="{'current':currentIndex === index}" @click="selectMenu(index, $event)">

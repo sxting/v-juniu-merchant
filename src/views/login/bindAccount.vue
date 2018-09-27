@@ -26,7 +26,7 @@
           </div>
           <div class="ml50">
             <div class="circle ub ub-ac ub-pc">
-              <span class="icon_sao"></span>
+              <span class="icon_sao"></span>v
               <i @click="toCourse()" class="icon_course"></i>
             </div>
             <p>扫码绑定</p>

@@ -1,13 +1,13 @@
 <template>
   <div v-show="isShowPayWay" class="modal ub ub-ac ub-pc" @click="modalListener">
     <div class="paybox plr10">
-      <div class="content">
-        <div class="title">扫码收款</div>
-        <div class="ub ub-ac ub-pj mt05">
-          <div class="item">
+      <!-- <div class="content"> -->
+        <!-- <div class="title">扫码收款</div>
+        <div class="ub ub-ac ub-pj mt05"> -->
+          <!-- <div class="item">
             <img src="../assets/ion_sys.png" class="udb">
             <p class="sc f12">扫一扫</p>
-          </div>
+          </div> -->
           <!-- <div class="item" @click="toerwmCharge('alipay')">
             <img src="../assets/ion_alipay.png" class="udb">
             <p class="sc f12">支付宝</p>          
@@ -16,10 +16,10 @@
             <img src="../assets/ion_wx.png" class="udb">
             <p class="sc f12">微信</p>          
           </div> -->
-          <div class="item">
+          <!-- <div class="item">
           </div>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
       <div class="content btc">
         <div class="title">记录收款</div>
         <div class="ub ub-ac ub-pj mt05">

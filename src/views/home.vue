@@ -1,8 +1,9 @@
 <!-- 主页view -->
 <template>
     <div class="main">
-        <div class="bar" @click="toPath('SelectSell', '')">{{sellName}}
-            <i class="iconfont icon-arrow"></i>
+        <div class="bar">{{sellName}}
+            <!--@click="toPath('SelectSell', '')"-->
+            <!--<i class="iconfont icon-arrow"></i>-->
         </div>
         <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
             <span class="icon icon_sy"></span>
@@ -21,10 +22,10 @@
                 <span class="icon icon_mt"></span>
                 <p>美团核销</p>
             </div>
-            <div @click="toPath('Booklist', '')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+            <!-- <div @click="toPath('Booklist', '')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
                 <span class="icon icon_yy"></span>
                 <p>预约管理</p>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -59,6 +60,7 @@ export default {
     }
   },
   created() {
+    let self = this;
     let data = {
       memberInfo: false,
       products: false,
@@ -68,7 +70,20 @@ export default {
       changeType:true
     };
     sessionStorage.setItem("chargeInfo", JSON.stringify(data));
-    sessionStorage.setItem("storeId", '1514190715796746866603');
+    this.$ajax
+      .get("account/merchant/store/wechatPubStoreList.json")
+      .then(function(res) {
+          if (res.success) {
+              console.log(res.data);
+              sessionStorage.setItem("storeId", res.data[0].storeId);
+              self.sellName = res.data[0].branchName;
+          } else {
+              self.$toast(res.errorInfo);
+          }
+      })
+      .catch(function(err) {
+          self.$toast(err);
+      });
   },
   mounted() {
     document.title = "工作";
