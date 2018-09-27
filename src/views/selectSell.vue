@@ -1,31 +1,11 @@
 <!-- 主页view -->
 <template>
     <div class="main">
-        <div class="item plr15">
-            <div class="tit bbc">店铺1</div>
+        <div class="item plr15" v-for="(item,index) in storeList">
+            <div class="tit bbc">店铺{{index+1}}</div>
             <div class="address ub ub-ac">
                 <div class="ub-f1">
-                    <p class="f14 bc">店铺名称</p>
-                    <p class="f12 bc1 ub ub-ac mt05"><i class="uds icon_local"></i>店铺地址</p>
-                </div>
-                <div class="btn" @click="toPath('/home')">工作</div>
-            </div>
-        </div>
-        <div class="item plr15">
-            <div class="tit bbc">店铺1</div>
-            <div class="address ub ub-ac">
-                <div class="ub-f1">
-                    <p class="f14 bc">店铺名称</p>
-                    <p class="f12 bc1 ub ub-ac mt05"><i class="uds icon_local"></i>店铺地址</p>
-                </div>
-                <div class="btn" @click="toPath('/home')">工作</div>
-            </div>
-        </div>
-        <div class="item plr15">
-            <div class="tit bbc">店铺1</div>
-            <div class="address ub ub-ac">
-                <div class="ub-f1">
-                    <p class="f14 bc">店铺名称</p>
+                    <p class="f14 bc">{{item.branchName}}</p>
                     <p class="f12 bc1 ub ub-ac mt05"><i class="uds icon_local"></i>店铺地址</p>
                 </div>
                 <div class="btn" @click="toPath('/home')">工作</div>
@@ -39,7 +19,7 @@ export default {
     name: "selectSells",
     data() {
         return {
-
+            storeList: []
         };
     },
     methods: {
@@ -50,6 +30,21 @@ export default {
     created() {
         let self = this;
         document.title = '选择门店';
+        this.$ajax
+            .get("account/merchant/store/wechatPubStoreList.json")
+            .then(function(res) {
+                if (res.success) {
+                    console.log(res.data);
+                    sessionStorage.setItem("storeId", res.data[0].storeId);
+                    self.storeList = res.data;
+                    sessionStorage.setItem("storeList", JSON.stringify(res.data))
+                } else {
+                    self.$toast(res.errorInfo);
+                }
+            })
+            .catch(function(err) {
+                self.$toast(err);
+            });
     }
 };
 
