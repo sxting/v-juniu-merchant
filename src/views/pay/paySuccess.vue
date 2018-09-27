@@ -19,7 +19,7 @@
                     </p>
                     <p class="f12 mt05">{{succesInfo.member.phone}}</p>
                 </div>
-                <div class="userbtn" @click="toDetail">查看详情</div>
+                <!-- <div class="userbtn" @click="toDetail">查看详情</div> -->
             </div>
             <div class="btc h50 ub ub-ac ub-pj plr15 " v-for="(item,index) in succesInfo.order" :key="index"  v-if="item.cardType !== 'TIMES'">
                 <p class="sc" >{{item.cardName}}</p>
