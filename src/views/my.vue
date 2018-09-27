@@ -3,8 +3,8 @@
         <div class="userInfo tx-c">
             <div>
                 <img src="../assets/user.png" class="user" />
-                <p class="tit tx-c mt15">用户名</p>
-                <p class="f14 bc1 tx-c mt05">审美造型龙泽店</p>
+                <p class="tit tx-c mt15">{{userInfo.staffName}}</p>
+                <p class="f14 bc1 tx-c mt05">{{userInfo.merchantName}}</p>
             </div>
         </div>
         <div class="plr15">
@@ -20,7 +20,7 @@ export default {
     name: "my",
     data() {
         return {
-            userInfo: {},
+            userInfo : sessionStorage.getItem('User-Info') ? JSON.parse(sessionStorage.getItem('User-Info')) : '',
         };
     },
     methods: {
