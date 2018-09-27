@@ -2,7 +2,7 @@
     <div class="main">
         <div class="ub ub-ac inputDiv">
             <input type="number" class="ub-f1 code" placeholder="请输入券码对应的数字码" v-model="receiptCode" @keyup="formatInput(receiptCode)" />
-            <span class="icon_sao1 mr10"></span>
+            <!--<span class="icon_sao1 mr10"></span>-->
         </div>
         <div class="btn">
             <button class="btn_common" @click="submit()">点击核销</button>
