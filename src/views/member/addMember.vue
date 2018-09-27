@@ -95,26 +95,36 @@ export default {
                     storeId: this.storeId,
                     customerId: this.customerId
                 };
+                let url;
                 if(this.customerId) {
-                    let url = '/merchant/member/customer/updateCustomer.json';
+                    url = '/merchant/member/customer/updateCustomer.json';
+                    this.$ajax.get(url, {params: data}).then(function (res) {
+                        if(res.success) {
+                            history.go(-1);
+                        } else {
+                            alert(res.errorInfo);
+                        }
+                    });
                 } else {
                     delete data.customerId;
-                    let url = '/merchant/member/customer/add.json';
+                    url = '/merchant/member/customer/add.json';
+                    this.$ajax.post(url, data).then(function (res) {
+                        if(res.success) {
+                            history.go(-1);
+                        } else {
+                            alert(res.errorInfo);
+                        }
+                    });
                 }
 
-                this.$ajax.get(url, {params: data}).then(function (res) {
-                    if(res.success) {
-                        history.go(-1);
-                    } else {
-                        alert(res.errorInfo);
-                    }
-                });
+
             }
         }
     },
     created() {
         document.title = '开通会员';
         this.customerId = this.$route.params.customerId;
+        // this.customerId = '1538019181920171018750';
     }
 };
 </script>

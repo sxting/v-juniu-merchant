@@ -51,7 +51,8 @@ const routes = [{
         name: 'memberInfo',
         component: (resolve) => require(['./views/member/memberInfo'], resolve)
     },{
-        path: '/addMember',//开通会员
+        path: '/addMember/:customerId',//开通会员
+        name: 'addMember',
         component: (resolve) => require(['./views/member/addMember'], resolve)
     },{
         path: '/memberSearch',//查询会员
