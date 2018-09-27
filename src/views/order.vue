@@ -70,13 +70,13 @@
             <p class="ub-f1 sc f13 pl48">会员卡</p>
             <span class="money f13"></span>
             <p class="f13">
-              <span style="margin-right: 20px;display: inline-block;color: #ff6600;">-¥{{item.totoleMoney}}</span> {{item.name4}}</p>
+              <span style="margin-right: 20px;display: inline-block;color: #ff6600;" v-if="item.name4">-¥{{item.totoleMoney.toFixed(2)}}</span> {{item.name4}}</p>
             <i class="arrow-down"></i>
           </div>
           <!-- 服务技师 -->
           <mt-popup v-model="item.pickerVisible1" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-              <span class="picker-cancel" @click="closePicker(item,'pickerVisible1','qx1')">取消</span>
+              <span class="picker-cancel" @click="closePicker(item,'pickerVisible1','qx1')">清除</span>
               <span class="picker-confirm" @click="closePicker(item,'pickerVisible1')">完成</span>
             </div>
             <mt-picker :slots="actions1" valueKey="staffName" @change="onPickerChange1($event,$event.values,index)"></mt-picker>
@@ -84,7 +84,7 @@
           <!-- 服务小工 -->
           <mt-popup v-model="item.pickerVisible2" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-              <span class="picker-cancel" @click="closePicker(item,'pickerVisible2','qx2')">取消</span>
+              <span class="picker-cancel" @click="closePicker(item,'pickerVisible2','qx2')">清除</span>
               <span class="picker-confirm" @click="closePicker(item,'pickerVisible2')">完成</span>
             </div>
             <mt-picker :slots="actions2" valueKey="staffName" @change="onPickerChange2($event,$event.values,index)"></mt-picker>
@@ -134,7 +134,7 @@
           <!-- 服务技师 -->
           <mt-popup v-model="cardboolean1" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-              <span class="picker-cancel" @click="closePicker2('qx1')">取消</span>
+              <span class="picker-cancel" @click="closePicker2('qx1')">清除</span>
               <span class="picker-confirm" @click="closePicker2()">完成</span>
             </div>
             <mt-picker :slots="actions1" valueKey="staffName" @change="onPickerChange1($event,$event.values)"></mt-picker>
@@ -142,7 +142,7 @@
           <!-- 服务小工 -->
           <mt-popup v-model="cardboolean2" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
-              <span class="picker-cancel" @click="closePicker2('qx2')">取消</span>
+              <span class="picker-cancel" @click="closePicker2('qx2')">清除</span>
               <span class="picker-confirm" @click="closePicker2()">完成</span>
             </div>
             <mt-picker :slots="actions2" valueKey="staffName" @change="onPickerChange2($event,$event.values)"></mt-picker>
@@ -241,7 +241,9 @@ export default {
       STOREDextraMoney: 0,
       ticketCheck: true,
       pickerBoolean: false,
-      pickerBoolean2: true
+      pickerBoolean2: true,
+      vipBoolean :false,
+      shopBoolean : false
     };
   },
   methods: {
@@ -309,21 +311,21 @@ export default {
     openPicker(index, type) {
       if (type === "pickerVisible2" || type === "pickerVisible1")
         this.pickerBoolean = true;
-      if(type === "pickerVisible4") this.pickerBoolean2 = false;
+      if (type === "pickerVisible4") this.pickerBoolean2 = false;
       this.$set(this.products[index], type, true);
 
       if (this.changeType && this.pickerBoolean) {
-        this.$forceUpdate();
-        this.$set(
-          this.products[index],
-          "name1",
-          this.actions1[0].values[0].staffName
-        );
-        this.$set(
-          this.products[index],
-          "staffId",
-          this.actions1[0].values[0].staffId
-        );
+        // this.$forceUpdate();
+        // this.$set(
+        //   this.products[index],
+        //   "name1",
+        //   this.actions1[0].values[0].staffName
+        // );
+        // this.$set(
+        //   this.products[index],
+        //   "staffId",
+        //   this.actions1[0].values[0].staffId
+        // );
       } else {
         this.cardboolean1 = index === "staff1" ? true : false;
         this.cardboolean2 = index === "staff2" ? true : false;
@@ -338,7 +340,6 @@ export default {
       }
     },
     closePicker(item, type, qx) {
-      let that = this;
       this.$forceUpdate();
       this.$set(item, type, false);
       if (qx === "qx1") {
@@ -349,15 +350,12 @@ export default {
         this.$set(item, "name2", "");
         this.$set(item, "staffId2", "");
       }
-      if (type === "pickerVisible4") {
-        this.products.forEach(function(i){
-          if(i.vipCard1){
-            that.$set(i, "name4", i.vipCard1.card.cardName);
-          }else{
-            that.$set(i, "name4", i.vipCard.card.cardName);
-          }
-        })
-        this.totolMoneyFun();
+      if (qx === "qx4") {
+        this.$set(item, 'vipCard1',false);
+        this.$set(item, 'name4','');
+        this.$set(item, "vipCard", false);
+        console.log(item)
+        this.totolMoneyFun(true);
       }
     },
     closePicker2(qx) {
@@ -407,16 +405,13 @@ export default {
     },
     onPickerChange4(picker, values, index) {
       let that = this;
-      if (values.length > 0 && this.pickerBoolean2) {
+      if (values.length > 0) {
         this.$forceUpdate();
         let cardName = values[0].card.cardName;
         let vipCard1 = values[0];
         this.$set(this.products[index], "name4", cardName);
         this.$set(this.products[index], "vipCard1", vipCard1);
-      } else {
-        let cardName = values[0].card.cardName;
-        let vipCard1 = values[0];
-        this.$set(this.products[index], "vipCard1", vipCard1);
+        this.totolMoneyFun();
       }
     },
     openBookList() {
@@ -599,13 +594,15 @@ export default {
           });
           //最终所有选取的商品所对应的会员卡
           that.vipCardList = itemList;
-          that.xfList.forEach(function(i) {
-            i.actions[0].values.forEach(function(n, m) {
-              if (i.vipCard.card.cardId === n.card.cardId) {
-                that.swapArray(i.actions[0].values, 0, m);
-              }
+          if (this.pickerBoolean2) {
+            that.xfList.forEach(function(i) {
+              i.actions[0].values.forEach(function(n, m) {
+                if (i.vipCard.card.cardId === n.card.cardId) {
+                  that.swapArray(i.actions[0].values, 0, m);
+                }
+              });
             });
-          });
+          }
           that.products = that.xfList;
         }
       }
