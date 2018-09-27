@@ -14,12 +14,14 @@
                 <img src="../../assets/user.png" class="udb">
                 <div class="ub-f1 ml10">
                     <p class="f12 ub ub-ac">{{succesInfo.member.customerName}}
-                        <i class="icon_male ml05"></i>
+                        <i class="icon_male ml05" v-if="succesInfo.member.gender==1"></i>
+                        <i class="icon_women ml05" v-if="succesInfo.member.gender==0"></i>
+                        <i class="icon_weizhi ml05" v-if="succesInfo.member.gender==2"></i>
                         <i class="icon_vip ml10"></i>
                     </p>
                     <p class="f12 mt05">{{succesInfo.member.phone}}</p>
                 </div>
-                <div class="userbtn" @click="toDetail">查看详情</div>
+                <!-- <div class="userbtn" @click="toDetail">查看详情</div> -->
             </div>
             <div class="btc h50 ub ub-ac ub-pj plr15 " v-for="(item,index) in succesInfo.order" :key="index"  v-if="item.cardType !== 'TIMES'">
                 <p class="sc" >{{item.cardName}}</p>
