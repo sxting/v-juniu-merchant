@@ -3,7 +3,7 @@
         <div class="bgb plr15">
             <div class="item bbc ub ub-pj ub-ac">
                 <p class="f14 bc">顾客电话</p>
-                <input class="ub-f1 tx-r f14" v-model="tel" placeholder="请输入顾客电话" @focus="showSearch" maxlength="11" />
+                <input class="ub-f1 tx-r f14" v-model="tel" placeholder="请输入顾客电话" maxlength="11" />
             </div>
             <div class="item bbc ub ub-pj ub-ac">
                 <p class="f14 bc">顾客姓名</p>
@@ -26,27 +26,16 @@
         <div class="mt10 bgb remarkDiv">
             <textarea v-model="remark" placeholder="添加备注信息"></textarea>
         </div>
-        <div class="mt10 markDiv">
-            <p class="f14 clearfix">选择标签<span class="f12 ml10 sc uds ufr">*设定会员标签，最多可设置3个</span></p>
-            <div class="markList ub ub-pj">
-                <i @click="clickThis($event)" v-for="item in markList">{{item}}</i>
-            </div>
-        </div>
+        <!--<div class="mt10 markDiv">-->
+            <!--<p class="f14 clearfix">选择标签<span class="f12 ml10 sc uds ufr">*设定会员标签，最多可设置3个</span></p>-->
+            <!--<div class="markList ub ub-pj">-->
+                <!--<i @click="clickThis($event)" v-for="item in markList">{{item}}</i>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="plr15 mt40">
             <div class="btn_common" @click="submit()">确 定</div>
         </div>
-        <div class="ub ub-ver modal" v-show="isShowSearch">
-            <div class="searchResult plr15">
-                <li class="item ub ub-ac ub-pe">
-                    <i class="icon_card"></i><p class="ml10">16005025522</p><p class="ml10">王某某</p>
-                </li>
-                <li class="item ub ub-ac ub-pe">
-                    <i class="icon_card"></i><p class="ml10">16005025522</p><p class="ml10">王某某</p>
-                </li>
-            </div>
-            <div class="ub-f1 mask" @click="closePop"></div>
-        </div>
-        <mt-datetime-picker v-model="dateVal" @confirm="handleConfirm" ref="picker" type="date" year-format="{value}年" month-format="{value}月" date-format="{value}日" :startDate="new Date('1900')" :endDate="new Date('2008')"></mt-datetime-picker>
+        <mt-datetime-picker v-model="dateVal" @confirm="handleConfirm" ref="picker" type="date" year-format="{value}年" month-format="{value}月" date-format="{value}日" :startDate="new Date('1900')" :endDate="new Date('2018')"></mt-datetime-picker>
     </div>
 </template>
 
@@ -61,13 +50,14 @@ export default {
             bathDate: '',
             male: '',
             remark: '',
-            isShowSearch:false,
-            maleList:['男','女'],
-            curMaleIndex:0,
+            maleList:['女', '男'],
+            curMaleIndex: 0,
             dateVal:new Date('2000-01-01'),
-            isMale:true,
-            pickerVisible:false,
-            markList:["标签1","标签1","标签1","标签1"]
+            storeId: sessionStorage.getItem('storeId'),
+            customerId: '',
+            // isMale:true,
+            // pickerVisible:false,
+            // markList:["标签1","标签1","标签1","标签1"]
         };
     },
     components: {DatetimePicker},
@@ -78,12 +68,6 @@ export default {
         },
         switchMale(index){
             this.curMaleIndex = index;
-        },
-        showSearch(){
-            this.isShowSearch = true;
-        },
-        closePop(){
-            this.isShowSearch = false;
         },
         showPicker(){
             this.$refs.picker.open();
@@ -96,11 +80,41 @@ export default {
             this.bathDate = year+'-'+(month<10?'0'+month:month)+"-"+(day<10?'0'+day:day);
         },
         submit(){
-            history.go(-1);
+            let reg = /^1\d{10}$/;
+            if (!this.tel || !this.name) {
+                alert('手机号或客户名称不能为空');
+            } else if(!reg.test(this.tel)) {
+                alert('手机格式不对');
+            } else {
+                let data = {
+                    birthday: this.bathDate,
+                    customerName: this.name,
+                    gender: this.curMaleIndex,
+                    phone: this.tel,
+                    remarks: this.remark,
+                    storeId: this.storeId,
+                    customerId: this.customerId
+                };
+                if(this.customerId) {
+                    let url = '/merchant/member/customer/updateCustomer.json';
+                } else {
+                    delete data.customerId;
+                    let url = '/merchant/member/customer/add.json';
+                }
+
+                this.$ajax.get(url, {params: data}).then(function (res) {
+                    if(res.success) {
+                        history.go(-1);
+                    } else {
+                        alert(res.errorInfo);
+                    }
+                });
+            }
         }
     },
     created() {
         document.title = '开通会员';
+        this.customerId = this.$route.params.customerId;
     }
 };
 </script>

@@ -1,28 +1,28 @@
 <template>
     <div>
-        <div class="plr15 bgb">
-            <div class="item1 ub ub-pj ub-ac">
-                <p class="f14 bc">头像</p>
-                <img src="../../assets/user.png" class="user" />
-            </div>
-        </div>
+        <!--<div class="plr15 bgb">-->
+            <!--<div class="item1 ub ub-pj ub-ac">-->
+                <!--<p class="f14 bc">头像</p>-->
+                <!--<img src="../../assets/user.png" class="user" />-->
+            <!--</div>-->
+        <!--</div>-->
         <p class="tit">基本信息</p>
         <div class="plr15 bgb">
             <div class="item bbc ub ub-pj ub-ac">
                 <p class="f14 bc">姓名</p>
-                <p class="sc">ddddddd</p>
+                <p class="sc">{{userInfo.staffName}}</p>
             </div>
             <div class="item bbc ub ub-pj ub-ac">
                 <p class="f14 bc">手机号</p>
-                <p class="sc">ddddddd</p>
+                <p class="sc">{{userInfo.loginName}}</p>
             </div>
             <div class="item bbc ub ub-pj ub-ac">
-                <p class="f14 bc">职务</p>
-                <p class="sc">ddddddd</p>
+                <p class="f14 bc">职位</p>
+                <p class="sc">{{userInfo.roleName}}</p>
             </div>
             <div class="item ub ub-pj ub-ac">
-                <p class="f14 bc">所属门店</p>
-                <p class="sc">ddddddd</p>
+                <p class="f14 bc">商家名称</p>
+                <p class="sc">{{userInfo.merchantName}}</p>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@ export default {
     name: "myInfo",
     data() {
         return {
-            userInfo: {},
+            userInfo : sessionStorage.getItem('User-Info') ? JSON.parse(sessionStorage.getItem('User-Info')) : '',
         };
     },
     methods: {
