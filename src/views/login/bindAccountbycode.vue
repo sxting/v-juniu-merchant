@@ -6,7 +6,7 @@
         <input class="form-input" type="text" autocomplete="off" v-model="mobile" placeholder="请输入登录系统使用的手机号" maxlength="11" />
       </div>
       <div class="mt10 ub">
-          <input class="form-input1 ub-f1" type="text" @focus="focuThis($event)" @keyup="" autocomplete="off" v-model="msgCode" placeholder="请输入验证码" />
+          <input class="form-input1 ub-f1" type="text" @keyup="" autocomplete="off" v-model="msgCode" placeholder="请输入验证码" />
           <span v-if="showTime" class="msgCode on">{{count}}秒后重试</span>
           <button v-else class="msgCode" :disabled="isDisable" @click="getCode()">获取验证码</button>
       </div>

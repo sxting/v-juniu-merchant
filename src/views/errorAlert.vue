@@ -4,7 +4,7 @@
         <div class="item bgb">
             <img src="../assets/icon_fail.png" class="udb mato" width="60" height="60">
             <p class="mt20">对不起！此功能目前只向桔牛系统用户及所属门店的店长与员工开放访问！</p>
-            <a class="mt10" href="javascript:" @click="toPath('/bindAccount')">我是系统用户，点击绑定账号</a>
+            <a class="mt10" href="javascript:" @click="toPath('/bindCourse')">我是系统用户，点击绑定账号</a>
         </div>
         <div class="item bgb">
             <p>桔牛系统是您最贴心的门店管家，可以帮您管理门店的日常收银、会员管理、预约预定、商品营销,更能帮您对接第三方平台引流带顾客，打通微信支付宝和新美大，一个系统管理线上线下所有生意。</p>
@@ -14,12 +14,9 @@
     </div>
 </template>
 
-
-
-
 <script>
 export default {
-    name: "selectSells",
+    name: "errorAlert",
     data() {
         return {
 
