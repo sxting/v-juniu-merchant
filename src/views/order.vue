@@ -262,9 +262,8 @@ export default {
     },
     orderProductValue(event,item){
       this.$forceUpdate();
-      this.$set(item, "totoleMoney", event);
-      this.$set(item, "totoleMoney1", event);
-      this.totolMoneyFun(true);
+      this.$set(item, "currentPrice", event*100);
+      this.totolMoneyFun();
     },
     switchBoolen2() {
       this.isSwitch2 = !this.isSwitch2;
