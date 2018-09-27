@@ -51,7 +51,7 @@
             </div>
         </div> -->
 
-    <div class="good ub-f1">
+    <div class="good ub-f1" :class="isShowMember?'good106':''">
       <div class="menu-wrapper" ref="menuWrapper">
         <ul>
           <li v-for="(item, index) in goods" :key="index" class="menu-item border-1px" :class="{'current':currentIndex === index}" @click="selectMenu(index, $event)">
