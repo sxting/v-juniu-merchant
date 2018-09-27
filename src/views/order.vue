@@ -27,7 +27,7 @@
         <div class="addGood btn_vc" @click="addGood()" v-if="changeType">
           <i class="icon-add sc iconfont icon_add1"></i>添加产品</div>
       </div>
-      <div class="orderInfo"  v-for="(item,index) in products" :key="index" v-if="changeType&&item.count>0">
+      <div class="orderInfo" v-for="(item,index) in products" :key="index" v-if="changeType&&item.count>0">
         <div class="item plr20 bbc ub ub-ac ub-pj">
           <p class="ub ub-ac">
             <i :class="{'icon_drop':!item.isShowMoreItem,'icon_down':item.isShowMoreItem}" @click="dropOrder(index)"></i>{{item.productName}}</p>
@@ -164,9 +164,11 @@
         </div>
       </div>
       <div class="ub ub-ac ub-pj switchDiv plr15" v-if="changeType">
-        <p>优惠券<span v-if="ticket" style="display:inline-block;color:#ff6600;">({{ticket.tickType+':'}}{{ticket.couponDefName}})</span></p>
+        <p>优惠券
+          <span v-if="ticket" style="display:inline-block;color:#ff6600;">({{ticket.tickType+':'}}{{ticket.couponDefName}})</span>
+        </p>
         <div class="switch-btn" v-if="ticket" style="display: flex;">
-          <span style="display:inline-block;color:#ff6600;margin-right:10px;">-{{ticket.ticketMoney}}元</span>  
+          <span style="display:inline-block;color:#ff6600;margin-right:10px;">-{{ticket.ticketMoney}}元</span>
           <div style="display:inline-block;" class="icon-on" v-if="ticketCheck" @click="switchBoolen3"></div>
           <div style="display:inline-block;" class="icon-off" v-else @click="switchBoolen3"></div>
         </div>
@@ -237,8 +239,9 @@ export default {
       cardboolean2: false,
       cardInputValue: 0,
       STOREDextraMoney: 0,
-      ticketCheck:true,
-      pickerBoolean:false
+      ticketCheck: true,
+      pickerBoolean: false,
+      pickerBoolean2: true
     };
   },
   methods: {
@@ -304,10 +307,13 @@ export default {
       this.totolMoneyFun();
     },
     openPicker(index, type) {
-      this.pickerBoolean = true;
-      if (this.changeType) {
+      if (type === "pickerVisible2" || type === "pickerVisible1")
+        this.pickerBoolean = true;
+      if(type === "pickerVisible4") this.pickerBoolean2 = false;
+      this.$set(this.products[index], type, true);
+
+      if (this.changeType && this.pickerBoolean) {
         this.$forceUpdate();
-        this.$set(this.products[index], type, true);
         this.$set(
           this.products[index],
           "name1",
@@ -332,6 +338,7 @@ export default {
       }
     },
     closePicker(item, type, qx) {
+      let that = this;
       this.$forceUpdate();
       this.$set(item, type, false);
       if (qx === "qx1") {
@@ -341,6 +348,16 @@ export default {
       if (qx === "qx2") {
         this.$set(item, "name2", "");
         this.$set(item, "staffId2", "");
+      }
+      if (type === "pickerVisible4") {
+        this.products.forEach(function(i){
+          if(i.vipCard1){
+            that.$set(i, "name4", i.vipCard1.card.cardName);
+          }else{
+            that.$set(i, "name4", i.vipCard.card.cardName);
+          }
+        })
+        this.totolMoneyFun();
       }
     },
     closePicker2(qx) {
@@ -358,10 +375,10 @@ export default {
     onPickerChange1(picker, values, index) {
       if (values.length > 0) {
         this.$forceUpdate();
-        if (this.changeType&&this.pickerBoolean) {
+        if (this.changeType && this.pickerBoolean) {
           this.$set(this.products[index], "name1", values[0].staffName);
           this.$set(this.products[index], "staffId", values[0].staffId);
-        } else if(this.pickerBoolean){
+        } else if (this.pickerBoolean) {
           // this.$set(this.cardName1, values[0].staffName);
           // this.$set(this.cardStaffId1, values[0].staffId);
           this.cardName1 = values[0].staffName;
@@ -370,12 +387,12 @@ export default {
       }
     },
     onPickerChange2(picker, values, index) {
-      if (values.length > 0&&this.pickerBoolean) {
+      if (values.length > 0 && this.pickerBoolean) {
         this.$forceUpdate();
         if (this.changeType) {
           this.$set(this.products[index], "name2", values[0].staffName);
           this.$set(this.products[index], "staffId2", values[0].staffId);
-        } else if(this.pickerBoolean) {
+        } else if (this.pickerBoolean) {
           this.cardName2 = values[0].staffName;
           this.cardStaffId2 = values[0].staffId;
         }
@@ -390,13 +407,16 @@ export default {
     },
     onPickerChange4(picker, values, index) {
       let that = this;
-      if (values.length > 0) {
+      if (values.length > 0 && this.pickerBoolean2) {
         this.$forceUpdate();
         let cardName = values[0].card.cardName;
         let vipCard1 = values[0];
         this.$set(this.products[index], "name4", cardName);
         this.$set(this.products[index], "vipCard1", vipCard1);
-        this.totolMoneyFun();
+      } else {
+        let cardName = values[0].card.cardName;
+        let vipCard1 = values[0];
+        this.$set(this.products[index], "vipCard1", vipCard1);
       }
     },
     openBookList() {
@@ -580,9 +600,9 @@ export default {
           //最终所有选取的商品所对应的会员卡
           that.vipCardList = itemList;
           that.xfList.forEach(function(i) {
-            i.actions[0].values.forEach(function(n,m) {
-              if(i.vipCard.card.cardId === n.card.cardId){
-                that.swapArray(i.actions[0].values,0,m)
+            i.actions[0].values.forEach(function(n, m) {
+              if (i.vipCard.card.cardId === n.card.cardId) {
+                that.swapArray(i.actions[0].values, 0, m);
               }
             });
           });
@@ -1173,16 +1193,13 @@ export default {
 
     //结算
     jiesuan() {
-      let money = this.changeType
-        ? this.inputValue
-        : this.cardInputValue;
+      let money = this.changeType ? this.inputValue : this.cardInputValue;
       let that = this;
       this.cardChangeBoolean = false;
       if (this.settleCardDTOList && this.settleCardDTOList.length > 0) {
         this.jiesuanFun();
       } else {
- 
-          this.isShowPayWay = true;
+        this.isShowPayWay = true;
       }
     },
     createOrderFun(create) {
@@ -1279,7 +1296,7 @@ export default {
       products.forEach(function(i, k) {
         i.productList.forEach(function(n, j) {
           that.products.forEach(function(m) {
-            if (n.productId === m.productId&&m.count>0) {
+            if (n.productId === m.productId && m.count > 0) {
               products[k].productList[j] = m;
             }
           });
@@ -1406,8 +1423,8 @@ export default {
     this.vipCardSearchFun();
     if (that.products && that.products.length > 0) {
       that.products.forEach(function(i, m) {
-        i.name1 ='';
-        i.name2 ='';
+        i.name1 = "";
+        i.name2 = "";
         if (!i.name3) i.name3 = 10;
         if (m === 0) i.isShowMoreItem = true;
         else i.isShowMoreItem = false;
@@ -1427,12 +1444,8 @@ export default {
     this.getAllstaff();
     this.totolMoneyFun();
   },
-  watch(){
- 
-  },
-  computed: {
-    
-  }
+  watch() {},
+  computed: {}
 };
 </script>
 
