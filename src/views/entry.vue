@@ -37,20 +37,24 @@
                     code: openidSource
                 }
             }).then(res => {
-                if (res.status == 200 && res.data.success == true) {
+                console.log(res);
+                if (res.errorCode == "10000" && res.success == true) {
                     // 存储数据至sessionStorage
-                    sessionStorage.setItem("staffInfo", JSON.stringify(res.data.data));
+                    sessionStorage.setItem('App-Token', res.data.token);//存储token
+                    sessionStorage.setItem('User-Info', JSON.stringify(res.data));//存储用户信息
+                    sessionStorage.setItem('alipayShops', JSON.stringify(res.data.alipayShopList));//存储门店
                     // 跳转
                     this.$router.replace({path: '/home'});
                 } else {
-                    this.tipDesc = "本公众号为使用桔牛系统的商家提供移动办公解决方案，包括系统消息接收、报表查看、收银核销等。";
-                    let errorCode = res.data.errorCode;
-                    if ("invalid_wechat_auth_code" == errorCode || "parse_openid_error" == errorCode) {
-                        this.tipTitle = "请从公众号进入";
-                    } else if ("staff_not_found" == errorCode) {
-                        this.tipTitle = "未绑定系统账户";
-                        this.tipDesc = "您可以在桔牛系统的员工管理中进行扫码绑定之后再进入尝试。<br><br>" + this.tipDesc + "";
-                    }
+                    // this.tipDesc = "本公众号为使用桔牛系统的商家提供移动办公解决方案，包括系统消息接收、报表查看、收银核销等。";
+                    // let errorCode = res.data.errorCode;
+                    // if ("invalid_wechat_auth_code" == errorCode || "parse_openid_error" == errorCode) {
+                    //     this.tipTitle = "请从公众号进入";
+                    // } else if ("staff_not_found" == errorCode) {
+                    //     this.tipTitle = "未绑定系统账户";
+                    //     this.tipDesc = "您可以在桔牛系统的员工管理中进行扫码绑定之后再进入尝试。<br><br>" + this.tipDesc + "";
+                    // }
+                    this.$router.replace({path: '/errorAlert'});
                     this.isReady = true;
                 }
             });
