@@ -413,7 +413,7 @@ export default {
     },
     onPickerChange4(picker, values, index) {
       let that = this;
-      if (values.length > 0) {
+      if (values.length > 0&&values[0]!==undefined) {
         this.$forceUpdate();
         let cardName = values[0].card.cardName;
         let vipCard1 = values[0];

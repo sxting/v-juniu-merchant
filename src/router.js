@@ -47,11 +47,12 @@ const routes = [{
         name: 'Charge',
         component: (resolve) => require(['./views/charge'], resolve)
     },{
-        path: '/memberInfo',//会员信息
+        path: '/memberInfo/:customerId',//会员信息
         name: 'memberInfo',
         component: (resolve) => require(['./views/member/memberInfo'], resolve)
     },{
-        path: '/addMember',//开通会员
+        path: '/addMember/:customerId',//开通会员
+        name: 'addMember',
         component: (resolve) => require(['./views/member/addMember'], resolve)
     },{
         path: '/memberSearch',//查询会员

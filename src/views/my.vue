@@ -2,7 +2,7 @@
     <div>
         <div class="userInfo tx-c">
             <div>
-                <img src="../assets/user.png" class="user" />
+                <img src="../assets/my_tx.png" class="user" />
                 <p class="tit tx-c mt15">{{userInfo.staffName}}</p>
                 <p class="f14 bc1 tx-c mt05">{{userInfo.merchantName}}</p>
             </div>

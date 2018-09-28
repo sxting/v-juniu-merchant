@@ -7,20 +7,20 @@
         <i class="icon_member"></i>
         <p class="tx-c f12">开通会员</p>
       </div> -->
-      <!-- <div class="openMore tx-c mr05" @click="showMenu">
+      <div class="openMore tx-c mr05" @click="showMenu">
         <i class="icon_more"></i>
         <p class="tx-c f12">更多</p>
-      </div> -->
+      </div>
     </div>
     <div class="modal1" v-show="isShowMenu">
       <div class="mask1" @click="closeModal1()"></div>
       <div class="arrow-up"></div>
       <ul class="menu">
-        <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
+        <!-- <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
           <span class="icon_orderlist"></span>
           历史订单
-        </li>
-        <li class="ub ub-ac ub-pc" @click="toPath('/dirCharge')">
+        </li> -->
+        <li class="ub ub-ac ub-pc" @click="toOrder">
           <span class="icon_sk"></span>
           直接收款
         </li>
@@ -205,12 +205,12 @@ export default {
       this.isShowMenu = !Boolean(this.isShowMenu);
     },
     toMemberInfo() {
-      // this.$router.push({
-      //     name: 'memberInfo',
-      //     params: {
-      //         customerId: this.chargeInfo.memberInfo.customer.customerId
-      //     }
-      //   });
+      this.$router.push({
+          name: 'memberInfo',
+          params: {
+              customerId: this.chargeInfo.memberInfo.customer.customerId
+          }
+        });
     },
     toOrder() {
       this.chargeInfo.products = this.goods;
