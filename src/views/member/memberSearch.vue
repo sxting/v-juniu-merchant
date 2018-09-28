@@ -3,7 +3,7 @@
     <div class="toper ub ub-ac">
       <div class="searchBox ub ub-f1 ub-ac">
         <i class="icon_search"></i>
-        <input type="text" v-model="inpValue" v-on:input="showList()" placeholder="会员查询">
+        <input type="number" v-model="inpValue" v-on:input="showList()" placeholder="会员查询">
       </div>
       <div class="plr15 rc" @click="showList()">搜索</div>
       <ul class="result plr15" v-show="isShowList">

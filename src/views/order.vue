@@ -108,7 +108,7 @@
 
           <div class="item ub ub-pj ub-ac">
             <p class="pl48">实价</p>
-            <p class="finallNum">￥<input class="shifuInput" @change="orderProductValue($event.target.value,item)" :value="item.totoleMoney1" type="text"></p>
+            <p class="finallNum">￥<input class="shifuInput" @change="orderProductValue($event.target.value,item)" :value="item.totoleMoney1" type="number"></p>
           </div>
         </div>
 
@@ -174,7 +174,7 @@
         </div>
       </div>
       <div class="ub">
-        <div class="ub-f1 total" v-if="changeType">￥<input class="shifuInput" style="color:#fff;" :value="inputValue" type="text"></div>
+        <div class="ub-f1 total" v-if="changeType">￥<input class="shifuInput" style="color:#fff;" :value="inputValue" type="number"></div>
         <div class="ub-f1 total" v-else>￥{{cardInputValue}}</div>
         <button :disabled="isDisabled" type="button" @click="toerwmCharge">去结算</button>
       </div>
