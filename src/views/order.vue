@@ -66,7 +66,7 @@
             <p class="f13">{{item.name3}}折</p>
             <i class="arrow-down"></i>
           </div>
-          <div class="item ub ub-pj ub-ac" @click="openPicker(index,'pickerVisible4')" v-if="isShowMember">
+          <div class="item ub ub-pj ub-ac" @click="openPicker(index,'pickerVisible4')" v-if="isShowMember&&chargeInfo.memberInfo.cardApplies&&chargeInfo.memberInfo.cardApplies.length>0">
             <p class="ub-f1 sc f13 pl48">会员卡</p>
             <span class="money f13"></span>
             <p class="f13">
