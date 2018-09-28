@@ -3,7 +3,7 @@
     <div class="toper ub ub-ac">
       <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac">
         <i class="icon_search mr05"></i>会员查询</div>
-       <div class="openMember tx-c" @click="toPath('/addMember')">
+      <div class="openMember tx-c"  @click="toAddMember">
         <i class="icon_member"></i>
         <p class="tx-c f12">开通会员</p>
       </div>
@@ -203,6 +203,15 @@ export default {
     },
     showMenu() {
       this.isShowMenu = !Boolean(this.isShowMenu);
+    },
+    toAddMember() {
+      // this.$router.push("/addMember");
+      this.$router.push({
+        name: 'addMember',
+        params:{
+          customerId: false
+        }
+      })
     },
     toMemberInfo() {
       this.$router.push({

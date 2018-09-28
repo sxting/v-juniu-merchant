@@ -33,6 +33,7 @@ export default {
             openId: '',
             date: '',
             dateMonthly: '',
+            staffId: ''
         };
     },
     methods: {
@@ -40,7 +41,7 @@ export default {
             this.curActiveIndex = index;
             sessionStorage.navIndex = index;
             if(str === 'records'){
-                window.location.href = "https://api.juniuo.com/staff/#/order/store/report;date=" + this.date + ";openid=" + this.openId ;
+                window.location.href = "https://api.juniuo.com/staff/#/monthly/staff/report;date=" + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId ;
             }else {
                 this.$router.push(str);
             }
@@ -48,6 +49,7 @@ export default {
     },
     created() {
         this.openId = JSON.parse(sessionStorage.getItem('User-Info')).openid;
+        this.staffId = JSON.parse(sessionStorage.getItem('User-Info')).staffId;
         /*
         *
         * 获取当前的年月日

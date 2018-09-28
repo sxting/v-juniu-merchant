@@ -40,9 +40,8 @@
                             <p class="bc">实收</p>
                             <p class="bc"><i class="curreny ml10">￥{{item.paidMoney? item.paidMoney/100 : 0}}</i></p>
                         </div>
-                        <div class="tx-r pb30 mt10">
-                            <button class="btn_read" @click="cancelOrder(item.orderId)">撤销</button>
-                            <!--btn_concel-->
+                        <div class="tx-r pb30 mt10 btn">
+                            <button class="btn_read" :class="{'btn_concel':item.statusName == '已取消' || item.statusName == '已退款'}"  @click="cancelOrder(item.orderId,item.statusName)">{{item.statusName == '已取消' || item.statusName == '已退款'? '已退款' : '撤销'}}</button>
                             <!--<button class="btn_read" @click="readOrder(item.orderId)">查看详情</button>-->
                         </div>
                     </div>
@@ -101,23 +100,46 @@
             showConfirm(option){
                 this.$refs.comfirmBox.show(option);
             },
-            cancelOrder(){
-                this.showConfirm({
-                    title: '提示',
-                    content: '1.扣卡首款撤销卡额度恢复到扣卡前状态<br/>2.扫码首款撤销付款金额原路返回<br/>3.会员开卡撤销只可撤销未消费的会员卡',
-                    leftname: '取消',
-                    rightname: '确定',
-                    leftListener: () => {
-                        console.log('cancel');
-                    },
-                    rightListener: () => {
-                        console.log(0);
-                    }
-                });
+            cancelOrder(id, status){
+                console.log(id);
+                console.log(status);
+                let self = this;
+                if((status != '已取消') && (status != '已退款')){
+                    this.showConfirm({
+                        title: '提示',
+                        content: '1.扣卡首款撤销卡额度恢复到扣卡前状态<br/>2.扫码首款撤销付款金额原路返回<br/>3.会员开卡撤销只可撤销未消费的会员卡',
+                        leftname: '取消',
+                        rightname: '确定',
+                        leftListener: () => {
+                            console.log('cancel');
+                        },
+                        rightListener: () => {
+                            console.log(0);
+                            self.getBackMoney(id);//退款
+                        }
+                    });
+                }
             },
-            getData(index) {
+            getBackMoney(id){
+                let self = this;
                 let data = {
-                    pageIndex: index,
+                    orderId: id
+                };
+                this.$ajax.get('merchant/order/back.json', {
+                    params: data
+                }).then(function (res) {
+                    if(res.success) {
+                        self.$toast("退款成功");
+                        self.getData();//请求列表数据
+
+                    } else {
+                        self.$toast(res.errorInfo);
+                    }
+                })
+            },
+            getData() {
+                let data = {
+                    pageIndex: 1,
                     pageSize: 100000000
                 };
                 let self = this;
@@ -133,7 +155,7 @@
                         // }
                         console.log(self.orderList);
                     } else {
-                        alert(res.errorInfo);
+                        self.$toast(res.errorInfo);
                     }
                 })
             },
@@ -159,7 +181,7 @@
     .pt10{padding-top: 0.20rem}
 
     .icon_member{display: inline-block;width: 0.34rem;height: 0.28rem;background: url(../../assets/icon_member.png) no-repeat center;background-size: 100% 100%;margin-right: 0.10rem}
-    .btn_concel{width: 1.4rem;height: 0.44rem;background:#fff;border-radius:0.04rem;border: 1px #dedede solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #999}
+    .btn .btn_concel{width: 1.4rem;height: 0.44rem;background:#fff;border-radius:0.04rem;border: 1px #dedede solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #999}
     .btn_read{width: 1.4rem;height: 0.44rem;background:#fff;border-radius:0.04rem;border: 1px #ff6000 solid;text-align: center;line-height: 0.44rem;border-sizing:content-box;color: #ff6000;margin-left: 0.30rem}
     .pb30{padding-bottom: 0.30rem}
     .mr10{margin-right: 0.20rem}

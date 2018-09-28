@@ -3,10 +3,10 @@
     <div class="toper ub ub-ac">
       <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac">
         <i class="icon_search mr05"></i>查询会员</div>
-      <!-- <div class="openMember tx-c" @click="toAddMember">
+      <div class="openMember tx-c" @click="toAddMember">
         <i class="icon_member"></i>
         <p class="tx-c f12">开通会员</p>
-      </div> -->
+      </div>
     </div>
     <div class="content plr15 mt05">
       <div class="ub ub-ac userInfo plr10" v-if="isShowMember">
@@ -279,12 +279,12 @@ export default {
       // this.$router.push('/erwmCharge');
     },
     toMemberInfo() {
-      // this.$router.push({
-      //     name: 'memberInfo',
-      //     params: {
-      //         customerId: this.chargeInfo.memberInfo.customer.customerId
-      //     }
-      //   });
+      this.$router.push({
+          name: 'memberInfo',
+          params: {
+              customerId: this.chargeInfo.memberInfo.customer.customerId
+          }
+        });
     },
     addGood() {
       this.restProductJson();
@@ -413,7 +413,7 @@ export default {
     },
     onPickerChange4(picker, values, index) {
       let that = this;
-      if (values.length > 0) {
+      if (values.length > 0&&values[0]!==undefined) {
         this.$forceUpdate();
         let cardName = values[0].card.cardName;
         let vipCard1 = values[0];
@@ -426,7 +426,13 @@ export default {
       this.isShowBus = !this.isShowBus;
     },
     toAddMember() {
-      this.$router.push("/addMember");
+      // this.$router.push("/addMember");
+      this.$router.push({
+        name: 'addMember',
+        params:{
+          customerId: false
+        }
+      })
     },
     closeModal() {
       this.isShowBus = false;
