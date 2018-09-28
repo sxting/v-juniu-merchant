@@ -319,9 +319,9 @@ export default {
       if (type === "pickerVisible2" || type === "pickerVisible1" || type === "staff1" || type === "staff2")
         this.pickerBoolean = true;
       if (type === "pickerVisible4") this.pickerBoolean2 = false;
+      this.$set(this.products[index], type, true);
 
       if (this.changeType && this.pickerBoolean) {
-      this.$set(this.products[index], type, true);
         
         // this.$forceUpdate();
         // this.$set(
