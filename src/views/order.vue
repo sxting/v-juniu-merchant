@@ -302,7 +302,7 @@ export default {
       let count = item.count;
       count++;
       this.$set(item, "count", count);
-      this.restProductJson();
+      // this.restProductJson();
       this.totolMoneyFun(true);
     },
     delOne(item) {
@@ -312,7 +312,7 @@ export default {
       if (count > 0) count--;
       this.$set(item, "count", count);
       this.$forceUpdate();
-      this.restProductJson();
+      // this.restProductJson();
       this.totolMoneyFun(true);
     },
     openPicker(index, type) {
