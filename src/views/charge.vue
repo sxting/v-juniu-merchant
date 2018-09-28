@@ -3,10 +3,10 @@
     <div class="toper ub ub-ac">
       <div @click="toMemberSearch" class="searchBox ub-f1 ub ub-ac">
         <i class="icon_search mr05"></i>会员查询</div>
-      <!-- <div class="openMember tx-c" @click="toPath('/addMember')">
+       <div class="openMember tx-c" @click="toPath('/addMember')">
         <i class="icon_member"></i>
         <p class="tx-c f12">开通会员</p>
-      </div> -->
+      </div>
       <div class="openMore tx-c mr05" @click="showMenu">
         <i class="icon_more"></i>
         <p class="tx-c f12">更多</p>
@@ -16,10 +16,10 @@
       <div class="mask1" @click="closeModal1()"></div>
       <div class="arrow-up"></div>
       <ul class="menu">
-        <!-- <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
+        <li class="ub ub-ac ub-pc bbc" @click="toPath('/orderList')">
           <span class="icon_orderlist"></span>
           历史订单
-        </li> -->
+        </li>
         <li class="ub ub-ac ub-pc" @click="toOrder">
           <span class="icon_sk"></span>
           直接收款

@@ -167,4 +167,12 @@ li.on{color: #ff6000!important;border-bottom: #ff6000 1px solid!important;}
         padding: 0.2rem;
         text-align: center;
     }
+    .tx-c {
+        max-width: 30%;
+        width: 30%;
+    }
+.tx-c .b {
+    height: 0.3rem;
+    overflow: hidden;
+}
 </style>
