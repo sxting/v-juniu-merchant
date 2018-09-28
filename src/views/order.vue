@@ -135,7 +135,7 @@
           <mt-popup v-model="cardboolean1" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
               <span class="picker-cancel" @click="closePicker2('qx1')">清除</span>
-              <span class="picker-confirm" @click="closePicker2()">完成</span>
+              <span class="picker-confirm" @click="closePicker2('wc1')">完成</span>
             </div>
             <mt-picker :slots="actions1" valueKey="staffName" @change="onPickerChange1($event,$event.values)"></mt-picker>
           </mt-popup>
@@ -143,7 +143,7 @@
           <mt-popup v-model="cardboolean2" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
               <span class="picker-cancel" @click="closePicker2('qx2')">清除</span>
-              <span class="picker-confirm" @click="closePicker2()">完成</span>
+              <span class="picker-confirm" @click="closePicker2('wc2')">完成</span>
             </div>
             <mt-picker :slots="actions2" valueKey="staffName" @change="onPickerChange2($event,$event.values)"></mt-picker>
           </mt-popup>
@@ -319,21 +319,10 @@ export default {
       if (type === "pickerVisible2" || type === "pickerVisible1" || type === "staff1" || type === "staff2")
         this.pickerBoolean = true;
       if (type === "pickerVisible4") this.pickerBoolean2 = false;
-      this.$set(this.products[index], type, true);
 
-      if (this.changeType && this.pickerBoolean) {
-        
-        // this.$forceUpdate();
-        // this.$set(
-        //   this.products[index],
-        //   "name1",
-        //   this.actions1[0].values[0].staffName
-        // );
-        // this.$set(
-        //   this.products[index],
-        //   "staffId",
-        //   this.actions1[0].values[0].staffId
-        // );
+      if (this.changeType ) {
+      this.$set(this.products[index], type, true);
+          
       } else {
         this.cardboolean1 = type === "staff1" ? true : false;
         this.cardboolean2 = type === "staff2" ? true : false;
@@ -354,6 +343,14 @@ export default {
         this.$set(item, "name1", "");
         this.$set(item, "staffId", "");
       }
+      if (type === "pickerVisible1"&&!item.name1&&!qx) {
+        this.$set(item, "name1", this.actions1[0].values[0].staffName);
+        this.$set(item, "staffId", this.actions1[0].values[0].staffId);
+      }
+      if (type === "pickerVisible2"&&!item.name2&&!qx) {
+        this.$set(item, "name2", this.actions1[0].values[0].staffName);
+        this.$set(item, "staffId2", this.actions1[0].values[0].staffId);
+      }
       if (qx === "qx2") {
         this.$set(item, "name2", "");
         this.$set(item, "staffId2", "");
@@ -362,7 +359,6 @@ export default {
         this.$set(item, 'vipCard1',false);
         this.$set(item, 'name4','');
         this.$set(item, "vipCard", false);
-        console.log(item)
         this.totolMoneyFun(true);
       }
     },
