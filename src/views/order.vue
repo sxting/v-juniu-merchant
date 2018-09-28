@@ -279,12 +279,12 @@ export default {
       // this.$router.push('/erwmCharge');
     },
     toMemberInfo() {
-      // this.$router.push({
-      //     name: 'memberInfo',
-      //     params: {
-      //         customerId: this.chargeInfo.memberInfo.customer.customerId
-      //     }
-      //   });
+      this.$router.push({
+          name: 'memberInfo',
+          params: {
+              customerId: this.chargeInfo.memberInfo.customer.customerId
+          }
+        });
     },
     addGood() {
       this.restProductJson();
@@ -426,7 +426,13 @@ export default {
       this.isShowBus = !this.isShowBus;
     },
     toAddMember() {
-      this.$router.push("/addMember");
+      // this.$router.push("/addMember");
+      this.$router.push({
+        name: 'addMember',
+        params:{
+          customerId: false
+        }
+      })
     },
     closeModal() {
       this.isShowBus = false;
