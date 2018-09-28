@@ -2,11 +2,9 @@
     <div class="main ub ub-ver">
         <div class="toper">
             <img src="../../assets/icon_fail.png" class="udb mato" width="60" height="60">
-            <p class="bc f16 tx-c mt15">收银成功</p>
-            <p class="sc f12 tx-c mt05">所选银行卡余额不足</p>
+            <p class="bc f16 tx-c mt15">收银失败</p>
             <div class="ub ub-pj1 mt50 plr15">
-                <div class="btn">返回首页</div>
-                <div class="btn">继续收银</div>
+                <!-- <div class="btn" >返回首页</div> -->
             </div>
         </div>
         <div v-if="isShowMember" class="mt10 bgb">
@@ -28,7 +26,7 @@
             </div>
         </div>
         <div class="mt30 plr15">
-            <div class="btn_common">重新支付</div>
+            <div class="btn_common" @click="toHome">返回首页</div>
         </div>
     </div>
 </template>
@@ -44,6 +42,10 @@ export default {
     methods: {
         toDetail(){
             this.$router.push('/memberInfo');
+        },
+        toHome(){
+        this.$router.push("/home");
+            
         }
     },
     computed: {

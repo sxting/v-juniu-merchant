@@ -1,25 +1,29 @@
 <template>
   <div v-show="isShowPayWay" class="modal ub ub-ac ub-pc" @click="modalListener">
     <div class="paybox plr10">
-      <!-- <div class="content"> -->
-        <!-- <div class="title">扫码收款</div>
-        <div class="ub ub-ac ub-pj mt05"> -->
-          <!-- <div class="item">
+      <div class="content">
+        <div class="title">扫码收款</div>
+        <div class="ub ub-ac ub-pj mt05">
+          <div class="item" @click="focusclick">
             <img src="../assets/ion_sys.png" class="udb">
             <p class="sc f12">扫一扫</p>
-          </div> -->
-          <!-- <div class="item" @click="toerwmCharge('alipay')">
-            <img src="../assets/ion_alipay.png" class="udb">
-            <p class="sc f12">支付宝</p>          
           </div>
-          <div class="item" @click="toerwmCharge('wx')">
-            <img src="../assets/ion_wx.png" class="udb">
-            <p class="sc f12">微信</p>          
-          </div> -->
-          <!-- <div class="item">
+          <div class="" >
+            <!-- <img src="../assets/ion_alipay.png" class="udb">
+            <p class="sc f12">支付宝</p>           -->
+            <input type="number" class="inputvalues" @blur="focusState = false" v-focus="focusState" :value="inputvalue" @change="inputvalueFun($event.target.value)">
           </div>
-        </div> -->
-      <!-- </div> -->
+          <div class="item" >
+            <button class="btn_common" style="width: 1.1rem;
+    height: 0.6rem;
+    line-height: 0.6rem;"  @click="toerwmCharge('saomai',inputvalue)">确认</button>
+            <!-- <img src="../assets/ion_wx.png" class="udb">
+            <p class="sc f12">微信</p>           -->
+          </div>
+          <div class="item">
+          </div>
+        </div>
+      </div>
       <div class="content btc">
         <div class="title">记录收款</div>
         <div class="ub ub-ac ub-pj mt05">
@@ -54,14 +58,39 @@ export default {
         modalClickHide: false, //模态背景层点击是否可以隐藏
         title: "提示",
         content: "请确认"
-      }
+      },
+      inputvalue:'',
+      focusState:false
     };
   },
+  directives: {
+    focus: {
+      update: function (el, {value}) {
+        if (value) {
+          el.focus()
+        }
+      }
+    }
+  },
   methods: {
-    toerwmCharge(str) {
+    focusclick () {
+      this.focusState = true
+    },
+    inputvalueFun(event){
+      this.inputvalue = event;
+    },
+    toerwmCharge(str,value) {
       // this.$emit("update:payWay", str);
       let st = str
-      this.$emit("increment", st);
+      if(st!=='saomai'&&!value) this.$emit("increment", st);
+      else{
+        if(value&&value.length>=18){
+          this.$emit("increment", st,value);
+        }else{
+          alert('条形码格式不正确')
+        }
+      }
+      
       // this.$store.commit("updatePayType", str);
       // this.$router.push("/erwmCharge");
     },
@@ -87,6 +116,14 @@ export default {
   right: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+.inputvalues{
+      width: 3rem;
+    border: 1px solid #e5e5e5;
+    /* background-color: white; */
+    height:0.6rem;
+    border-radius: 0.1rem;
+    padding: 0.1rem;
 }
 .paybox {
   width: 100%;

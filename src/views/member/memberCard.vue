@@ -1,127 +1,127 @@
 <template>
-    <div class="main">
-        <div class="content bgb">
-            <div class="plr15">
-                <div class="tabList ub ub-pj">
-                    <div v-for="(item,index) in tabList" :key="index" :class="{'on':curTabIndex==index}" @click="swtichTab(index)">{{item}}</div>
-                </div>
-            </div>
-            <div v-show="curTabIndex==0" class="voucher bgb">
-                <div class="item type1" v-for="(item,index) in cardInfo.STOREDList" :key="index" @click="toRecharge(item)">
-                    <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
-                    <p>{{item.cardConfigName}}</p>
-                    <div class="ub ub-pj ub-ac amount" v-if="!item.yichiyou">
-                        <p class="f20">储值{{item.rules[0].balance/100}}元</p>
-                        <p class="f20">￥{{item.rules[0].price/100}}元</p>
-                    </div>
-                    <div class="btc1 ub ub-pj date" v-if="!item.yichiyou">
-                        <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
-                            <i class="ml10 f12">有效期：{{item.rules[0].validate==='99999999'?'永久有效':item.rules[0].validate}}天</i>
-                        </p>
-                        <button>购买</button>
-                    </div>
-
-                    <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
-                        <p class="f20">余额{{item.cardInfo.card.balance/100}}元</p>
-                    </div>
-                    <div class="btc1 ub ub-pj date" v-if="item.yichiyou">
-                        <div class="f12">
-                            <p>{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}</p>
-                            <p>
-                                <i class=" f12">有效期截止：{{item.cardInfo.card.validity}}</i>
-                            </p>
-                        </div>
-                        <button>充值</button>
-                    </div>
-                </div>
-            </div>
-            <div v-show="curTabIndex==1" class="voucher bgb">
-                <div class="item type2" v-for="(item,index) in cardInfo.REBATEList" :key="index" @click="toRecharge(item)">
-                    <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
-                    <p>{{item.cardConfigName}}</p>
-                    <div class="ub ub-pj ub-ac amount" v-if="!item.yichiyou">
-                        <p class="f20">储值{{item.rules[0].balance/100}}元({{item.rules[0].rebate}}折卡)</p>
-                        <p class="f20">￥{{item.rules[0].price/100}}元</p>
-                    </div>
-                    <div class="btc1 ub ub-pj date" v-if="!item.yichiyou">
-                        <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
-                            <i class="ml10 f12">有效期：{{item.rules[0].validate==='99999999'?'永久有效':item.rules[0].validate}}天</i>
-                        </p>
-                        <button>购买</button>
-                    </div>
-
-                    <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
-                        <p class="f20">余额{{item.cardInfo.card.balance/100}}元({{item.rules[0].rebate}}折卡)</p>
-                    </div>
-                    <div class="btc1 ub ub-pj date" v-if="item.yichiyou">
-                        <div class="f12">
-                            <p>{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}</p>
-                            <p>
-                                <i class=" f12">有效期截止：{{item.cardInfo.card.validity}}</i>
-                            </p>
-                        </div>
-                        <button>充值</button>
-                    </div>
-                </div>
-            </div>
-            <div v-show="curTabIndex==2" class="voucher bgb">
-                <div class="item type3" v-for="(item,index) in cardInfo.METERINGList" :key="index" @click="toRecharge(item)">
-                    <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
-                    <p>{{item.cardConfigName}}</p>
-                    <div class="ub ub-pj ub-ac amount" v-if="!item.yichiyou">
-                        <p class="f20">{{item.rules[0].balance}}次</p>
-                        <p class="f20">￥{{item.rules[0].price/100}}元</p>
-                    </div>
-                    <div class="btc1 ub ub-pj date" v-if="!item.yichiyou">
-                        <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
-                            <i class="ml10 f12">有效期：{{item.rules[0].validate==='99999999'?'永久有效':item.rules[0].validate}}天</i>
-                        </p>
-                        <button>购买</button>
-                    </div>
-
-                    <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
-                        <p class="f20">{{item.cardInfo.card.balance}}次</p>
-                    </div>
-                    <div class="btc1 ub ub-pj date" v-if="item.yichiyou">
-                        <div class="f12">
-                            <p>{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}</p>
-                            <p>
-                                <i class=" f12">有效期截止：{{item.cardInfo.card.validity}}</i>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div v-show="curTabIndex==3" class="voucher bgb">
-                <div class="item type4" v-for="(item,index) in cardInfo.TIMESList" :key="index" @click="toRecharge(item)">
-                    <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
-                    <p>{{item.cardConfigName}}</p>
-                    <div class="ub ub-pj ub-ac amount" v-if="!item.yichiyou">
-                        <p class="f20" v-if="item.rules[0].validate!=='99999999'">有效期：{{item.rules[0].validate}}天</p>
-                        <p class="f20" v-if="item.rules[0].validate==='99999999'">永久有效</p>
-                        <p class="f20">￥{{item.rules[0].price/100}}元</p>
-                    </div>
-                    <div class="btc1 ub ub-pj date" v-if="!item.yichiyou">
-                        <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
-                        </p>
-                        <button>购买</button>
-                    </div>
-
-                    <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
-                        <div class="f20" v-if="item.rules[0].validate!=='99999999'">
-                            <p>有效期截止：</p>
-                            <p>{{item.cardInfo.card.validity}}</p>
-                        </div>
-                    </div>
-                    <div class="btc1 ub ub-pj date" v-if="item.yichiyou">
-                        <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
-                        </p>
-                    </div>
-                </div>
-            </div>
+  <div class="main">
+    <div class="content bgb">
+      <div class="plr15">
+        <div class="tabList ub ub-pj">
+          <div v-for="(item,index) in tabList" :key="index" :class="{'on':curTabIndex==index}" @click="swtichTab(index)">{{item}}</div>
         </div>
-        <alertBox ref="alertBox"></alertBox>
+      </div>
+      <div v-show="curTabIndex==0" class="voucher bgb">
+        <div class="item type1" v-for="(item,index) in cardInfo.STOREDList" :key="index" @click="toRecharge(item)">
+          <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
+          <p>{{item.cardConfigName}}</p>
+          <div class="ub ub-pj ub-ac amount" v-if="!item.yichiyou">
+            <p class="f20">储值{{item.rules[0].balance/100}}元</p>
+            <p class="f20">￥{{item.rules[0].price/100}}元</p>
+          </div>
+          <div class="btc1 ub ub-pj date" v-if="!item.yichiyou">
+            <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
+              <i class="ml10 f12">有效期：{{item.rules[0].validate==='99999999'?'永久有效':item.rules[0].validate}}天</i>
+            </p>
+            <button>购买</button>
+          </div>
+
+          <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
+            <p class="f20">余额{{item.cardInfo.card.balance/100}}元</p>
+          </div>
+          <div class="btc1 ub ub-pj date" v-if="item.yichiyou">
+            <div class="f12">
+              <p>{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}</p>
+              <p>
+                <i class=" f12">有效期截止：{{item.cardInfo.card.validity}}</i>
+              </p>
+            </div>
+            <button>充值</button>
+          </div>
+        </div>
+      </div>
+      <div v-show="curTabIndex==1" class="voucher bgb">
+        <div class="item type2" v-for="(item,index) in cardInfo.REBATEList" :key="index" @click="toRecharge(item)">
+          <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
+          <p>{{item.cardConfigName}}</p>
+          <div class="ub ub-pj ub-ac amount" v-if="!item.yichiyou">
+            <p class="f20">储值{{item.rules[0].balance/100}}元({{item.rules[0].rebate}}折卡)</p>
+            <p class="f20">￥{{item.rules[0].price/100}}元</p>
+          </div>
+          <div class="btc1 ub ub-pj date" v-if="!item.yichiyou">
+            <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
+              <i class="ml10 f12">有效期：{{item.rules[0].validate==='99999999'?'永久有效':item.rules[0].validate}}天</i>
+            </p>
+            <button>购买</button>
+          </div>
+
+          <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
+            <p class="f20">余额{{item.cardInfo.card.balance/100}}元({{item.rules[0].rebate}}折卡)</p>
+          </div>
+          <div class="btc1 ub ub-pj date" v-if="item.yichiyou">
+            <div class="f12">
+              <p>{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}</p>
+              <p>
+                <i class=" f12">有效期截止：{{item.cardInfo.card.validity}}</i>
+              </p>
+            </div>
+            <button>充值</button>
+          </div>
+        </div>
+      </div>
+      <div v-show="curTabIndex==2" class="voucher bgb">
+        <div class="item type3" v-for="(item,index) in cardInfo.METERINGList" :key="index" @click="toRecharge(item)">
+          <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
+          <p>{{item.cardConfigName}}</p>
+          <div class="ub ub-pj ub-ac amount" v-if="!item.yichiyou">
+            <p class="f20">{{item.rules[0].balance}}次</p>
+            <p class="f20">￥{{item.rules[0].price/100}}元</p>
+          </div>
+          <div class="btc1 ub ub-pj date" v-if="!item.yichiyou">
+            <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
+              <i class="ml10 f12">有效期：{{item.rules[0].validate==='99999999'?'永久有效':item.rules[0].validate}}天</i>
+            </p>
+            <button>购买</button>
+          </div>
+
+          <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
+            <p class="f20">{{item.cardInfo.card.balance}}次</p>
+          </div>
+          <div class="btc1 ub ub-pj date" v-if="item.yichiyou">
+            <div class="f12">
+              <p>{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}</p>
+              <p>
+                <i class=" f12">有效期截止：{{item.cardInfo.card.validity}}</i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="curTabIndex==3" class="voucher bgb">
+        <div class="item type4" v-for="(item,index) in cardInfo.TIMESList" :key="index" @click="toRecharge(item)">
+          <div class="remark " :class="item.yichiyou?'yi':'wei'">{{item.yichiyou?'已持有':'未持有'}}</div>
+          <p>{{item.cardConfigName}}</p>
+          <div class="ub ub-pj ub-ac amount" v-if="!item.yichiyou">
+            <p class="f20" v-if="item.rules[0].validate!=='99999999'">有效期：{{item.rules[0].validate}}天</p>
+            <p class="f20" v-if="item.rules[0].validate==='99999999'">永久有效</p>
+            <p class="f20">￥{{item.rules[0].price/100}}元</p>
+          </div>
+          <div class="btc1 ub ub-pj date" v-if="!item.yichiyou">
+            <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
+            </p>
+            <button>购买</button>
+          </div>
+
+          <div class="ub ub-pj ub-ac amount" v-if="item.yichiyou">
+            <div class="f20" v-if="item.rules[0].validate!=='99999999'">
+              <p>有效期截止：</p>
+              <p>{{item.cardInfo.card.validity}}</p>
+            </div>
+          </div>
+          <div class="btc1 ub ub-pj date" v-if="item.yichiyou">
+            <p class="f12">{{item.rules[0].applyProductType==='ALL'?'全部商品可用':'部分商品可用'}}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
+    <alertBox ref="alertBox"></alertBox>
+  </div>
 </template>
 
 <script>
@@ -149,7 +149,7 @@ export default {
     toRecharge(item) {
       this.chargeInfo.cardInfo = item;
       this.chargeInfo.changeType = false;
-      if(item.yichiyou) this.chargeInfo.cardInfo.xyVip = true;
+      if (item.yichiyou) this.chargeInfo.cardInfo.xyVip = true;
       else this.chargeInfo.cardInfo.xyVip = false;
       sessionStorage.setItem("chargeInfo", JSON.stringify(this.chargeInfo));
       if (item.yichiyou && item.type !== "METERING" && item.type !== "TIMES")
@@ -196,12 +196,14 @@ export default {
           if (res.success) {
             let cardConfigList = res.data.cardConfig;
             cardConfigList.forEach(function(i) {
-              list.forEach(function(n) {
-                if (i.cardConfigId === n.card.cardConfigId) {
-                  i.yichiyou = true;
-                  i.cardInfo = n;
-                }
-              });
+              if (list && list.length > 0) {
+                list.forEach(function(n) {
+                  if (i.cardConfigId === n.card.cardConfigId) {
+                    i.yichiyou = true;
+                    i.cardInfo = n;
+                  }
+                });
+              }
             });
             that.cardInfo = that.cardFun(cardConfigList);
             console.log(that.cardInfo);

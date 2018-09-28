@@ -174,7 +174,7 @@
         </div>
       </div>
       <div class="ub">
-        <div class="ub-f1 total" v-if="changeType">￥<input class="shifuInput" style="color:#fff;" :value="inputValue" type="number"></div>
+        <div class="ub-f1 total" v-if="changeType">￥<input class="shifuInput" style="color:#fff;" :value="inputValue" @change="inputValueFun($event.target.value)" type="number"></div>
         <div class="ub-f1 total" v-else>￥{{cardInputValue}}</div>
         <button :disabled="isDisabled" type="button" @click="toerwmCharge">去结算</button>
       </div>
@@ -254,6 +254,9 @@ export default {
         "isShowMoreItem",
         !this.products[index].isShowMoreItem
       );
+    },
+    inputValueFun(event){
+      this.inputValue = event;
     },
     switchBoolen1(item) {
       this.$forceUpdate();
@@ -970,6 +973,7 @@ export default {
     jiesuanFun(type) {
       let that = this;
       console.log(this.authCode);
+      console.log(this.inputValue)
       let create = {};
       if (this.memberInfo) {
         create.customerName = this.memberInfo.customerName;
@@ -1162,6 +1166,7 @@ export default {
 
       create.storeId = this.storeId;
       create.wipeDecimal = that.isSwitch2;
+      
       // create.faceId = this.selectFaceId;
       this.spinBoolean = true;
       if (this.xyVip) {
@@ -1406,9 +1411,14 @@ export default {
       this.ticketListArrFun();
       // that.checkTicketStatus();
     },
-    incrementTotal(target) {
-      this.payType = target;
-      this.jiesuanFun(target);
+    incrementTotal(target,value) {
+      if(target === 'saomai'){
+        this.authCode = value;
+        this.jiesuanFun();
+      }else{
+        this.payType = target;
+        this.jiesuanFun(target);
+      }
     }
   },
   created() {
