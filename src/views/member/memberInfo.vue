@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="ub ub-pj mt10">
-                <p class="f12 bc1">生日：{{customer.birthday}}</p>
+                <p class="f12 bc1">生日：{{customer.birthday ? customer.birthday : '--'}}</p>
                 <p class="f12 bc1">持卡张数：{{cardApplies.length}}</p>
             </div>
             <div class="ub ub-pj mt10">

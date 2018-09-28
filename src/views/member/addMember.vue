@@ -55,6 +55,7 @@ export default {
             dateVal:new Date('2000-01-01'),
             storeId: sessionStorage.getItem('storeId'),
             customerId: '',
+            chargeInfo: '',
             // isMale:true,
             // pickerVisible:false,
             // markList:["标签1","标签1","标签1","标签1"]
@@ -80,6 +81,7 @@ export default {
             this.bathDate = year+'-'+(month<10?'0'+month:month)+"-"+(day<10?'0'+day:day);
         },
         submit(){
+            let self =this;
             let reg = /^1\d{10}$/;
             if (!this.tel || !this.name) {
                 alert('手机号或客户名称不能为空');
@@ -100,7 +102,20 @@ export default {
                     url = '/merchant/member/customer/updateCustomer.json';
                     this.$ajax.get(url, {params: data}).then(function (res) {
                         if(res.success) {
-                            history.go(-1);
+                            let url1 = '/merchant/member/card/searchs.json';
+                            let data1 = {
+                                storeId: self.storeId,
+                                search: self.tel
+                            };
+                            self.$ajax.get(url1, {params: data1}).then(function(res) {
+                                    if (res.success) {
+                                        self.chargeInfo.memberInfo = res.data[0];
+                                        sessionStorage.setItem('chargeInfo', JSON.stringify(self.chargeInfo));
+                                        history.go(-1);
+                                    } else {
+                                        alert(res.errorInfo);
+                                    }
+                                });
                         } else {
                             alert(res.errorInfo);
                         }
@@ -124,7 +139,16 @@ export default {
     created() {
         document.title = '开通会员';
         this.customerId = this.$route.params.customerId;
-        // this.customerId = '1538019181920171018750';
+        this.chargeInfo = JSON.parse(sessionStorage.getItem('chargeInfo'));
+        if(this.customerId && sessionStorage.getItem('chargeInfo')) {
+            this.memberInfo = JSON.parse(sessionStorage.getItem('chargeInfo')).memberInfo;
+            let customer = this.memberInfo ? this.memberInfo.customer : {};
+            this.bathDate = customer.birthday;
+            this.name = customer.customerName;
+            this.curMaleIndex = customer.gender;
+            this.tel = customer.phone;
+            this.remark = customer.remarks;
+        }
     }
 };
 </script>
