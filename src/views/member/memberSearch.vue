@@ -9,7 +9,7 @@
       <ul class="result plr15" v-show="isShowList">
         <li class="ub ub-ac bbc" v-for="(item,index) in userList" :key="index" @click="slectedItem(item)">
           <p class="ub ub-ac w100">
-            <i v-if="item.cardApplies.length>0" class="icon_card"></i>
+            <i v-if="item.cardApplies&&item.cardApplies.length>0" class="icon_card"></i>
           </p>
           <p>{{item.customer.customerName}}</p>
           <p class="ml20">{{item.customer.customerName}}</p>

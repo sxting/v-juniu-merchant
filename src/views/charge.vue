@@ -33,7 +33,7 @@
           <i class="icon_male ml05" v-if="chargeInfo.memberInfo.customer.gender==1"></i>
           <i class="icon_women ml05" v-if="chargeInfo.memberInfo.customer.gender==0"></i>
           <i class="icon_weizhi ml05" v-if="chargeInfo.memberInfo.customer.gender==2"></i>
-          <i class="icon_card ml10" v-if="chargeInfo.memberInfo.cardApplies.length>0"></i>
+          <i class="icon_card ml10" v-if="chargeInfo.memberInfo.cardApplies&&chargeInfo.memberInfo.cardApplies.length>0"></i>
         </p>
         <p class="f12 mt05 bc1">{{chargeInfo.memberInfo.customer.phone}}</p>
       </div>

@@ -16,7 +16,7 @@
             <i class="icon_male ml05" v-if="chargeInfo.memberInfo.customer.gender==1"></i>
             <i class="icon_women ml05" v-if="chargeInfo.memberInfo.customer.gender==0"></i>
             <i class="icon_weizhi ml05" v-if="chargeInfo.memberInfo.customer.gender==2"></i>
-            <i class="icon_card ml10" v-if="chargeInfo.memberInfo.cardApplies.length>0"></i>
+            <i class="icon_card ml10" v-if="chargeInfo.memberInfo.cardApplies&&chargeInfo.memberInfo.cardApplies.length>0"></i>
           </p>
           <p class="f12 mt05 bc1">{{chargeInfo.memberInfo.customer.phone}}</p>
         </div>
@@ -66,7 +66,7 @@
             <p class="f13">{{item.name3}}折</p>
             <i class="arrow-down"></i>
           </div>
-          <div class="item ub ub-pj ub-ac" @click="openPicker(index,'pickerVisible4')" v-if="isShowMember">
+          <div class="item ub ub-pj ub-ac" @click="openPicker(index,'pickerVisible4')" v-if="isShowMember&&chargeInfo.memberInfo.cardApplies&&chargeInfo.memberInfo.cardApplies.length>0">
             <p class="ub-f1 sc f13 pl48">会员卡</p>
             <span class="money f13"></span>
             <p class="f13">
@@ -135,7 +135,7 @@
           <mt-popup v-model="cardboolean1" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
               <span class="picker-cancel" @click="closePicker2('qx1')">清除</span>
-              <span class="picker-confirm" @click="closePicker2()">完成</span>
+              <span class="picker-confirm" @click="closePicker2('wc1')">完成</span>
             </div>
             <mt-picker :slots="actions1" valueKey="staffName" @change="onPickerChange1($event,$event.values)"></mt-picker>
           </mt-popup>
@@ -143,7 +143,7 @@
           <mt-popup v-model="cardboolean2" position="bottom" class="w_100">
             <div class="picker-toolbar bbc">
               <span class="picker-cancel" @click="closePicker2('qx2')">清除</span>
-              <span class="picker-confirm" @click="closePicker2()">完成</span>
+              <span class="picker-confirm" @click="closePicker2('wc2')">完成</span>
             </div>
             <mt-picker :slots="actions2" valueKey="staffName" @change="onPickerChange2($event,$event.values)"></mt-picker>
           </mt-popup>
@@ -320,20 +320,9 @@ export default {
         this.pickerBoolean = true;
       if (type === "pickerVisible4") this.pickerBoolean2 = false;
 
-      if (this.changeType && this.pickerBoolean) {
+      if (this.changeType ) {
       this.$set(this.products[index], type, true);
-        
-        // this.$forceUpdate();
-        // this.$set(
-        //   this.products[index],
-        //   "name1",
-        //   this.actions1[0].values[0].staffName
-        // );
-        // this.$set(
-        //   this.products[index],
-        //   "staffId",
-        //   this.actions1[0].values[0].staffId
-        // );
+          
       } else {
         this.cardboolean1 = type === "staff1" ? true : false;
         this.cardboolean2 = type === "staff2" ? true : false;
@@ -354,6 +343,14 @@ export default {
         this.$set(item, "name1", "");
         this.$set(item, "staffId", "");
       }
+      if (type === "pickerVisible1"&&!item.name1&&!qx) {
+        this.$set(item, "name1", this.actions1[0].values[0].staffName);
+        this.$set(item, "staffId", this.actions1[0].values[0].staffId);
+      }
+      if (type === "pickerVisible2"&&!item.name2&&!qx) {
+        this.$set(item, "name2", this.actions1[0].values[0].staffName);
+        this.$set(item, "staffId2", this.actions1[0].values[0].staffId);
+      }
       if (qx === "qx2") {
         this.$set(item, "name2", "");
         this.$set(item, "staffId2", "");
@@ -362,7 +359,6 @@ export default {
         this.$set(item, 'vipCard1',false);
         this.$set(item, 'name4','');
         this.$set(item, "vipCard", false);
-        console.log(item)
         this.totolMoneyFun(true);
       }
     },
