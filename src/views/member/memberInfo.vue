@@ -11,7 +11,7 @@
                         <i v-else class="icon_women ml05"></i>
                         <i class="icon_card ml10"></i>
                     </p>
-                    <p class="mt05"><i class="icon_tel"></i><a href="" class="f12 bc1">{{customer.phone}}</a></p>
+                    <p class="mt05"><i class="icon_tel"></i><a href="javascript:void(0)" class="f12 bc1">{{customer.phone}}</a></p>
                 </div>
                 <div style="height:0.8rem">
                     <div class="compilebtn ub ub-ac ub-pc" @click="toAddMember()"><i class="icon_compile"></i>编辑</div>
