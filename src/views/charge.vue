@@ -66,7 +66,8 @@
             <ul>
               <li v-for="(food, index2)  in item.productList" :key="index2" class="food-item ub ub-ac">
                 <div class="icon">
-                  <img :src="food.picUrl || 'src/assets/default.png'" alt="" width="80" height="80">
+                    <img v-if="food.picUrl" :src="food.picUrl" alt="" width="80" height="80">
+                    <img v-else src="../assets/default.png" alt="" width="80" height="80">
                 </div>
                 <div class="content ub-f1">
                   <h2 class="name">{{food.productName}}</h2>
