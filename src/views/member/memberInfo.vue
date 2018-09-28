@@ -33,7 +33,9 @@
                 <li :class="{'on':curTabIndex==1}" @click="swtichTab(1)">消费记录</li>
             </div>
             <div v-show="curTabIndex==0" class="voucher bgb">
-                <div class="item" v-for="item in cardApplies">
+                <div class="item" v-for="item in cardApplies"
+                     v-bind:class="{'type1': item.card.type === 'TIMES', 'type2': item.card.type === 'REBATE',
+                     'type3': item.card.type === 'METERING', 'type4': item.card.type === 'STORED'}">
                     <!--<div class="remark yi">已持有</div>-->
                     <p>{{item.card.cardName}}</p>
                     <div class="ub ub-pj ub-ac amount">
@@ -150,6 +152,18 @@ li.on{color: #ff6000!important;border-bottom: #ff6000 1px solid!important;}
 
 .voucher{padding:0.01rem 0.24rem 0.30rem;}
 .voucher .item{width: 100%;padding: 0.30rem;margin-top: 0.30rem;background: linear-gradient(left,#FF6C6C,#ffb444);color: #fff;border-radius: 0.10rem;position: relative;box-shadow: 0 8px 13px rgba(255,96,0,0.2);overflow: hidden}
+.voucher .type1 {
+    background-image: linear-gradient(left, #fba13a, #fdb24d);
+}
+.voucher .type2 {
+    background-image: linear-gradient(left, #ff6c6c, #ffb444);
+}
+.voucher .type3 {
+    background-image: linear-gradient(left, #4d93ff, #62c0f2);
+}
+.voucher .type4 {
+    background-image: linear-gradient(left, #726bff, #f9aeff);
+}
 .voucher .item .remark{width: 1.2rem;height: 0.6rem;padding-top: 0.23rem;font-size: 0.18rem;color: #fff;background-color: #ff8000;transform: rotate(45deg);position: absolute;top: -0.08rem;right: -0.37rem;text-align: center;}
 .voucher .item .remark.yi{color: #fff;background-color: #ff8000;}
 .voucher .item .remark.wei{color: #999;background-color: #dedede;}
