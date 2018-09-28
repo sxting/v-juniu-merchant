@@ -3,7 +3,7 @@
         <div class="bgb plr15">
             <div class="item bbc ub ub-pj ub-ac">
                 <p class="f14 bc">顾客电话</p>
-                <input class="ub-f1 tx-r f14" v-model="tel" placeholder="请输入顾客电话" maxlength="11" />
+                <input class="ub-f1 tx-r f14" v-model="tel" type="number" placeholder="请输入顾客电话" />
             </div>
             <div class="item bbc ub ub-pj ub-ac">
                 <p class="f14 bc">顾客姓名</p>
@@ -111,6 +111,7 @@ export default {
                                     if (res.success) {
                                         self.chargeInfo.memberInfo = res.data[0];
                                         sessionStorage.setItem('chargeInfo', JSON.stringify(self.chargeInfo));
+                                        alert('编辑成功');
                                         history.go(-1);
                                     } else {
                                         alert(res.errorInfo);
@@ -125,6 +126,7 @@ export default {
                     url = '/merchant/member/customer/add.json';
                     this.$ajax.post(url, data).then(function (res) {
                         if(res.success) {
+                            alert('开通成功');
                             history.go(-1);
                         } else {
                             alert(res.errorInfo);
