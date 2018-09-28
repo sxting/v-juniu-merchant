@@ -178,9 +178,9 @@ export default {
         getData(index) {
             let data = {
                 status: 'INIT',
-                storeId: '1529474856673612355868',
+                storeId: sessionStorage.getItem('storeId'),
                 pageNo: this.pageNo,
-                pageSize: 15
+                pageSize: 30
             };
             if(index === 0) {
                 data.status = 'INIT';
@@ -233,7 +233,8 @@ export default {
                     let data = { reservationId: id };
                     this.$ajax.get(url, {params: data}).then(function (res) {
                         if(res.success) {
-                            self.getData(this.curTabIndex);
+                            alert('操作成功');
+                            self.getData(self.curTabIndex);
                         } else {
                             alert(res.errorInfo);
                         }
@@ -248,7 +249,8 @@ export default {
             let data = { reservationId: id };
             this.$ajax.get(url, {params: data}).then(function (res) {
                 if(res.success) {
-                    self.getData(this.curTabIndex);
+                    alert('操作成功');
+                    self.getData(self.curTabIndex);
                 } else {
                     alert(res.errorInfo);
                 }
@@ -267,7 +269,8 @@ export default {
                     let data = { reservationsId: id };
                     this.$ajax.get(url, {params: data}).then(function (res) {
                         if(res.success) {
-                            self.getData(this.curTabIndex);
+                            alert('操作成功');
+                            self.getData(self.curTabIndex);
                         } else {
                             alert(res.errorInfo);
                         }
