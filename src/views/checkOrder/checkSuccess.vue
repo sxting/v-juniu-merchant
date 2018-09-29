@@ -6,7 +6,7 @@
             <!--<p class="sc f12 tx-c mt05">顾客名称(15011562222)</p>-->
             <div class="mt20 ub plr20">
                 <!--<div class="btn_back ub-f1 ub ub-ac ub-pc mt40">返回首页</div>-->
-                <div class="btn_print ub-f1 ub ub-ac ub-pc mt40">返回首页</div>
+                <div class="btn_print ub-f1 ub ub-ac ub-pc mt40" @click="goHome">返回首页</div>
                 <!--<div class="btn_print ub-f1 ub ub-ac ub-pc">打印小票</div>-->
             </div>
         </div>
@@ -76,6 +76,9 @@
         methods: {
             toDetail(){
                 this.$router.push('/memberInfo');
+            },
+            goHome() {
+                this.$router.push('/home');
             }
         },
         computed: {
