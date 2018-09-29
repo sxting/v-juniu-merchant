@@ -138,7 +138,7 @@ export default {
           // 注入配置
           wx.config(resp.data);
         } else {
-          alert("config error:" + resp.errorInfo);
+          // alert("config error:" + resp.errorInfo);
         }
       })
       .catch(function(error) {
