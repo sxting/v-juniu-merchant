@@ -150,11 +150,6 @@
             }
         },
         created(){
-            let a = 'www';
-            console.log(a.split(',')[1]);
-            if(a.split(',')[1]) {
-                console.log(a.split(',')[1]);
-            }
             document.title = "核销";
             this.type = this.$route.params.type;
             this.getData();
