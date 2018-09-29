@@ -2,8 +2,7 @@
 <template>
     <div class="main">
         <div class="bar">{{sellName}}
-            <!--@click="toPath('SelectSell', '')"-->
-            <!--<i class="iconfont icon-arrow"></i>-->
+            <!--<i class="iconfont icon-arrow" v-if="ifShow" @click="toPath('SelectSell', '')"></i>-->
         </div>
         <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
             <span class="icon icon_sy"></span>
@@ -38,6 +37,7 @@ export default {
       pickerVisible: false,
       sellName: "店铺名称",
       width: "",
+      // ifShow: false,
       height: ""
     };
   },
@@ -77,6 +77,8 @@ export default {
               console.log(res.data);
               sessionStorage.setItem("storeId", res.data[0].storeId);
               self.sellName = res.data[0].branchName;
+              sessionStorage.setItem("storeList", JSON.stringify(res.data));
+              // self.ifShow = res.data.length === 1? false : true;
           } else {
               self.$toast(res.errorInfo);
           }

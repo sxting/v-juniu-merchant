@@ -6,7 +6,7 @@
             <div class="address ub ub-ac">
                 <div class="ub-f1">
                     <p class="f14 bc">{{item.branchName}}</p>
-                    <p class="f12 bc1 ub ub-ac mt05"><i class="uds icon_local"></i>店铺地址</p>
+                    <!--<p class="f12 bc1 ub ub-ac mt05"><i class="uds icon_local"></i>店铺地址</p>-->
                 </div>
                 <div class="btn" @click="toPath('/home')">工作</div>
             </div>
