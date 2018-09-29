@@ -2,7 +2,7 @@
     <div class="main">
         <div class="ub ub-ac inputDiv">
             <input type="number" class="ub-f1 code" placeholder="请输入券码对应的数字码" v-model="receiptCode" @keyup="formatInput(receiptCode)" />
-            <!--<span class="icon_sao1 mr10"></span>-->
+            <span class="icon_sao1 mr10" @click="saomiao"></span>
         </div>
         <div class="btn">
             <button class="btn_common" @click="submit()">点击核销</button>
@@ -102,6 +102,24 @@ export default {
             }
 
         },
+        saomiao() {
+            let self = this;
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果
+                scanType: ["barCode" ], // 配置扫描二维码和条形码
+                success: function(res) {
+                    // 扫描的结果
+                    var result = res.resultStr;
+                    console.log(res);
+                    alert(result);
+                    self.receiptCode = result.split(',')[1];
+                },
+                fail: function(res) {
+                    console.log(res);
+                    alert(JSON.stringify(res));
+                }
+            });
+        },
         formatInput(value) {
             this[value] = String(this[value]).replace(/[^\d]/g, ""); //清除“数字”以外的字符
         },
@@ -132,6 +150,25 @@ export default {
         document.title = "核销";
         this.type = this.$route.params.type;
         this.getData();
+        // 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用，同一个url仅需调用一次
+        // 通过后台接口获得配置
+        this.$ajax.get('http://w.juniuo.com/merchant/get_js_api_config.json', {
+            params: {
+                debug: false,
+                jsApiList: "scanQRCode", // 需要的jsapi权限，多个用半角逗号分隔
+                url: location.href.split('#')[0] // 获取到当前url
+            }
+        }).then(function (response) {
+            var resp = response.data;
+            if (resp.success) {
+                // 注入配置
+                wx.config(resp.data);
+            } else {
+                alert("config error:" + resp.errorInfo);
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 }
 </script>
