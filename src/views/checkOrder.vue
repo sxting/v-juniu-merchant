@@ -106,7 +106,8 @@
                 let self = this;
                 wx.scanQRCode({
                     needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果
-                    scanType: ["qrCode", "barCode" ], // 配置扫描二维码和条形码
+                    // "qrCode",
+                    scanType: ["barCode" ], // 配置扫描二维码和条形码
                     success: function(res) {
                         // 扫描的结果
                         var result = res.resultStr;
