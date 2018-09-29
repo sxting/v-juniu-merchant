@@ -158,13 +158,13 @@ export default {
                 jsApiList: "scanQRCode", // 需要的jsapi权限，多个用半角逗号分隔
                 url: location.href.split('#')[0] // 获取到当前url
             }
-        }).then(function (response) {
-            var resp = response.data;
-            if (resp.success) {
+        }).then(function (res) {
+            var resp = res.data;
+            if (res.success) {
                 // 注入配置
-                wx.config(resp.data);
+                wx.config(resp);
             } else {
-                alert("config error:" + resp.errorInfo);
+                alert(resp.errorInfo);
             }
         }).catch(function (error) {
             console.log(error);
