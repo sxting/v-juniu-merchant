@@ -220,7 +220,7 @@ export default {
                     staffId: this.staffId1,
                 };
                 if(this.code.length >= 16) {
-                    this.$ajax.get(url, {params: data}).then(function (res) {
+                    this.$ajax.post(url, data).then(function (res) {
                         if(res.success) {
                             self.$router.push('/checkSuccess');
                         } else {

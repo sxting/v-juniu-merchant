@@ -106,7 +106,8 @@
                 let self = this;
                 wx.scanQRCode({
                     needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果
-                    scanType: ["qrCode", "barCode" ], // 配置扫描二维码和条形码
+                    // "qrCode",
+                    scanType: ['qrCode', "barCode" ], // 配置扫描二维码和条形码
                     success: function(res) {
                         // 扫描的结果
                         var result = res.resultStr;
@@ -155,7 +156,7 @@
             this.getData();
             // 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用，同一个url仅需调用一次
             // 通过后台接口获得配置
-            this.$ajax.get('http://w.juniuo.com/merchant/get_js_api_config.json', {
+            this.$ajax.get('https://w.juniuo.com/merchant/get_js_api_config.json', {
                 params: {
                     debug: false,
                     jsApiList: "scanQRCode", // 需要的jsapi权限，多个用半角逗号分隔
