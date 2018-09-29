@@ -192,7 +192,7 @@ export default {
             let self = this;
             if(this.type === 'koubei') {
                 let url = '/merchant/order/koubei/settle.json', data = {
-                    shopId: this.storeId,
+                    shopId: JSON.parse(sessionStorage.getItem('storeInfor')).alipayShopId,
                     ticketCode: this.code,
                     quantity: this.bookNum
                 };
