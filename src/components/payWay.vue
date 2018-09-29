@@ -81,12 +81,14 @@ export default {
       // 调起微信扫一扫
       wx.scanQRCode({
         needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果
-        scanType: ["barCode"], // 配置扫描二维码和条形码
+        scanType: ["qrCode", "barCode"], // 配置扫描二维码和条形码
         success: function(res) {
           // 扫描的结果
           var result = res.resultStr;
           // alert(result.split(",")[1]);
-          that.toerwmCharge("saomai", result.split(",")[1]);
+          if (result.indexOf(",") > -1)
+            that.toerwmCharge("saomai", result.split(",")[1]);
+          else that.toerwmCharge("saomai", result);
         },
         fail: function(res) {
           console.log(res);
@@ -122,8 +124,6 @@ export default {
     }
   },
   created() {
-    // 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用，同一个url仅需调用一次
-    // 通过后台接口获得配置
     this.$ajax
       .get("http://w.juniuo.com/merchant/get_js_api_config.json", {
         params: {
@@ -132,13 +132,13 @@ export default {
           url: location.href.split("#")[0] // 获取到当前url
         }
       })
-      .then(function(response) {
-        var resp = response.data;
-        if (resp.success) {
+      .then(function(res) {
+        var resp = res.data;
+        if (res.success) {
           // 注入配置
-          wx.config(resp.data);
+          wx.config(resp);
         } else {
-          // alert("config error:" + resp.errorInfo);
+          alert(resp.errorInfo);
         }
       })
       .catch(function(error) {
