@@ -2,7 +2,7 @@
 <template>
     <div class="main">
         <div class="bar">{{sellName}}
-            <!--<i class="iconfont icon-arrow" v-if="ifShow" @click="toPath('SelectSell', '')"></i>-->
+            <i class="iconfont icon-arrow" v-if="ifShow" @click="toPath('SelectSell', '')"></i>
         </div>
         <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
             <span class="icon icon_sy"></span>
@@ -37,7 +37,7 @@ export default {
       pickerVisible: false,
       sellName: "店铺名称",
       width: "",
-      // ifShow: false,
+      ifShow: false,
       height: ""
     };
   },
@@ -51,41 +51,65 @@ export default {
       this.height = (sw - 50) / 2 * 28 / 33 + "px";
     },
     toPath(str, type) {
-        this.$router.push({
-          name: str,
-          params: {
-              type: type
-          }
-        });
-    }
+        if(str == 'SelectSell'){
+            if(this.ifShow){//true 的话  好多门店
+                this.$router.push({
+                    name: str,
+                    params: {
+                        type: type
+                    }
+                });
+            }
+        }else {
+            this.$router.push({
+                name: str,
+                params: {
+                    type: type
+                }
+            });
+        }
+
+    },
+    getData(){
+          let self = this;
+          this.$ajax
+              .get("account/merchant/store/wechatPubStoreList.json")
+              .then(function(res) {
+                  if (res.success) {
+                      console.log(res.data);
+                      sessionStorage.setItem("storeId", res.data[0].storeId);
+                      self.sellName = res.data[0].branchName;
+                      sessionStorage.setItem("storeList", JSON.stringify(res.data));
+                      sessionStorage.setItem("storeInfor", JSON.stringify(res.data[0]));
+                      self.ifShow = res.data.length === 1? false : true;
+                  } else {
+                      self.$toast(res.errorInfo);
+                  }
+              })
+              .catch(function(err) {
+                  self.$toast(err);
+              });
+      }
   },
   created() {
-    let self = this;
-    let data = {
-      memberInfo: false,
-      products: false,
-      orderInfo: false,
-      status:false,
-      cardInfo:false,
-      changeType:true
-    };
-    sessionStorage.setItem("chargeInfo", JSON.stringify(data));
-    this.$ajax
-      .get("account/merchant/store/wechatPubStoreList.json")
-      .then(function(res) {
-          if (res.success) {
-              console.log(res.data);
-              sessionStorage.setItem("storeId", res.data[0].storeId);
-              self.sellName = res.data[0].branchName;
-              sessionStorage.setItem("storeList", JSON.stringify(res.data));
-              // self.ifShow = res.data.length === 1? false : true;
-          } else {
-              self.$toast(res.errorInfo);
-          }
-      })
-      .catch(function(err) {
-          self.$toast(err);
-      });
+      let self = this;
+      let data = {
+          memberInfo: false,
+          products: false,
+          orderInfo: false,
+          status:false,
+          cardInfo:false,
+          changeType:true
+      };
+      sessionStorage.setItem("chargeInfo", JSON.stringify(data));
+      this.sellName = this.$route.query.type? this.$route.query.type : this.sellName;
+      console.log(this.$route.query.type);
+      if(this.$route.query.type){
+          self.ifShow = true;
+      }else {
+          self.getData();
+      }
+
   },
   mounted() {
     document.title = "工作";

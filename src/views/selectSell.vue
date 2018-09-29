@@ -8,7 +8,7 @@
                     <p class="f14 bc">{{item.branchName}}</p>
                     <!--<p class="f12 bc1 ub ub-ac mt05"><i class="uds icon_local"></i>店铺地址</p>-->
                 </div>
-                <div class="btn" @click="toPath('/home')">工作</div>
+                <div class="btn" @click="toPath(item.storeId,'home')">工作</div>
             </div>
         </div>
     </div>
@@ -19,32 +19,48 @@ export default {
     name: "selectSells",
     data() {
         return {
-            storeList: []
+            storeList: [],
+            storeName: ''
         };
     },
     methods: {
-        toPath(str){
-            this.$router.push(str);
+        toPath(id,str){
+            let type = '';
+            this.storeList.forEach(function (item) {
+                if(id === item.storeId){
+                    sessionStorage.setItem("storeId", item.storeId);
+                    type = item.branchName;
+                    sessionStorage.setItem("storeInfor", JSON.stringify(item));
+                }
+            });
+            this.$router.push({
+                path: str,
+                query: {
+                    type: type
+                }
+            });
         }
     },
     created() {
         let self = this;
         document.title = '选择门店';
-        this.$ajax
-            .get("account/merchant/store/wechatPubStoreList.json")
-            .then(function(res) {
-                if (res.success) {
-                    console.log(res.data);
-                    sessionStorage.setItem("storeId", res.data[0].storeId);
-                    self.storeList = res.data;
-                    sessionStorage.setItem("storeList", JSON.stringify(res.data))
-                } else {
-                    self.$toast(res.errorInfo);
-                }
-            })
-            .catch(function(err) {
-                self.$toast(err);
-            });
+        self.storeList = JSON.parse(sessionStorage.getItem("storeList"));
+        // this.$ajax
+        //     .get("account/merchant/store/wechatPubStoreList.json")
+        //     .then(function(res) {
+        //         if (res.success) {
+        //             console.log(res.data);
+        //             sessionStorage.setItem("storeId", res.data[0].storeId);
+        //             self.storeList = res.data;
+        //             sessionStorage.setItem("storeList", JSON.stringify(res.data));
+        //             sessionStorage.setItem("storeInfor", JSON.stringify(res.data[0]));
+        //         } else {
+        //             self.$toast(res.errorInfo);
+        //         }
+        //     })
+        //     .catch(function(err) {
+        //         self.$toast(err);
+        //     });
     }
 };
 
