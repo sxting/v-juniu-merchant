@@ -38,7 +38,8 @@ export default {
       sellName: "店铺名称",
       width: "",
       ifShow: false,
-      height: ""
+      height: "",
+      storeInfor: false
     };
   },
   methods: {
@@ -51,65 +52,77 @@ export default {
       this.height = (sw - 50) / 2 * 28 / 33 + "px";
     },
     toPath(str, type) {
-        if(str == 'SelectSell'){
-            if(this.ifShow){//true 的话  好多门店
-                this.$router.push({
-                    name: str,
-                    params: {
-                        type: type
-                    }
-                });
+      if (str == "SelectSell") {
+        if (this.ifShow) {
+          //true 的话  好多门店
+          this.$router.push({
+            name: str,
+            params: {
+              type: type
             }
-        }else {
-            this.$router.push({
-                name: str,
-                params: {
-                    type: type
-                }
-            });
+          });
         }
-
-    },
-    getData(){
-          let self = this;
-          this.$ajax
-              .get("account/merchant/store/wechatPubStoreList.json")
-              .then(function(res) {
-                  if (res.success) {
-                      console.log(res.data);
-                      sessionStorage.setItem("storeId", res.data[0].storeId);
-                      self.sellName = res.data[0].branchName;
-                      sessionStorage.setItem("storeList", JSON.stringify(res.data));
-                      sessionStorage.setItem("storeInfor", JSON.stringify(res.data[0]));
-                      self.ifShow = res.data.length === 1? false : true;
-                  } else {
-                      self.$toast(res.errorInfo);
-                  }
-              })
-              .catch(function(err) {
-                  self.$toast(err);
-              });
+      } else {
+        if (
+          type === "koubei" &&
+          this.storeInfor &&
+          !this.storeInfor.alipayShopId
+        ) {
+          alert("该门店尚未绑定口碑门店");
+        } else {
+          this.$router.push({
+            name: str,
+            params: {
+              type: type
+            }
+          });
+        }
       }
+    },
+    getData() {
+      let self = this;
+      this.$ajax
+        .get("account/merchant/store/wechatPubStoreList.json")
+        .then(function(res) {
+          if (res.success) {
+            console.log(res.data);
+            sessionStorage.setItem("storeId", res.data[0].storeId);
+            self.sellName = res.data[0].branchName;
+            sessionStorage.setItem("storeList", JSON.stringify(res.data));
+            sessionStorage.setItem("storeInfor", JSON.stringify(res.data[0]));
+            self.ifShow = res.data.length === 1 ? false : true;
+          } else {
+            self.$toast(res.errorInfo);
+          }
+        })
+        .catch(function(err) {
+          self.$toast(err);
+        });
+    }
   },
   created() {
-      let self = this;
-      let data = {
-          memberInfo: false,
-          products: false,
-          orderInfo: false,
-          status:false,
-          cardInfo:false,
-          changeType:true
-      };
-      sessionStorage.setItem("chargeInfo", JSON.stringify(data));
-      this.sellName = this.$route.query.type? this.$route.query.type : this.sellName;
-      console.log(this.$route.query.type);
-      if(this.$route.query.type){
-          self.ifShow = true;
-      }else {
-          self.getData();
-      }
-
+    let self = this;
+    let data = {
+      memberInfo: false,
+      products: false,
+      orderInfo: false,
+      status: false,
+      cardInfo: false,
+      changeType: true
+    };
+    sessionStorage.setItem("chargeInfo", JSON.stringify(data));
+    this.storeInfor = JSON.parse(sessionStorage.getItem("storeInfor"))
+      ? JSON.parse(sessionStorage.getItem("storeInfor"))
+      : "";
+    this.sellName = this.$route.query.type
+      ? this.$route.query.type
+      : this.sellName;
+    console.log(this.storeInfor);
+    if (this.$route.query.type) {
+      self.ifShow = true;
+    } else {
+      self.getData();
+    }
   },
   mounted() {
     document.title = "工作";
