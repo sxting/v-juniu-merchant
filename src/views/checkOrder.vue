@@ -110,9 +110,10 @@
                     success: function(res) {
                         // 扫描的结果
                         var result = res.resultStr;
-                        self.receiptCode = result.split(',')[1];
-                        if(!self.receiptCode) {
+                        if(result.split(',').length === 1) {
                             self.receiptCode = result;
+                        } else {
+                            self.receiptCode = result.split(',')[1];
                         }
 
                     },
@@ -149,6 +150,11 @@
             }
         },
         created(){
+            let a = 'www';
+            console.log(a.split(',')[1]);
+            if(a.split(',')[1]) {
+                console.log(a.split(',')[1]);
+            }
             document.title = "核销";
             this.type = this.$route.params.type;
             this.getData();
