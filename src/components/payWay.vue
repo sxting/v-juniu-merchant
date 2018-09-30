@@ -125,7 +125,7 @@ export default {
   },
   created() {
     this.$ajax
-      .get("http://w.juniuo.com/merchant/get_js_api_config.json", {
+      .get("https://w.juniuo.com/merchant/get_js_api_config.json", {
         params: {
           debug: false,
           jsApiList: "scanQRCode", // 需要的jsapi权限，多个用半角逗号分隔
