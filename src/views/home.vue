@@ -169,6 +169,7 @@ export default {
   margin-top: 0.3rem;
   position: relative;
   z-index: 10;
+      padding-bottom: 1rem;
 }
 .ml20 {
   margin-left: 20px;
