@@ -224,10 +224,10 @@ export default {
 .zhizhu {
   width: 100%;
   position: absolute;
-  top: 190px;
+  top: 3.8rem;
   left: 0;
   right: 0;
-  bottom: 470px;
+  bottom: 9.4rem;
   display: flex;
   justify-content: space-around;
 }
@@ -240,12 +240,12 @@ export default {
   font-size: 0.4rem !important;
 }
 .zhizhu div {
-  width: 40px;
+  width: 0.8rem;
   height: 100%;
   background: #333;
 }
 .key-container {
-  margin-top: 50px;
+  margin-top: 1rem;
   width: 100%;
   display: flex;
   display: -webkit-flex;
@@ -257,36 +257,36 @@ export default {
   width: 100%;
   color: #fff;
   background: #333;
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 0.4rem;
+  padding: 0.4rem;
 }
 .input-box {
-  font-size: 35px;
+  font-size: 0.7rem;
   font-weight: bold;
-  height: 100px;
-  padding: 10px 15px;
+  height: 2rem;
+  padding: 0.2rem 0.3rem;
   text-align: right;
-  line-height: 100px;
+  line-height: 2rem;
   background: #808080;
-  border-radius: 10px;
+  border-radius: 0.2rem;
 }
 .keyboard {
   font-size: 0.7rem;
   position: fixed;
-  bottom: 30px;
+  bottom: 0.6rem;
   left: 0;
   right: 0;
-  padding: 60px 20px;
+  padding: 1.2rem 0.4rem;
   width: 100%;
   background: #333333;
-  border-radius: 20px;
+  border-radius: 0.4rem;
 }
 .keyboard .key-row {
   display: flex;
   display: -webkit-flex;
   position: relative;
-  height: 90px;
-  line-height: 90px;
+  height: 1.8rem;
+  line-height: 1.8rem;
 }
 /* .keyboard .key-row::before {
   content: "";
@@ -336,9 +336,9 @@ export default {
 .keyboard .key-confirm {
   position: absolute;
   text-align: center;
-  height: 118px;
+  height: 2.36rem;
   width: 25%;
-  line-height: 118px;
+  line-height:  2.36rem;
   background: #fff;
   z-index: 5;
   right: 0;
