@@ -94,31 +94,37 @@ export default {
         getData() {
             let self = this;
             if(this.type === 'koubei') {
-                let url = '', data = {
-                    shopId: this.storeId,
-                    ticketCode: this.code,
-                    isQuery: 'T'
-                };
-                if(this.code.length === 12 && this.code.substring(0, 2) !== '31') {
-                    url = '/merchant/order/koubei/queryTicketCode.json'; //口碑核销
-                    this.$ajax.get(url, {params: data}).then(function (res) {
-                        if(res.success) {
-                            self.data = res.data;
-                        } else {
-                            alert(res.errorInfo);
-                        }
-                    })
-                } else if(this.code.length === 16 && this.code.substring(0, 2) === '31') {
-                    url = '/merchant/order/koubei/ticket.json'; //口碑拼团核销
-                    this.$ajax.get(url, {params: data}).then(function (res) {
-                        if(res.success) {
-                            self.$router.push('/checkSuccess');
-                        } else {
-                            alert(res.errorInfo);
-                        }
-                    })
+                let shopId = JSON.parse(sessionStorage.getItem('storeInfor')).alipayShopId;
+                if(shopId) {
+                    let url = '', data = {
+                        shopId: shopId,
+                        ticketCode: this.code,
+                        isQuery: 'T'
+                    };
+                    if(this.code.length === 12 && this.code.substring(0, 2) !== '31') {
+                        url = '/merchant/order/koubei/queryTicketCode.json'; //口碑核销
+                        this.$ajax.get(url, {params: data}).then(function (res) {
+                            if(res.success) {
+                                self.data = res.data;
+                            } else {
+                                alert(res.errorInfo);
+                            }
+                        })
+                    } else if(this.code.length === 16 && this.code.substring(0, 2) === '31') {
+                        url = '/merchant/order/koubei/ticket.json'; //口碑拼团核销
+                        this.$ajax.get(url, {params: data}).then(function (res) {
+                            if(res.success) {
+                                self.$router.push('/checkSuccess');
+                            } else {
+                                alert(res.errorInfo);
+                            }
+                        })
+                    } else {
+                        return;
+                    }
                 } else {
-                    return;
+                    alert('未绑定口碑门店');
+                    history.go(-1)
                 }
             } else if(this.type === 'meituan') {
                 let url = '/xmd/tuangou/receipt/prepare.json', data = {
@@ -186,7 +192,7 @@ export default {
             let self = this;
             if(this.type === 'koubei') {
                 let url = '/merchant/order/koubei/settle.json', data = {
-                    shopId: this.storeId,
+                    shopId: JSON.parse(sessionStorage.getItem('storeInfor')).alipayShopId,
                     ticketCode: this.code,
                     quantity: this.bookNum
                 };
