@@ -245,7 +245,7 @@ export default {
   background: #333;
 }
 .key-container {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   width: 100%;
   display: flex;
   display: -webkit-flex;
