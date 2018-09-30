@@ -61,8 +61,8 @@ export default {
   created() {
     document.title = "收银成功";
     this.succesInfo = JSON.parse(sessionStorage.getItem("succesInfo"))?JSON.parse(sessionStorage.getItem("succesInfo")):false;
-    if(this.succesInfo.order === 'SUCCESS') this.succesInfo.order =[];
-    if(JSON.stringify(this.succesInfo.member) === "{}") this.isShowMember = false;
+    if(this.succesInfo&&this.succesInfo.order === 'SUCCESS') this.succesInfo.order =[];
+    if(this.succesInfo&&JSON.stringify(this.succesInfo.member) === "{}") this.isShowMember = false;
   }
 };
 </script>

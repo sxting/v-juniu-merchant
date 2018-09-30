@@ -180,11 +180,11 @@ export default {
               that.$router.push("/payFail");
             } else {
               that.$router.push("/paySuccess");
-              let data = {
-                member: that.memberInfo,
-                order: res.data
-              };
-              sessionStorage.setItem("succesInfo", JSON.stringify(data));
+              // let data = {
+              //   member: that.memberInfo,
+              //   order: res.data
+              // };
+              // sessionStorage.setItem("succesInfo", JSON.stringify(data));
             }
           } else {
             that.$refs.alertBox.alert(res.errorInfo);
