@@ -1,8 +1,8 @@
 <!-- 主页view -->
 <template>
     <div class="main">
-        <div class="bar">{{sellName}}
-            <i class="iconfont icon-arrow" v-if="ifShow" @click="toPath('SelectSell', '')"></i>
+        <div class="bar" @click="toPath('SelectSell', '')">{{sellName}}
+            <i class="iconfont icon-arrow" v-if="ifShow"></i>
         </div>
         <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
             <span class="icon icon_sy"></span>
