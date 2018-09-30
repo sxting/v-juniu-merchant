@@ -276,7 +276,7 @@ export default {
   bottom: 0.6rem;
   left: 0;
   right: 0;
-  padding: 1.2rem 0.4rem;
+  padding: 0.4rem 0.4rem;
   width: 100%;
   background: #333333;
   border-radius: 0.4rem;
@@ -285,8 +285,8 @@ export default {
   display: flex;
   display: -webkit-flex;
   position: relative;
-  height: 1.8rem;
-  line-height: 1.8rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
 }
 /* .keyboard .key-row::before {
   content: "";
