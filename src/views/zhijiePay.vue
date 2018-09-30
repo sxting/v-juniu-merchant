@@ -227,7 +227,7 @@ export default {
   top: 2.8rem;
   left: 0;
   right: 0;
-  bottom: 9.4rem;
+  bottom: 8.4rem;
   display: flex;
   justify-content: space-around;
 }
@@ -273,7 +273,7 @@ export default {
 .keyboard {
   font-size: 0.7rem;
   position: fixed;
-  bottom: 0.6rem;
+  bottom: 0rem;
   left: 0;
   right: 0;
   padding: 0.4rem 0.4rem;
