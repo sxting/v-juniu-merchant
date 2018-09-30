@@ -224,7 +224,7 @@ export default {
 .zhizhu {
   width: 100%;
   position: absolute;
-  top: 3.8rem;
+  top: 2.8rem;
   left: 0;
   right: 0;
   bottom: 9.4rem;
