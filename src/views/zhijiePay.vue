@@ -124,7 +124,7 @@ export default {
     _handleConfirmKey() {
       let S = this.money;
       //未输入
-      if (!S.length) {
+      if (!S.length||Number(S) === 0) {
         alert("您目前未输入!");
         return false;
       } else {
