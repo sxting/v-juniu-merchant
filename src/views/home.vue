@@ -4,11 +4,19 @@
         <div class="bar">{{sellName}}
             <i class="iconfont icon-arrow" v-if="ifShow" @click="toPath('SelectSell', '')"></i>
         </div>
-        <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
+        <!-- <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
             <span class="icon icon_sy"></span>
             <p>收银</p>
-        </div>
+        </div> -->
         <div class="content clearfix">
+          <div @click="toPath('Charge', '')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+                <span class="icon icon_sy"></span>
+                <p>收银</p>
+            </div>
+            <div @click="toPath('zhijiePay', '')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+                <span class="icon icon_sd"></span>
+                <p>收单</p>
+            </div>
             <div @click="toPath('CheckOrder', 'koubei')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
                 <span class="icon icon_kb"></span>
                 <p>口碑核销</p>
@@ -195,6 +203,10 @@ export default {
 }
 .icon_wx {
   background: url(../assets/icon_wx.png) no-repeat center center;
+  background-size: contain;
+}
+.icon_sd {
+  background: url(../assets/icon_sd.png) no-repeat center center;
   background-size: contain;
 }
 .content .item {

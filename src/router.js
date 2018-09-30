@@ -113,6 +113,11 @@ const routes = [{
         path: '/entry',
         component: (resolve) => require(['./views/entry'], resolve)
     }
+    ,{
+        path: '/zhijiePay',
+        name: 'zhijiePay',
+        component: (resolve) => require(['./views/zhijiePay'], resolve)
+    }
 ];
 
 const router = new VueRouter({
