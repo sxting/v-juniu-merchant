@@ -78,12 +78,16 @@ export default {
         ) {
           alert("该门店尚未绑定口碑门店");
         } else {
-          this.$router.push({
+          // if(str === 'Charge') alert("功能暂未开放")
+          // else{
+            this.$router.push({
             name: str,
             params: {
               type: type
             }
           });
+          // }
+          
         }
       }
     },

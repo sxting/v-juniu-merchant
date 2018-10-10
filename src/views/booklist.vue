@@ -196,22 +196,22 @@ export default {
             }).then(function (res) {
                 if(res.success) {
                     self.orderList = res.data.content;
-                    self.$nextTick(() => {
-                        self.scroll = new BScroll(self.$refs.wrapper, {});
-                        if (!self.scroll) {
-                            self.scroll = new Bscroll(self.$refs.wrapper, {});
-                            self.scroll.on('touchend', (pos) => {
-                                // 下拉动作
-                                if (pos.y > 50) {
-                                    self.pageNo = self.pageNo + 1;
-                                    self.getData()
-                                }
-                            })
-                        } else {
-                            self.scroll.refresh()
-                        }
-
-                    });
+                    // self.$nextTick(() => {
+                    //     self.scroll = new BScroll(self.$refs.wrapper, {});
+                    //     if (!self.scroll) {
+                    //         self.scroll = new Bscroll(self.$refs.wrapper, {});
+                    //         self.scroll.on('touchend', (pos) => {
+                    //             // 下拉动作
+                    //             if (pos.y > 50) {
+                    //                 self.pageNo = self.pageNo + 1;
+                    //                 self.getData()
+                    //             }
+                    //         })
+                    //     } else {
+                    //         self.scroll.refresh()
+                    //     }
+                    //
+                    // });
                 } else {
                     alert(res.errorInfo);
                 }

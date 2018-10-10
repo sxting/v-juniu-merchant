@@ -241,9 +241,11 @@ export default {
       STOREDextraMoney: 0,
       ticketCheck: true,
       pickerBoolean: false,
+      pickerBoolean2:false,
       pickerBoolean2: true,
       vipBoolean :false,
-      shopBoolean : false
+      shopBoolean : false,
+      inputValueBoolean:false
     };
   },
   methods: {
@@ -257,6 +259,7 @@ export default {
     },
     inputValueFun(event){
       this.inputValue = event;
+      this.inputValueBoolean = true;
     },
     switchBoolen1(item) {
       this.$forceUpdate();
@@ -319,8 +322,10 @@ export default {
       this.totolMoneyFun(true);
     },
     openPicker(index, type) {
-      if (type === "pickerVisible2" || type === "pickerVisible1" || type === "staff1" || type === "staff2")
+      if (type === "pickerVisible1" ||type === "staff1" )
         this.pickerBoolean = true;
+        if (type === "pickerVisible2"|| type === "staff2")
+        this.pickerBoolean1 = true;
       if (type === "pickerVisible4") this.pickerBoolean2 = false;
 
       if (this.changeType ) {
@@ -341,6 +346,9 @@ export default {
     },
     closePicker(item, type, qx) {
       this.$forceUpdate();
+      this.pickerBoolean = false;
+      this.pickerBoolean1 = false;
+      
       this.$set(item, type, false);
       if (qx === "qx1") {
         this.$set(item, "name1", "");
@@ -394,7 +402,7 @@ export default {
     onPickerChange2(picker, values, index) {
       if (values.length > 0) {
         this.$forceUpdate();
-        if (this.changeType && this.pickerBoolean) {
+        if (this.changeType && this.pickerBoolean1) {
           this.$set(this.products[index], "name2", values[0].staffName);
           this.$set(this.products[index], "staffId2", values[0].staffId);
         } else if (this.pickerBoolean) {
@@ -1157,7 +1165,7 @@ export default {
         create.originMoney = create.money;
       } else {
         if (this.products && this.products.length > 0) {
-          create.money = that.NP.times(that.createMoney, 100);
+          create.money = that.NP.times(that.inputValue, 100);
           create.originMoney = create.money;
         } else {
           create.money = that.NP.times(this.inputValue, 100);
