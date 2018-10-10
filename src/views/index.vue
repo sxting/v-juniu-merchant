@@ -33,15 +33,17 @@ export default {
             openId: '',
             date: '',
             dateMonthly: '',
-            staffId: ''
+            staffId: '',
+            url :"https://api.juniuo.com/staff/#/order/store/report;date="
         };
     },
     methods: {
         toHome(index,str) {
+            let that = this;
             this.curActiveIndex = index;
             sessionStorage.navIndex = index;
             if(str === 'records'){
-                window.location.href = "https://api.juniuo.com/staff/#/monthly/staff/report;date=" + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId ;
+                window.location.href = that.url + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId ;
             }else {
                 this.$router.push(str);
             }
