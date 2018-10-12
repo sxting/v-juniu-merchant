@@ -44,7 +44,7 @@ export default {
             this.curActiveIndex = index;
             sessionStorage.navIndex = index;
             if(str === 'records'){
-                window.location.href = that.url + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId + ";storeId=" + this.storeId;
+                window.location.href = that.url + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId + ";storeId=" + sessionStorage.getItem("storeId");
             }else {
                 this.$router.push(str);
             }
