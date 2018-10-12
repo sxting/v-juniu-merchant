@@ -34,7 +34,8 @@ export default {
             date: '',
             dateMonthly: '',
             staffId: '',
-            url :"https://api.juniuo.com/staff/#/order/store/report;date="
+            url :"https://api.juniuo.com/staff/#/order/store/report;date=",
+            storeId : sessionStorage.getItem("storeId")
         };
     },
     methods: {
@@ -43,7 +44,7 @@ export default {
             this.curActiveIndex = index;
             sessionStorage.navIndex = index;
             if(str === 'records'){
-                window.location.href = that.url + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId ;
+                window.location.href = that.url + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId + ";storeId=" + this.storeId;
             }else {
                 this.$router.push(str);
             }
