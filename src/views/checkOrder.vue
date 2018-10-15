@@ -2,7 +2,7 @@
     <div class="main">
         <div class="ub ub-ac inputDiv">
             <input type="number" class="ub-f1 code" placeholder="请输入券码对应的数字码" v-model="receiptCode" @keyup="formatInput(receiptCode)" />
-            <span class="icon_sao1 mr10" @click="saomiao"></span>
+            <span class="sm-btn" @click="saomiao"><span class="icon_sao1"></span></span>
         </div>
         <div class="btn">
             <button class="btn_common" @click="submit()">点击核销</button>
@@ -187,7 +187,8 @@
     .inputDiv{background-color: #fff;border-radius: 0.10rem}
     .theItem{padding-bottom: 0.1rem;border-radius: 0.10rem;background-color: #fff;padding-left: 0.15rem;padding-right: 0.15rem}
     .item{height: 1.2rem;}
-    .icon_sao1{display: inline-block;width: 0.40rem;height: 0.40rem;background: url(../assets/icon_sao1.png) no-repeat center center;background-size: 100% 100%;}
+    .icon_sao1{vertical-align: middle;display: inline-block;width: 0.40rem;height: 0.40rem;background: url(../assets/icon_sao1.png) no-repeat center center;background-size: 100% 100%;}
     .btn{margin-top: 0.30rem;margin-bottom: 0.20rem}
     .bbc:last-child {border-bottom: none}
+    .sm-btn{padding: 0.2rem;}
 </style>
