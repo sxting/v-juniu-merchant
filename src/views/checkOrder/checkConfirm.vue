@@ -233,6 +233,8 @@ export default {
                             alert(res.errorInfo);
                         }
                     })
+                } else {
+                    alert('核销码输入有误');
                 }
             }
         }

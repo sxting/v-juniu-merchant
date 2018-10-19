@@ -245,7 +245,8 @@ export default {
       pickerBoolean2: true,
       vipBoolean :false,
       shopBoolean : false,
-      inputValueBoolean:false
+      inputValueBoolean:false,
+        jiusuanLoading: false
     };
   },
   methods: {
@@ -979,6 +980,9 @@ export default {
     },
     //结算fun
     jiesuanFun(type) {
+        if(this.jiusuanLoading) {
+            return;
+        }
       let that = this;
       console.log(this.authCode);
       console.log(this.inputValue)
@@ -1192,10 +1196,12 @@ export default {
     /**充值且付款 */
     rechargeAndOrderPayFun(rechargeObj) {
       let self = this;
-      this.$ajax
+        this.jiusuanLoading = true;
+        this.$ajax
         .post("merchant/order/recharge.json", rechargeObj)
         .then(function(res) {
-          if (res.success) {
+            self.jiusuanLoading = false;
+            if (res.success) {
             self.$router.push("/paySuccess");
             let data = {
               member: self.memberInfo,
@@ -1224,11 +1230,13 @@ export default {
     },
     createOrderFun(create) {
       this.loading = true;
-      let that = this;
+        this.jiusuanLoading = true;
+        let that = this;
       this.$ajax
         .post("merchant/order/openOrder.json", create)
         .then(function(res) {
-          if (res.success) {
+            self.jiusuanLoading = false;
+            if (res.success) {
             if (res.data === "CLOSE") {
               that.$router.push("/payFail");
             } else {
