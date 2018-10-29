@@ -23,7 +23,7 @@
                 </div>
                 <!-- <div class="userbtn" @click="toDetail">查看详情</div> -->
             </div>
-            <div class="btc h50 ub ub-ac ub-pj plr15 " v-for="(item,index) in succesInfo.order" :key="index"  v-if="item.cardType !== 'TIMES'">
+            <div class="btc h50 ub ub-ac ub-pj plr15 " v-for="(item,index) in succesInfo.order" :key="index"  v-if="item&&item.cardType !== 'TIMES'">
                 <p class="sc" >{{item.cardName}}</p>
                 <p class="bc" v-if="item.cardType === 'STORED'||item.cardType === 'REBATE'">余额：¥{{item.balance/100}}</p>
                 <p class="bc" v-if="item.cardType === 'METERING'">余额：¥{{item.balance}}</p>
