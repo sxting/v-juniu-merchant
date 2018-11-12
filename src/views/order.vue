@@ -1037,8 +1037,8 @@ export default {
         if (that.xyVip) {
           orderItem = {
             cardId: that.xfCardList.cardInfo.card.cardId,
-            // staffId: that.cardStaffId1,
-            // staff2Id: that.cardStaffId2,
+            staffId: that.cardStaffId1,
+            staff2Id: that.cardStaffId2,
             typeName: "cardOrderItem"
           };
         } else {
