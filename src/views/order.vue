@@ -1164,9 +1164,24 @@ export default {
         create.bizType = "MEMBER";
       }
       if (!that.changeType) {
+        // create.money = that.cardInputValue * 100;
+        // // create.extraMoney = that.STOREDextraMoney * 100;
+        // create.originMoney = create.money;
+
+
         create.money = that.cardInputValue * 100;
-        // create.extraMoney = that.STOREDextraMoney * 100;
-        create.originMoney = create.money;
+        if(create.bizType === 'RECHARGE'){
+          create.extraMoney = that.STOREDextraMoney
+          ? that.STOREDextraMoney * 100
+          : 0;
+        }else{
+          let boo = create.orderItem[0]['cardConfigType'] === "STORED";
+          create.extraMoney = boo
+          ? (create.orderItem[0]['balance'] - create.orderItem[0]['price'])
+          : 0;
+        }
+      
+      create.originMoney = create.money;
       } else {
         if (this.products && this.products.length > 0) {
           create.money = that.NP.times(that.inputValue, 100);
