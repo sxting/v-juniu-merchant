@@ -34,7 +34,8 @@
             let openidSource = this.$route.query.openid;
             this.$ajax.get('/account/login/wechatPub.json', {
                 params: {
-                    code: openidSource
+                    code: openidSource,
+                    terminal:'WECHAT_PUB'
                 }
             }).then(res => {
                 console.log(res);
