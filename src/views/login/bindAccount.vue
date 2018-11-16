@@ -63,7 +63,8 @@ export default {
         }else {
           let data = {
               loginName:mobile,
-              password:password
+              password:password,
+              terminal:'WECHAT_PUB'
           };
           this.$ajax
               .get("account/login/login/name.json", {

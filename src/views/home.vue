@@ -1,40 +1,40 @@
 <!-- 主页view -->
 <template>
-    <div class="main">
-        <div class="bar" @click="toPath('SelectSell', '')">{{sellName}}
-            <i class="iconfont icon-arrow" v-if="ifShow"></i>
-        </div>
-        <!-- <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
+  <div class="main">
+    <div class="bar" @click="toPath('SelectSell', '')">{{sellName}}
+      <i class="iconfont icon-arrow" v-if="ifShow"></i>
+    </div>
+    <!-- <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
             <span class="icon icon_sy"></span>
             <p>收银</p>
         </div> -->
-        <div class="content clearfix">
-          <div @click="toPath('Charge', '')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
-                <span class="icon icon_sy"></span>
-                <p>收银</p>
-            </div>
-            <div @click="toPath('zhijiePay', '')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
-                <span class="icon icon_sd"></span>
-                <p>收单</p>
-            </div>
-            <div @click="toPath('CheckOrder', 'koubei')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
-                <span class="icon icon_kb"></span>
-                <p>口碑核销</p>
-            </div>
-            <div @click="toPath('CheckOrder', 'wechat')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
-                <span class="icon icon_wx"></span>
-                <p>微信核销</p>
-            </div>
-            <div @click="toPath('CheckOrder', 'meituan')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
-                <span class="icon icon_mt"></span>
-                <p>美团核销</p>
-            </div>
-            <div @click="toPath('Booklist', '')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
-                <span class="icon icon_yy"></span>
-                <p>预约管理</p>
-            </div>
-        </div>
+    <div class="content clearfix">
+      <div @click="toPath('Charge', '','900201')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+        <span class="icon icon_sy"></span>
+        <p>收银</p>
+      </div>
+      <div @click="toPath('zhijiePay', '','900201')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+        <span class="icon icon_sd"></span>
+        <p>收单</p>
+      </div>
+      <div @click="toPath('CheckOrder', 'koubei','900802')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+        <span class="icon icon_kb"></span>
+        <p>口碑核销</p>
+      </div>
+      <div @click="toPath('CheckOrder', 'wechat','900205')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+        <span class="icon icon_wx"></span>
+        <p>微信核销</p>
+      </div>
+      <div @click="toPath('CheckOrder', 'meituan','900203')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+        <span class="icon icon_mt"></span>
+        <p>美团核销</p>
+      </div>
+      <div @click="toPath('Booklist', '','900301')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+        <span class="icon icon_yy"></span>
+        <p>预约管理</p>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -59,36 +59,51 @@ export default {
       this.width = (sw - 50) / 2 + "px";
       this.height = (sw - 50) / 2 * 28 / 33 + "px";
     },
-    toPath(str, type) {
-      if (str == "SelectSell") {
-        if (this.ifShow) {
-          //true 的话  好多门店
-          this.$router.push({
-            name: str,
-            params: {
-              type: type
-            }
-          });
+    toPath(str, type, menuId) {
+      let self = this;
+      let storeList = (this.storeInfor = JSON.parse(
+        sessionStorage.getItem("User-Info")
+      )
+        ? JSON.parse(sessionStorage.getItem("User-Info")).storeList
+        : "");
+      let menuIds = [];
+      storeList.forEach(function(i) {
+        if (i.storeId === sessionStorage.getItem("storeId")) {
+          menuIds = i.moduleIds;
         }
-      } else {
-        if (
-          type === "koubei" &&
-          this.storeInfor &&
-          !this.storeInfor.alipayShopId
-        ) {
-          alert("该门店尚未绑定口碑门店");
-        } else {
-          // if(str === 'Charge') alert("功能暂未开放")
-          // else{
+      });
+      if (menuIds.indexOf(menuId) > -1) {
+        if (str == "SelectSell") {
+          if (this.ifShow) {
+            //true 的话  好多门店
             this.$router.push({
-            name: str,
-            params: {
-              type: type
-            }
-          });
-          // }
-          
+              name: str,
+              params: {
+                type: type
+              }
+            });
+          }
+        } else {
+          if (
+            type === "koubei" &&
+            this.storeInfor &&
+            !this.storeInfor.alipayShopId
+          ) {
+            alert("该门店尚未绑定口碑门店");
+          } else {
+            // if(str === 'Charge') alert("功能暂未开放")
+            // else{
+            this.$router.push({
+              name: str,
+              params: {
+                type: type
+              }
+            });
+            // }
+          }
         }
+      }else{
+        self.$toast('暂无此功能权限,如需使用此功能请联系超级管理员申请');
       }
     },
     getData() {
@@ -173,7 +188,7 @@ export default {
   margin-top: 0.3rem;
   position: relative;
   z-index: 10;
-      padding-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 .ml20 {
   margin-left: 20px;
