@@ -141,15 +141,13 @@
             this.storeInfor = JSON.parse(sessionStorage.getItem("storeInfor")) ?
                 JSON.parse(sessionStorage.getItem("storeInfor")) :
                 "";
-            this.sellName = this.$route.query.type ?
-                this.$route.query.type :
-                this.sellName;
+            this.sellName = this.storeInfor.branchName;
             console.log(this.storeInfor);
-            if (this.$route.query.type) {
+            // if (this.$route.query.type) {
                 self.ifShow = true;
-            } else {
-                self.getData();
-            }
+            // } else {
+            //     self.getData();
+            // }
         },
         mounted() {
             document.title = "工作";
