@@ -11,20 +11,20 @@
       <div class="mt30">
           <button class="btn_common" type="button" @click="submit()">确认绑定</button>
       </div>
-      <p class="mt10 tx-c"><span class="f12 rc" @click="toForgetPsw">忘记密码</span></p>
+      <!-- <p class="mt10 tx-c"><span class="f12 rc" @click="toForgetPsw">忘记密码</span></p> -->
       <div class="elseDiv plr15">
         <div class="elseWay">
             <div class="line"></div>
             <div class="tit"><span>其他绑定方式</span></div>
         </div>
         <div class="ub ub-pc h200 mt10">
-          <div @click="toElseBind()">
+          <!-- <div @click="toElseBind()">
             <div class="circle ub ub-ac ub-pc">
               <span class="icon_check"></span>
             </div>
             <p>验证码绑定</p>
-          </div>
-          <div class="ml50">
+          </div> -->
+          <div class="">
             <div class="circle ub ub-ac ub-pc">
               <span class="icon_sao"></span>
               <i @click="toCourse()" class="icon_course"></i>

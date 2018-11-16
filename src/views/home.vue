@@ -1,7 +1,7 @@
 <!-- 主页view -->
 <template>
     <div class="main">
-        <div class="bar" @click="toPath('SelectSell', '','11111')">{{sellName}}
+        <div class="bar"  @click="toPath('SelectSell', '','11111')">{{sellName}}
             <i class="iconfont icon-arrow" v-if="ifShow"></i>
         </div>
         <!-- <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
@@ -47,7 +47,8 @@
                 width: "",
                 ifShow: false,
                 height: "",
-                storeInfor: false
+                storeInfor: false,
+                ifShowTop : true
             };
         },
         methods: {
@@ -141,10 +142,13 @@
             this.storeInfor = JSON.parse(sessionStorage.getItem("storeInfor")) ?
                 JSON.parse(sessionStorage.getItem("storeInfor")) :
                 "";
-            this.sellName = this.storeInfor.branchName;
-            console.log(this.storeInfor);
-            // if (this.$route.query.type) {
+            let storeList = JSON.parse(sessionStorage.getItem("storeList")) ?
+                JSON.parse(sessionStorage.getItem("storeList")) :
+                [];
+            this.sellName = this.storeInfor.branchName?this.storeInfor.branchName:storeList[0].branchName;
                 self.ifShow = true;
+           
+            // if (this.$route.query.type) {
             // } else {
             //     self.getData();
             // }
