@@ -102,6 +102,24 @@ export default {
             });
             // }
           }
+
+          if (
+            type === "meituan" &&
+            this.storeInfor &&
+            !this.storeInfor.bindingXmd
+          ) {
+            alert("该门店尚未绑定美大门店");
+          } else {
+            // if(str === 'Charge') alert("功能暂未开放")
+            // else{
+            this.$router.push({
+              name: str,
+              params: {
+                type: type
+              }
+            });
+            // }
+          }
         }
       } else {
         self.$toast("暂无此功能权限,如需使用此功能请联系超级管理员申请");
