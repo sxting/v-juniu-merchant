@@ -62,7 +62,7 @@ export default {
     },
     toPath(str, type, menuId) {
       let self = this;
-      let storeList = (this.storeInfor = JSON.parse(
+      let storeList = (JSON.parse(
         sessionStorage.getItem("User-Info")
       )
         ? JSON.parse(sessionStorage.getItem("User-Info")).storeList
@@ -90,6 +90,9 @@ export default {
             this.storeInfor &&
             !this.storeInfor.alipayShopId
           ) {
+              console.log(this.storeInfor.alipayShopId)
+              console.log(this.storeInfor)
+              
             alert("该门店尚未绑定口碑门店");
           } else if (
             type === "meituan" &&
