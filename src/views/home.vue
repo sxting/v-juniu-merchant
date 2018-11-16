@@ -91,25 +91,13 @@ export default {
             !this.storeInfor.alipayShopId
           ) {
             alert("该门店尚未绑定口碑门店");
-          } else {
-            // if(str === 'Charge') alert("功能暂未开放")
-            // else{
-            this.$router.push({
-              name: str,
-              params: {
-                type: type
-              }
-            });
-            // }
-          }
-
-          if (
+          } else if (
             type === "meituan" &&
             this.storeInfor &&
             !this.storeInfor.bindingXmd
           ) {
             alert("该门店尚未绑定美大门店");
-          } else {
+          }else {
             // if(str === 'Charge') alert("功能暂未开放")
             // else{
             this.$router.push({
