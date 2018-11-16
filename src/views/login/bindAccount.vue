@@ -24,10 +24,10 @@
             </div>
             <p>验证码绑定</p>
           </div> -->
-          <div class="">
+          <div class="" @click="toCourse()">
             <div class="circle ub ub-ac ub-pc">
               <span class="icon_sao"></span>
-              <i @click="toCourse()" class="icon_course"></i>
+              <i  class="icon_course"></i>
             </div>
             <p>扫码绑定</p>
           </div>
@@ -114,7 +114,7 @@ export default {
 .pageTit{font-size: 0.40rem;color: #000;}
 .form-input{width: 100%;height: 0.88rem;border-radius: 0.08rem;padding-left: 10px;background:#f2f2f2;font-size: 0.28rem;}
 
-.elseDiv{position: absolute;width: 100%;bottom: 0;left: 0;}
+.elseDiv{position: fixed;width: 100%;bottom: 0;left: 0;}
 .elseWay{position: relative; width: 100%;height: 0.60rem;}
 .elseWay .line{border-bottom: 1px solid #dedede; width: 100%;}
 .elseWay > div.tit{position: absolute;width: 100%;height: 100%;left: 0;top: -50%;text-align: center;}
