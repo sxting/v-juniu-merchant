@@ -35,6 +35,7 @@ export default {
             dateMonthly: '',
             staffId: '',
             url :"https://api.juniuo.com/staff/#/order/store/report;date=",
+            url2 : 'https://api.juniuo.com/staff/#/monthly/staff/report;date=',
             storeId : sessionStorage.getItem("storeId")
         };
     },
@@ -44,7 +45,11 @@ export default {
             this.curActiveIndex = index;
             sessionStorage.navIndex = index;
             if(str === 'records'){
-                window.location.href = that.url + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId + ";storeId=" + sessionStorage.getItem("storeId");
+                if(JSON.parse(sessionStorage.getItem('User-Info')).wechatPushTypes.indexOf('WORK_REPORT_STORE')>-1){
+                    window.location.href = that.url + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId + ";storeId=" + sessionStorage.getItem("storeId");
+                }else{
+                    window.location.href = that.url2 + this.date + ";openid=" + this.openId + ";staffId=" + this.staffId + ";storeId=" + sessionStorage.getItem("storeId");
+                }
             }else {
                 this.$router.push(str);
             }

@@ -11,23 +11,23 @@
       <div class="mt30">
           <button class="btn_common" type="button" @click="submit()">确认绑定</button>
       </div>
-      <p class="mt10 tx-c"><span class="f12 rc" @click="toForgetPsw">忘记密码</span></p>
+      <!-- <p class="mt10 tx-c"><span class="f12 rc" @click="toForgetPsw">忘记密码</span></p> -->
       <div class="elseDiv plr15">
         <div class="elseWay">
             <div class="line"></div>
             <div class="tit"><span>其他绑定方式</span></div>
         </div>
         <div class="ub ub-pc h200 mt10">
-          <div @click="toElseBind()">
+          <!-- <div @click="toElseBind()">
             <div class="circle ub ub-ac ub-pc">
               <span class="icon_check"></span>
             </div>
             <p>验证码绑定</p>
-          </div>
-          <div class="ml50">
+          </div> -->
+          <div class="" @click="toCourse()">
             <div class="circle ub ub-ac ub-pc">
               <span class="icon_sao"></span>
-              <i @click="toCourse()" class="icon_course"></i>
+              <i  class="icon_course"></i>
             </div>
             <p>扫码绑定</p>
           </div>
@@ -63,7 +63,8 @@ export default {
         }else {
           let data = {
               loginName:mobile,
-              password:password
+              password:password,
+              terminal:'WECHAT_PUB'
           };
           this.$ajax
               .get("account/login/login/name.json", {
@@ -75,6 +76,10 @@ export default {
                       sessionStorage.setItem('App-Token', res.data.token);//存储token
                       sessionStorage.setItem('User-Info', JSON.stringify(res.data));//存储用户信息
                       sessionStorage.setItem('alipayShops', JSON.stringify(res.data.alipayShopList));//存储门店
+                      sessionStorage.setItem('storeList', JSON.stringify(res.data.storeList));//存储门店
+                      sessionStorage.setItem('storeInfor', JSON.stringify(res.data.storeList[0]));//存储门店
+                      sessionStorage.setItem('storeId',res.data.storeList[0].storeId);//存储门店
+                      
                       if(res.data.staffType === 'MERCHANT'){
                           self.$router.push('/selectSell');//商家登陆
                       }else {
@@ -109,7 +114,7 @@ export default {
 .pageTit{font-size: 0.40rem;color: #000;}
 .form-input{width: 100%;height: 0.88rem;border-radius: 0.08rem;padding-left: 10px;background:#f2f2f2;font-size: 0.28rem;}
 
-.elseDiv{position: absolute;width: 100%;bottom: 0;left: 0;}
+.elseDiv{position: fixed;width: 100%;bottom: 0;left: 0;}
 .elseWay{position: relative; width: 100%;height: 0.60rem;}
 .elseWay .line{border-bottom: 1px solid #dedede; width: 100%;}
 .elseWay > div.tit{position: absolute;width: 100%;height: 100%;left: 0;top: -50%;text-align: center;}

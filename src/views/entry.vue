@@ -34,7 +34,8 @@
             let openidSource = this.$route.query.openid;
             this.$ajax.get('/account/login/wechatPub.json', {
                 params: {
-                    code: openidSource
+                    code: openidSource,
+                    terminal:'WECHAT_PUB'
                 }
             }).then(res => {
                 console.log(res);
@@ -43,6 +44,9 @@
                     sessionStorage.setItem('App-Token', res.data.token);//存储token
                     sessionStorage.setItem('User-Info', JSON.stringify(res.data));//存储用户信息
                     sessionStorage.setItem('alipayShops', JSON.stringify(res.data.alipayShopList));//存储门店
+                    sessionStorage.setItem('storeList', JSON.stringify(res.data.storeList));//存储门店
+                    sessionStorage.setItem('storeInfor', JSON.stringify(res.data.storeList[0]));//存储门店
+                      sessionStorage.setItem('storeId', res.data.storeList[0].storeId);//存储门店
                     // 跳转
                     this.$router.replace({path: '/home'});
                 } else {
