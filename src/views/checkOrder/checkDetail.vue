@@ -2,7 +2,8 @@
     <div class="main">
         <div class="toper ub ub-ver ub-pc ub-ac">
             <h1 v-if="type === 'wechat'">¥{{data.price/100}}</h1>
-            <h1 v-else>¥{{data.amount/100}}</h1>
+            <h1 v-if="type === 'koubei'">¥{{data.amount/100}}</h1>
+            <h1 v-if="type === 'meituan'">¥{{data.amount}}</h1>
             <p class="f14">商家实收（元）</p>
         </div>
         <p class="tit">商品信息</p>
@@ -89,7 +90,8 @@
         created() {
             document.title="核销详情";
             this.data = this.$route.params.data;
-            this.type = this.$route.params.type
+            this.type = this.$route.params.type;
+            console.log(this.type);
         }
     };
 </script>
