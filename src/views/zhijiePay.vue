@@ -165,7 +165,8 @@ export default {
         settleCardDTOList: [],
         money: this.NP.times(num,100),
         storeId: this.storeId,
-        wipeDecimal: false
+        wipeDecimal: false,
+        source:'SD'
       };
       this.createOrderFun(data);
     },
