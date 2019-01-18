@@ -47,6 +47,21 @@
                     <span class="arrow-down"></span>
                 </div>
             </div>
+            <p class="tit">选择核销份数</p>
+            <div class="plr15 bgb" v-for="(item, index) in groupVouchersArr" :key="index">
+                <div class="item bbc ub ub-ac ub-pj">
+                    <p class="bc ub-f1">商品名称</p>
+                    <p class="bc">{{item.productName}}</p>
+                </div>
+                <div class="item ub ub-ac ub-pj">
+                    <p class="bc ub-f1">当前商品核销份数</p>
+                    <p class="ub ub-ac numBox">
+                        <span @click="delOne(item)" class="ctlbtn"><i class="icon-del sc iconfont"></i></span>
+                        <i class="number btbc">{{item.bookNum}}</i>
+                        <span @click="addOne(item)" class="ctlbtn"><i class="icon-add sc iconfont"></i></span>
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="mt40 plr15">
             <div class="btn_common" @click="submit">确认核销</div>
@@ -86,7 +101,8 @@ export default {
             name2:'请添加小工',
             staffId2: '',
             bookNum:1,
-            data: {}
+            data: {},
+            groupVouchersArr:[]
         };
     },
     components: {},
@@ -140,6 +156,7 @@ export default {
                     console.log(res);
                 })
             } else {
+                this.groupVouchers()
                 let url = '/account/merchant/staff/select.json', data = {
                     storeId: this.storeId,
                     timestamp: new Date().getTime()
@@ -181,13 +198,40 @@ export default {
                 this.staffId2 = values[0].staffId;
             }
         },
-        addOne(){
-            this.bookNum++;
+        addOne(item){
+            this.$forceUpdate();
+            if(item.voucherCodes.length>item.bookNum){
+                let num = item.bookNum+1;
+                this.$set(item,'bookNum',num);
+            }else
+                alert('不能超过最大核销份数');
         },
-        delOne(){
-            if(this.bookNum>1)
-            this.bookNum--;
+        delOne(item){
+            this.$forceUpdate();
+            if(item.bookNum>0){
+                let num = item.bookNum-1;
+                this.$set(item,'bookNum',num);
+            }
         },
+       //查询核销小程序购买的商品的核销码列表  
+       groupVouchers(){
+           let that = this;
+           let url = '/merchant/order/wxorder/groupVouchers.json', data = {
+                    merchantId: JSON.parse(sessionStorage.getItem('User-Info')).merchantId,
+                    voucherCode: this.code
+                };
+            this.$ajax.get(url, {params: data}).then(function (res) {
+                if(res.success) {
+                    that.groupVouchersArr = res.data;
+                    that.groupVouchersArr.forEach(function(item){
+                        item.bookNum = 1;
+                    })
+                } else {
+                    alert(res.errorInfo);
+                }
+            })
+       },
+       
         submit(){
             let self = this;
             if(this.type === 'koubei') {
@@ -217,14 +261,23 @@ export default {
                     }
                 })
             } else if(this.type === 'wechat') {
+                let code = ''
+                this.groupVouchersArr.forEach(function(item){
+                    if(item.bookNum>0){
+                        for(let i = 0;i<item.bookNum;i++){
+                            code+=(item.voucherCodes[i]+',')
+                        }
+                    }
+                })
                 let url = '/merchant/order/wxorder/consumeVoucher.json', data = {
                     storeId: this.storeId,
-                    voucherCode: this.code,
+                    voucherCode: code,
                     assign: 0,
                     coolie: this.staffId2,
                     merchantId: JSON.parse(sessionStorage.getItem('User-Info')).merchantId,
                     staffId: this.staffId1,
                 };
+                
                 if(this.code.length >= 16) {
                     this.$ajax.post(url, data).then(function (res) {
                         if(res.success) {
