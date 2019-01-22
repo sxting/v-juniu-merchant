@@ -6,7 +6,9 @@
             <!-- <p class="sc f12 tx-c mt05">会员卡支付</p> -->
             <div class="ub ub-pj1 mt50 plr15">
                 <div class="btn_common"  @click="toHome">返回首页</div>
-                <!-- <div class="btn">打印小票</div> -->
+            </div>
+            <div class="ub ub-pj1 mt50 plr15">
+                <div class="btn" @click="toPrint">打印小票</div>
             </div>
         </div>
         <div v-if="isShowMember" class="mt10 bgb">
@@ -33,6 +35,7 @@
         <!-- <div class="mt30 plr15">
             <div class="btn_common">继续收银</div>
         </div> -->
+        <alertBox ref="alertBox"></alertBox>
     </div>
 </template>
 
@@ -54,7 +57,25 @@ export default {
     },
     toHome(){
       this.$router.push("/home");
-        
+    },
+    toPrint(){
+      let that = this;
+      let create = {
+        orderId: this.succesInfo.order.orderId,
+        merchantId: JSON.parse(sessionStorage.getItem('User-Info')).merchantId
+      }
+      this.$ajax
+        .get("merchant/order/order/print.json", {params:create})
+        .then(function(res) {
+            if (res.success) {
+              this.$router.push("/home");
+            } else {
+              that.$refs.alertBox.alert(res.errorInfo);
+            }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     }
   },
   computed: {},
@@ -74,16 +95,16 @@ export default {
 .toper {
   padding: 0.8rem 0 0.5rem;
   background-color: #fff;
-  height: 240px;
+  height: 310px;
 }
 .mt50 {
   margin-top: 0.5rem;
 }
 .btn {
-  width: 2.8rem;
-  height: 0.7rem;
+  height: 0.88rem;
+  width: 100%;
   font-size: 0.28rem;
-  line-height: 0.68rem;
+  line-height:  0.88rem;
   text-align: center;
   background-color: #fff;
   color: #999;
