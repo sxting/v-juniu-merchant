@@ -68,7 +68,7 @@ export default {
         .get("merchant/order/order/print.json", {params:create})
         .then(function(res) {
             if (res.success) {
-              this.$router.push("/home");
+              that.$router.push("/home");
             } else {
               that.$refs.alertBox.alert(res.errorInfo);
             }
