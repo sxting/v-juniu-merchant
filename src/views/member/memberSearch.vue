@@ -12,7 +12,7 @@
             <i v-if="item.cardApplies&&item.cardApplies.length>0" class="icon_card"></i>
           </p>
           <p>{{item.customer.customerName}}</p>
-          <p class="ml20">{{item.customer.customerName}}</p>
+          <p class="ml20">{{item.customer.phone}}</p>
         </li>
       </ul>
     </div>

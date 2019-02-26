@@ -1,40 +1,40 @@
 <!-- 主页view -->
 <template>
-    <div class="main">
-        <div class="bar" @click="toPath('SelectSell', '','11111')">{{sellName}}
-            <i class="iconfont icon-arrow" v-if="ifShow"></i>
-        </div>
-        <!-- <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
+  <div class="main">
+    <div class="bar" @click="toPath('SelectSell', '','11111')">{{sellName}}
+      <i class="iconfont icon-arrow" v-if="ifShow"></i>
+    </div>
+    <!-- <div @click="toPath('Charge', '')" class="bgb sy_btn mt15 ub ub-ver ub-pc ub-ac" style="width:100%;height:2.2rem">
             <span class="icon icon_sy"></span>
             <p>收银</p>
         </div> -->
-        <div class="content clearfix">
-            <div @click="toPath('Charge', '','900201')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
-                <span class="icon icon_sy"></span>
-                <p>收银</p>
-            </div>
-            <div @click="toPath('zhijiePay', '','900201')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
-                <span class="icon icon_sd"></span>
-                <p>收单</p>
-            </div>
-            <div @click="toPath('CheckOrder', 'koubei','900802')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
-                <span class="icon icon_kb"></span>
-                <p>口碑核销</p>
-            </div>
-            <div @click="toPath('CheckOrder', 'wechat','900205')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
-                <span class="icon icon_wx"></span>
-                <p>微信核销</p>
-            </div>
-            <div @click="toPath('CheckOrder', 'meituan','900203')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
-                <span class="icon icon_mt"></span>
-                <p>美团核销</p>
-            </div>
-            <div @click="toPath('Booklist', '','900301')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
-                <span class="icon icon_yy"></span>
-                <p>预约管理</p>
-            </div>
-        </div>
+    <div class="content clearfix">
+      <div @click="toPath('Charge', '','900201')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+        <span class="icon icon_sy"></span>
+        <p>收银</p>
+      </div>
+      <div @click="toPath('zhijiePay', '','900201')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+        <span class="icon icon_sd"></span>
+        <p>收单</p>
+      </div>
+      <div @click="toPath('CheckOrder', 'koubei','900802')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+        <span class="icon icon_kb"></span>
+        <p>口碑核销</p>
+      </div>
+      <div @click="toPath('CheckOrder', 'wechat','900205')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+        <span class="icon icon_wx"></span>
+        <p>微信核销</p>
+      </div>
+      <div @click="toPath('CheckOrder', 'meituan','900203')" class="item ub ub-ver ub-pc ub-ac" :style="{width:width,height:height}">
+        <span class="icon icon_mt"></span>
+        <p>美团核销</p>
+      </div>
+      <div @click="toPath('Booklist', '','900301')" class="item ub ub-ver ub-pc ub-ac ml20" :style="{width:width,height:height}">
+        <span class="icon icon_yy"></span>
+        <p>预约管理</p>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -62,11 +62,9 @@ export default {
     },
     toPath(str, type, menuId) {
       let self = this;
-      let storeList = (JSON.parse(
-        sessionStorage.getItem("User-Info")
-      )
+      let storeList = JSON.parse(sessionStorage.getItem("User-Info"))
         ? JSON.parse(sessionStorage.getItem("User-Info")).storeList
-        : "");
+        : "";
       let menuIds = [];
       storeList.forEach(function(i) {
         if (i.storeId === sessionStorage.getItem("storeId")) {
@@ -90,9 +88,9 @@ export default {
             this.storeInfor &&
             !this.storeInfor.alipayShopId
           ) {
-              console.log(this.storeInfor.alipayShopId)
-              console.log(this.storeInfor)
-              
+            console.log(this.storeInfor.alipayShopId);
+            console.log(this.storeInfor);
+
             alert("该门店尚未绑定口碑门店");
           } else if (
             type === "meituan" &&
@@ -100,7 +98,7 @@ export default {
             !this.storeInfor.bindingXmd
           ) {
             alert("该门店尚未绑定美大门店");
-          }else {
+          } else {
             // if(str === 'Charge') alert("功能暂未开放")
             // else{
             this.$router.push({
@@ -135,6 +133,24 @@ export default {
         .catch(function(err) {
           self.$toast(err);
         });
+    },
+    pushHistory() {
+      //写入空白历史路径
+      let state = {
+        title: "title",
+        url: "#"
+      };
+      window.history.pushState(state, state.title, state.url);
+    },
+    back() {
+      this.pushHistory();
+      window.addEventListener(
+        "popstate",
+        function(e) {
+          window.WeixinJSBridge.call("closeWindow");
+        },
+        false
+      );
     }
   },
   created() {
@@ -169,6 +185,7 @@ export default {
     window.onresize = () => {
       this.initBtnSize();
     };
+    this.back();
   }
 };
 </script>
