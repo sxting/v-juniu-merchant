@@ -185,7 +185,7 @@ export default {
     window.onresize = () => {
       this.initBtnSize();
     };
-    this.back();
+    // this.back();
   }
 };
 </script>
