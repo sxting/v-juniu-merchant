@@ -128,6 +128,11 @@ export default {
                         })
                     } else if(this.code.length === 16 && this.code.substring(0, 2) === '31') {
                         url = '/merchant/order/koubei/ticket.json'; //口碑拼团核销
+                        data = {
+                            shopId: shopId,
+                            ticketNo: this.code,
+                            isQuery: 'T'
+                        }
                         this.$ajax.get(url, {params: data}).then(function (res) {
                             if(res.success) {
                                 self.$router.push('/checkSuccess');
@@ -213,7 +218,7 @@ export default {
                 this.$set(item,'bookNum',num);
             }
         },
-       //查询核销小程序购买的商品的核销码列表  
+       //查询核销小程序购买的商品的核销码列表
        groupVouchers(){
            let that = this;
            let url = '/merchant/order/wxorder/groupVouchers.json', data = {
@@ -231,7 +236,7 @@ export default {
                 }
             })
        },
-       
+
         submit(){
             let self = this;
             if(this.type === 'koubei') {
@@ -277,7 +282,7 @@ export default {
                     merchantId: JSON.parse(sessionStorage.getItem('User-Info')).merchantId,
                     staffId: this.staffId1,
                 };
-                
+
                 if(this.code.length >= 16) {
                     this.$ajax.post(url, data).then(function (res) {
                         if(res.success) {
