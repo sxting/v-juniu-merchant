@@ -13,7 +13,7 @@
     "axios": "^0.18.0",
     "better-scroll": "^0.1.8",
     "fastclick": "^1.0.6",
-    "jquery": "^2.2.3",
+    "jquery": "^3.5.1",
     "mint-ui": "^2.2.13",
     "number-precision": "^1.2.0",
     "save": "^2.3.2",
